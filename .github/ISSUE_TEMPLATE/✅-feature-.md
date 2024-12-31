@@ -1,9 +1,9 @@
 ---
-name: "✅ Feature "
+name: '✅ Feature '
 about: Feature 작업 사항을 입력해주세요
-title: "feat: 설명을 작성해주세요"
-labels: ""
-assignees: ""
+title: 'feat: 설명을 작성해주세요'
+labels: ''
+assignees: ''
 ---
 
 ## Description

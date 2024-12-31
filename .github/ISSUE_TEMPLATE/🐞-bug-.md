@@ -1,9 +1,9 @@
 ---
 name: "\U0001F41E Bug "
 about: Bug 발생 시 작성해주세요
-title: "error: 에러 설명을 작성해주세요"
+title: 'error: 에러 설명을 작성해주세요'
 labels: bug
-assignees: ""
+assignees: ''
 ---
 
 ## Error Description
