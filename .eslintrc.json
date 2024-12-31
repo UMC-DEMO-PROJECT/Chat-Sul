@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb"],
+  "extends": ["airbnb", "prettier", "prettier/prettier"],
   "env": {
     "browser": true,
     "node": true,
@@ -9,7 +9,11 @@
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
+  "plugins": ["prettier"],
   "rules": {
     // 프로젝트에 맞는 규칙을 추가/수정
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off"
   }
 }
