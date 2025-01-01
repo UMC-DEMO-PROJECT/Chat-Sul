@@ -2,6 +2,7 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
+import pluginPrettier from 'eslint-plugin-prettier';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -14,16 +15,23 @@ export default [
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
     plugins: {
-      prettier: {},
-      react: {},
+      prettier: pluginPrettier,
+      react: pluginReact,
     },
     rules: {
-      'prettier/prettier': 'error',
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
     },
