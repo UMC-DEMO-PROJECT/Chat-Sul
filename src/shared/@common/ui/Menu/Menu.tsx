@@ -6,7 +6,7 @@ interface MenuProps {
   isReceived?: boolean
 }
 
-const Menu = ({ title = "Title", onClick, date = "24/05/12", isReceived = false }: MenuProps) => {
+const Menu = ({ title, onClick, date, isReceived = false }: MenuProps) => {
   return (
     <div className="w-[380px] h-[46px] pl-6 pr-3 py-3 bg-white border-b border-black justify-between items-center flex overflow-hidden" onClick={onClick}>
       <div className="text-black text-[17px] leading-snug">{title}</div>
