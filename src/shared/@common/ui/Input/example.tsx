@@ -26,6 +26,7 @@ const Example = () => {
         value={inputValue}
         onChange={handleInputChange}
         state={isValid}
+        width={380}
       />
     </>
   );
