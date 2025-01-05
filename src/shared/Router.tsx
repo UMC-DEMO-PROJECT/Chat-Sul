@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from '../App';
+import Example from './@common/ui/Input/example';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -28,7 +29,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/register" element={<App />} />
+        <Route path="/register" element={<Example />} />
         <Route path="/login" element={<App />} />
         <Route path="/user" element={<App />}>
           <Route path="/shop" element={<App />} />
