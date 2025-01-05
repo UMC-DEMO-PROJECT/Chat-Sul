@@ -20,9 +20,17 @@ interface InputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   state: 'valid' | 'correct' | 'error' | 'invalid';
+  width: number;
 }
 
-const Input = ({ placeholder, title, value, onChange, state }: InputProps) => {
+const Input = ({
+  placeholder,
+  title,
+  value,
+  onChange,
+  state,
+  width,
+}: InputProps) => {
   const InputState = {
     valid: 'border-black',
     correct: 'border-green-900',
@@ -32,7 +40,7 @@ const Input = ({ placeholder, title, value, onChange, state }: InputProps) => {
 
   return (
     <>
-      <div className="w-[380px] flex flex-col items-start">
+      <div className={`w-[${width}px] flex flex-col items-start`}>
         <div className="flex flex-col items-center px-4 py-0 gap-6">
           {title}
         </div>
