@@ -32,10 +32,10 @@ const Input = ({
   width,
 }: InputProps) => {
   const InputState = {
-    valid: 'border-black',
-    correct: 'border-green-900',
-    error: 'border-red-900',
-    invalid: 'border-black',
+    valid: 'border-#000000',
+    correct: 'border-#34C759',
+    error: 'border-#FF3B30',
+    invalid: 'border-#000000',
   };
 
   const IconState = {
