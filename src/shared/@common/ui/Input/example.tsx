@@ -15,7 +15,7 @@ const Example = () => {
       setIsValid('valid');
     } else {
       setIsValid('invalid');
-    }
+    } // 조건에 따라 isValid의 값을 변경하면 됩니다.
   };
 
   return (
