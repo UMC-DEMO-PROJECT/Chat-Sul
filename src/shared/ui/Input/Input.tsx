@@ -14,13 +14,15 @@
  *          - 'invalid' : 입력이 유효하지 않을 경우 검은 테두리
  */
 
-interface InputProps {
+import { InputHTMLAttributes, PropsWithChildren } from 'react';
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   title: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   state: 'valid' | 'correct' | 'error' | 'invalid';
-  width: number;
+  width?: string;
 }
 
 const Input = ({
@@ -29,8 +31,8 @@ const Input = ({
   value,
   onChange,
   state,
-  width,
-}: InputProps) => {
+  ...props
+}: PropsWithChildren<InputProps>) => {
   const InputState = {
     valid: 'border-#000000',
     correct: 'border-#34C759',
@@ -49,16 +51,17 @@ const Input = ({
 
   return (
     <>
-      <div className={`w-[${width}px] flex flex-col items-start`}>
-        <div className="flex flex-col items-center px-4 py-0 gap-6">
+      <div className={` flex flex-col items-start`}>
+        <div className="flex flex-col items-center px-4 py-0 gap-6 text-xs font-normal text-#3C3C4399">
           {title}
         </div>
         <div className="relative w-full">
           <input
-            className={`flex w-full items-center self-stretch py-4 pl-4 pr-5 bg-white ${InputState[state]} border-b-[0.6px] border-solid `}
+            className={`flex w-full items-center self-stretch py-4 pl-4 pr-5 bg-white ${InputState[state]} border-b-[0.6px] border-solid text-[17px] `}
             placeholder={placeholder}
             onChange={onChange}
             value={value}
+            {...props}
           />
           <span className="absolute right-5 top-1/2 transform -translate-y-1/2">
             Icon
