@@ -32,11 +32,20 @@ const Input = ({
   width,
 }: InputProps) => {
   const InputState = {
-    valid: 'border-black',
-    correct: 'border-green-900',
-    error: 'border-red-900',
-    invalid: 'border-black',
+    valid: 'border-#000000',
+    correct: 'border-#34C759',
+    error: 'border-#FF3B30',
+    invalid: 'border-#000000',
   };
+
+  const IconState = {
+    valid: 'none',
+    correct: 'correct-icon',
+    error: 'error-icon',
+    invalid: 'none',
+  };
+
+  // IconState를 활용하여 Icon을 가져오면 됩니다. 예시: <Icon src={`${IconState}`} />
 
   return (
     <>
@@ -44,13 +53,17 @@ const Input = ({
         <div className="flex flex-col items-center px-4 py-0 gap-6">
           {title}
         </div>
-        <input
-          className={`flex relative items-center self-stretch py-4 pl-4 pr-5 bg-white ${InputState[state]} border-b-[0.6px] border-solid `}
-          placeholder={placeholder}
-          onChange={onChange}
-          value={value}
-        />
-        <span className="absolute right-3">아이콘</span>
+        <div className="relative w-full">
+          <input
+            className={`flex w-full items-center self-stretch py-4 pl-4 pr-5 bg-white ${InputState[state]} border-b-[0.6px] border-solid `}
+            placeholder={placeholder}
+            onChange={onChange}
+            value={value}
+          />
+          <span className="absolute right-5 top-1/2 transform -translate-y-1/2">
+            Icon
+          </span>
+        </div>
       </div>
     </>
   );
