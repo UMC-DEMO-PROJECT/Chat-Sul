@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Example from './shared/@common/ui/Input/example';
+import Example from './shared/ui/Input/example';
 import Login from './pages/Login/Login';
 import Layout from './Layout';
 
