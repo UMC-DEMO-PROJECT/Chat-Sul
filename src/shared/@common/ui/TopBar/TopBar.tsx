@@ -1,7 +1,18 @@
+/**
+ *
+ * TopBar 컴포넌트 뒤로 가기,
+ *
+ * @param {string} title - TopBar의 제목
+ * @param {function} [onFirstClick] - 첫번째 요소 클릭 이벤트
+ * @param {function} [onSecondClick] - 두번째 요소 클릭 이벤트
+ * @param {React.Reactnode} [children] - 세번째 요소 ReactNode
+ *
+ */
+
 interface TopBarProps {
+  title: string;
   onFirstClick?: () => void;
   onSecondClick?: () => void;
-  title: string;
   children?: React.ReactNode;
 }
 
