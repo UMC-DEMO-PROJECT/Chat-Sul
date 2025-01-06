@@ -66,7 +66,7 @@ const PasswordCheckInput = ({
   };
 
   return (
-    <div className={`flex flex-col items-start`}>
+    <div className={`flex flex-col items-start w-[354px]`}>
       <div className="flex flex-col items-center px-4 py-0 gap-6 text-xs font-normal text-[#3C3C4399]">
         {title}
       </div>
