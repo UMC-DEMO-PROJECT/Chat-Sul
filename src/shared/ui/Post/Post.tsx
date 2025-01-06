@@ -1,8 +1,19 @@
+/**
+ *
+ * 클릭가능한 icon을 추가하여 Post를 보여주는 컴포넌트입니다.
+ *
+ * @param {string} [title] - Post 제목
+ * @param {function} onClick - Post를 눌렀을 때 실행될 함수
+ * @param {string} [subTitle] - Post 부제목
+ * @param {React.ReactNode} [icon] - 제목 왼쪽에 넣을 icon
+ *
+ */
+
 interface PostProps {
-  title?: string;
+  title: string;
   onClick?: () => void;
-  subTitle?: string;
-  icon?: JSX.Element;
+  subTitle: string;
+  icon: React.ReactNode;
 }
 
 const Post = ({ title, onClick, subTitle, icon }: PostProps) => {
