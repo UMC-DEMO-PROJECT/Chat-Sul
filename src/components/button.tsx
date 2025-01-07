@@ -11,9 +11,9 @@ interface IButtonProps extends TButtonStyleProps {
 const Button = ({ children, onClick, size, colorType }: IButtonProps) => {
   const baseStyle = 'rounded-2xl';
   const sizeStyle = {
-    small: 'p-3 gap-1',
-    medium: 'py-[14px] px-[20px] gap-2',
-    large: 'py-[16px] px-[24px] gap-3',
+    small: 'w-full p-3 gap-1',
+    medium: 'w-full py-[14px] px-[20px] gap-2',
+    large: 'w-full py-[16px] px-[24px] gap-3',
   };
   const colorStyle = {
     filled: 'bg-[#CB6015] text-white',
