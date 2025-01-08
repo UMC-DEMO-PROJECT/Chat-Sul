@@ -57,14 +57,12 @@ const LoginForm = () => {
             title="이메일"
             value={emailValue}
             onChange={handleEmailChange}
-            width={'354'}
           />
           <Input
             placeholder="비밀번호를 입력해주세요."
             title="비밀번호"
             value={passwordValue}
             onChange={handlePasswordChange}
-            width={'354'}
           />
         </div>
         {isError ? (
