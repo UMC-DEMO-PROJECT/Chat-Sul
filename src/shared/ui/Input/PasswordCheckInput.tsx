@@ -14,7 +14,12 @@
  * @param {string} password - 회원가입 시 입력받은 비밀번호 값입니다.
  */
 
-import { InputHTMLAttributes, PropsWithChildren, useState } from 'react';
+import {
+  InputHTMLAttributes,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 
 interface PasswordCheckInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
@@ -51,9 +56,7 @@ const PasswordCheckInput = ({
     invalid: 'none',
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-
+  const validateInput = (inputValue: string) => {
     if (inputValue === '') {
       setState('invalid');
     } else if (inputValue === password) {
@@ -61,7 +64,13 @@ const PasswordCheckInput = ({
     } else {
       setState('error');
     }
+  };
 
+  useEffect(() => {
+    validateInput(value);
+  }, [password, value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e);
   };
 
