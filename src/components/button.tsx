@@ -9,20 +9,21 @@ interface IButtonProps
   extends TButtonStyleProps,
     ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick?: () => void;
+  customSize?: string;
 }
 const Button = ({
   children,
   onClick,
   size,
   colorType,
+  customSize,
   ...props
 }: PropsWithChildren<IButtonProps>) => {
   const baseStyle = 'rounded-2xl';
   const sizeStyle = {
-    small: 'w-full p-3 gap-1',
-    medium: 'w-full py-[14px] px-[20px] gap-2',
-    large: 'w-full py-[16px] px-[24px] gap-3',
+    small: `w-full p-3 gap-1 ${customSize}`,
+    medium: `w-full py-[14px] px-[20px] gap-2 ${customSize}`,
+    large: `w-full py-[16px] px-[24px] gap-3 ${customSize}`,
   };
   const colorStyle = {
     filled: 'bg-[#CB6015] text-white',
