@@ -4,7 +4,7 @@ import Button from '../button';
 const LostWritingPage = () => {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col g-[24px]">
+      <form className="flex flex-col g-[24px]">
         <Input
           placeholder="제목을 입력해주세요"
           title="제목"
@@ -22,7 +22,7 @@ const LostWritingPage = () => {
           value={}
           onChange={}
         />
-      </div>
+      </form>
 
       <Button size="large" colorType="filled">
         작성완료
