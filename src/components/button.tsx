@@ -1,14 +1,23 @@
 import classNames from 'classnames';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 type TButtonStyleProps = {
   size: 'small' | 'medium' | 'large';
   colorType: 'filled' | 'tint' | 'unable';
 };
-interface IButtonProps extends TButtonStyleProps {
+interface IButtonProps
+  extends TButtonStyleProps,
+    ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   onClick?: () => void;
 }
-const Button = ({ children, onClick, size, colorType }: IButtonProps) => {
+const Button = ({
+  children,
+  onClick,
+  size,
+  colorType,
+  ...props
+}: PropsWithChildren<IButtonProps>) => {
   const baseStyle = 'rounded-2xl';
   const sizeStyle = {
     small: 'w-full p-3 gap-1',
@@ -27,7 +36,7 @@ const Button = ({ children, onClick, size, colorType }: IButtonProps) => {
   );
 
   return (
-    <button className={buttonClasses} onClick={onClick}>
+    <button className={buttonClasses} onClick={onClick} {...props}>
       {children}
     </button>
   );
