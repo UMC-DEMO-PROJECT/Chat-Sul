@@ -2,67 +2,85 @@ import { useState } from 'react';
 import Input from '../../shared/ui/Input/Input';
 import Message from '../../shared/ui/Message/Message';
 import { useNavigate } from 'react-router-dom';
+import Button from '../button';
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = {
+      email: emailValue,
+      password: passwordValue,
+    };
+
+    if (emailValue === 'test@example.com' && passwordValue === 'password123') {
+      console.log('로그인 성공', formData);
+      setIsError(false);
+      // navigate('/');
+    } else {
+      console.log('로그인 실패', formData);
+      setIsError(true);
+    }
+  };
+
   const [emailValue, setEmailValue] = useState('');
-  const [emailState, setEmailState] = useState<
-    'valid' | 'correct' | 'error' | 'invalid'
-  >('invalid');
+
   const [passwordValue, setPasswordValue] = useState('');
-  const [passwordState, setPasswordState] = useState<
-    'valid' | 'correct' | 'error' | 'invalid'
-  >('invalid');
 
   const [isError, setIsError] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setEmailValue(value);
-
-    if (value) {
-      setEmailState('valid');
-    } else {
-      setEmailState('invalid');
-    }
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPasswordValue(value);
-
-    if (value) {
-      setPasswordState('valid');
-    } else {
-      setPasswordState('invalid');
-    }
   };
+
+  const isButtonDisabled = !emailValue || !passwordValue;
 
   const handleRegisterClick = () => {
     navigate('/register');
   };
 
   return (
-    <>
-      <Input
-        placeholder="이메일을 입력해주세요."
-        title="이메일"
-        value={emailValue}
-        onChange={handleEmailChange}
-        state={emailState}
-        width={'354'}
-      />
-      <Input
-        placeholder="비밀번호를 입력해주세요."
-        title="비밀번호"
-        value={passwordValue}
-        onChange={handlePasswordChange}
-        state={passwordState}
-        width={'354'}
-      />
-      {isError ? <Message text="이메일 혹은 비밀번호가 틀렸습니다." /> : <></>}
-      {/* 로그인 Button */}
+    <div className="flex flex-col justify-center items-center gap-14 w-[356px] mx-auto">
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col items-start gap-[10px]">
+          <Input
+            placeholder="이메일을 입력해주세요."
+            title="이메일"
+            value={emailValue}
+            onChange={handleEmailChange}
+            width={'354'}
+          />
+          <Input
+            placeholder="비밀번호를 입력해주세요."
+            title="비밀번호"
+            value={passwordValue}
+            onChange={handlePasswordChange}
+            width={'354'}
+          />
+        </div>
+        {isError ? (
+          <Message text="이메일 혹은 비밀번호가 틀렸습니다." />
+        ) : (
+          <></>
+        )}
+        <Button
+          type="submit"
+          size="large"
+          colorType="filled"
+          disabled={isButtonDisabled}
+        >
+          로그인
+        </Button>
+      </form>
+
       <div className="flex text-[11px]">
         <p> 계정이 없으신가요? </p>
         <p
@@ -72,7 +90,7 @@ const LoginForm = () => {
           계정 만들기
         </p>
       </div>
-    </>
+    </div>
   );
 };
 export default LoginForm;
