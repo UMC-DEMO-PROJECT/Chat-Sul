@@ -17,7 +17,7 @@ const LostListPage = () => {
     <div className="flex flex-col">
       <Input
         placeholder="검색어를 입력해주세요"
-        title="title"
+        title="검색"
         value={searchValue}
         onChange={onChangeSearchValue}
       />
