@@ -1,11 +1,12 @@
 import LoginForm from '../../components/Login/LoginForm';
+import SocialLogin from '../../components/Login/SocialLogin';
 
 const Login = () => {
   return (
-    <>
-      안녕하세요 Login페이지입니다.
+    <div className="flex flex-col justify-center items-center w-[356px] mx-auto mt-[120px]">
       <LoginForm />
-    </>
+      <SocialLogin />
+    </div>
   );
 };
 
