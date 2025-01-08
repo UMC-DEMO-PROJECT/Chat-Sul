@@ -13,13 +13,21 @@
  *          - 'invalid' : 입력이 유효하지 않을 경우 검은 테두리
  */
 
-import { InputHTMLAttributes, PropsWithChildren, useState } from 'react';
+import {
+  InputHTMLAttributes,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   title: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onIconStateChange?: (
+    state: 'valid' | 'correct' | 'error' | 'invalid'
+  ) => void;
   width?: string;
 }
 
@@ -28,6 +36,7 @@ const EmailInput = ({
   title,
   value,
   onChange,
+  onIconStateChange,
   ...props
 }: PropsWithChildren<InputProps>) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -65,6 +74,12 @@ const EmailInput = ({
 
     onChange(e);
   };
+
+  useEffect(() => {
+    if (onIconStateChange) {
+      onIconStateChange(state);
+    }
+  }, [state, onIconStateChange]);
 
   // IconState를 활용하여 Icon을 가져오면 됩니다. 예시: <Icon src={`${IconState}`} />
 
