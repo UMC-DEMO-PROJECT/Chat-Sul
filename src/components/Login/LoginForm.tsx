@@ -3,6 +3,7 @@ import Input from '../../shared/ui/Input/Input';
 import Message from '../../shared/ui/Message/Message';
 import { useNavigate } from 'react-router-dom';
 import Button from '../button';
+import EmailInput from '../../shared/ui/Input/EmailInput';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -48,10 +49,10 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-14 w-[356px] mx-auto">
-      <form onSubmit={handleSubmit}>
-        <div className="flex flex-col items-start gap-[10px]">
-          <Input
+    <>
+      <form onSubmit={handleSubmit} className="flex flex-col mx-auto ">
+        <div className="flex flex-col items-start gap-[10px] mb-14">
+          <EmailInput
             placeholder="이메일을 입력해주세요."
             title="이메일"
             value={emailValue}
@@ -69,19 +70,20 @@ const LoginForm = () => {
         {isError ? (
           <Message text="이메일 혹은 비밀번호가 틀렸습니다." />
         ) : (
-          <></>
+          <div className="h-[17px]"></div>
         )}
         <Button
           type="submit"
           size="large"
           colorType="filled"
           disabled={isButtonDisabled}
+          customSize="disabled:bg-[#DEDEDE] disabled:text-[#A6A6A6]"
         >
           로그인
         </Button>
       </form>
 
-      <div className="flex text-[11px]">
+      <div className="flex text-[11px] mt-4">
         <p> 계정이 없으신가요? </p>
         <p
           onClick={handleRegisterClick}
@@ -90,7 +92,7 @@ const LoginForm = () => {
           계정 만들기
         </p>
       </div>
-    </div>
+    </>
   );
 };
 export default LoginForm;
