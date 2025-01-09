@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Example from './shared/ui/Input/example';
-//import Login from './pages/Login/Login';
+import Login from './pages/Login/Login';
 import LostListPage from './pages/User/LostList/LostList';
+import LostWritingPage from './pages/Owner/LostForm/LostWriting';
 import Layout from './Layout';
 
 /**
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="reserve" element={<App />} />
             <Route path="lost-list" element={<App />} />
             <Route path="lost-item" element={<App />} />
+            <Route path="lost-form" element={<LostWritingPage />} />
           </Route>
         </Route>
       </Routes>
