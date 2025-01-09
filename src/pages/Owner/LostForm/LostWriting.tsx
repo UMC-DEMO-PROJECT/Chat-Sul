@@ -7,16 +7,18 @@ const LostWritingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col w-[356px] mx-auto relative">
+    <div className="flex flex-col ">
       <TopBar
         title="분실물"
         onFirstClick={() => navigate('/')}
         onSecondClick={() => navigate('/user/lost-list')}
       />
       <WritingForm />
-      <Button size="large" colorType="filled" customSize="absolute top-[759px]">
-        작성완료
-      </Button>
+      <div className="w-[356px] mx-auto mt-[360px] ">
+        <Button size="large" colorType="filled">
+          작성완료
+        </Button>
+      </div>
     </div>
   );
 };

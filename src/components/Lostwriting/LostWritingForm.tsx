@@ -4,14 +4,22 @@ import Button from '../button';
 
 const WritingForm = () => {
   const [inputValue, setInputValue] = useState('');
+  const [textareaValue, setTextareaValue] = useState('');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const value = e.target.value;
-    setInputValue(value);
+    if (e.target.tagName === 'TEXTAREA') {
+      setTextareaValue(value);
+    } else {
+      setInputValue(value);
+    }
   };
+
   return (
     <>
-      <form className="flex flex-col gap-[24px] mt-[25px]">
+      <form className="flex flex-col gap-[24px] w-[356px] mx-auto mt-[25px]">
         <Input
           placeholder="제목을 입력해주세요"
           title="제목"
@@ -32,8 +40,8 @@ const WritingForm = () => {
             <textarea
               className={`flex w-full h-[114px] items-center self-stretch py-4 pl-4 pr-5 bg-white border-[#000000] border-b-[0.6px] border-solid text-[17px] focus:outline-none placeholder:whitespace-pre-wrap`}
               placeholder={`분실물에 대한 설명입니다.\n'언제, 어디서, 무엇을'에 대해 \n자세하게 설명해주면 좋습니다.`}
-              value={inputValue}
-              onChange={() => handleInputChange}
+              value={textareaValue}
+              onChange={handleInputChange}
             />
           </div>
         </div>
