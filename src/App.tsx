@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Example from './shared/ui/Input/example';
-//import Login from './pages/Login/Login';
+import Login from './pages/Login/Login';
 import LostListPage from './pages/User/LostList/LostList';
 import Layout from './Layout';
 

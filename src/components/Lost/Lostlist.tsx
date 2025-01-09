@@ -16,10 +16,10 @@ const LostList = ({ searchValue }: { searchValue: string | null }) => {
         return (
           <div
             key={lost.id}
-            className="flex justify-between border-b-[0.2px] border-black"
+            className="flex justify-between w-[354px] p-3 border-b-[0.2px] border-[#D1D1D6]"
           >
             <p className="font-sans text-[17px] font-[590]">{lost.title}</p>
-            <div>
+            <div className="flex items-center gap-2">
               <p className="font-sans font-normal text-[13px] text-[#8E8E93]">
                 {lost.date}
               </p>
