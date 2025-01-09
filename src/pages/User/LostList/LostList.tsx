@@ -24,13 +24,15 @@ const LostListPage = () => {
         onFirstClick={() => navigate('/')}
         onSecondClick={() => navigate('/user/lost-list')}
       />
-      <Input
-        placeholder="검색어를 입력해주세요"
-        title="검색"
-        value={searchValue}
-        onChange={onChangeSearchValue}
-      />
-      <LostList searchValue={mq} />
+      <div className="mt-[25px]">
+        <Input
+          placeholder="검색어를 입력해주세요"
+          title="검색"
+          value={searchValue}
+          onChange={onChangeSearchValue}
+        />
+        <LostList searchValue={mq} />
+      </div>
     </div>
   );
 };
