@@ -1,35 +1,45 @@
 /**
  *
- * 클릭가능한 icon을 추가하여 Post를 보여주는 컴포넌트입니다.
+ * 수취 상태, 날짜를 나타내고 클릭가능한 Post 컴포넌트입니다.
  *
- * @param {string} [title] - Post 제목
- * @param {function} onClick - Post를 눌렀을 때 실행될 함수
- * @param {string} [subTitle] - Post 부제목
- * @param {React.ReactNode} [icon] - 제목 왼쪽에 넣을 icon
+ * @param {string} title - Post 영역에 표시할 제목
+ * @param {function} [onClick] - Post를 클릭했을 때 실행되는 이벤트 핸들러
+ * @param {string} date - Post 우측에 표시할 날짜
+ * @param {boolean} isReceived - 수취 상태 설정 (true: 완료, false: 미수취)
  *
  */
 
 interface PostProps {
   title: string;
   onClick?: () => void;
-  subTitle: string;
-  icon: React.ReactNode;
+  date: string;
+  isReceived: boolean;
 }
 
-const Post = ({ title, onClick, subTitle, icon }: PostProps) => {
+const Post = ({ title, onClick, date, isReceived }: PostProps) => {
   return (
     <div
-      className="w-[294px] h-[90px] pl-10 py-5 bg-white rounded-xl shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04)] border border-[#8e8e93] justify-start items-center gap-8 flex overflow-hidden "
+      className="w-[380px] h-[46px] p-3 bg-white border-b-[0.2px] border-black justify-between items-center flex overflow-hidden "
       onClick={onClick}
     >
-      <div className="relative  overflow-hidden w-[34px] h-[34px]">{icon}</div>
-      <div className="flex-col justify-center items-start gap-1 inline-flex">
-        <div className="text-black text-[22px] font-bold font-['SF Pro'] leading-7">
-          {title}
+      <p className="text-black text-[17px] leading-snug font-[590]">{title}</p>
+      <div className="justify-center items-center gap-2 flex">
+        <div className="text-[#8e8e93] text-[13px] font-normal leading-[18px]">
+          {date}
         </div>
-        <div className="text-[#8e8e93] text-[13px] font-normal font-['SF Pro'] leading-[18px]">
-          {subTitle}
-        </div>
+        {
+          <>
+            {isReceived ? (
+              <div className="text-center text-[#34c759] text-[11px] font-normal font-['SF Pro'] leading-[13px] tracking-tight">
+                완료
+              </div>
+            ) : (
+              <div className="text-center text-[#ff3b30] text-[11px] font-normal leading-[13px] tracking-tight">
+                미수취
+              </div>
+            )}
+          </>
+        }
       </div>
     </div>
   );

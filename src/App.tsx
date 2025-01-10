@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Example from './shared/ui/Input/example';
 import Login from './pages/Login/Login';
 import Layout from './Layout';
+import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
+import ReserveList from './pages/User/ReserveList/ReserveList';
 import Register from './pages/Register/Register';
 
 /**
@@ -36,8 +37,9 @@ const App = () => {
           <Route path="/user">
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
-            <Route path="reserve-list" element={<App />} />
+            <Route path="reserve-list" element={<ReserveList />} />
             <Route path="reserve-form" element={<App />} />
+            <Route path="reserve-success" element={<ReserveSuccess />} />
             <Route path="menu" element={<App />} />
             <Route path="lost-list" element={<App />} />
             <Route path="lost-item" element={<App />} />
