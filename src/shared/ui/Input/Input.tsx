@@ -24,14 +24,14 @@ const Input = ({
   title,
   value,
   onChange,
-  width,
+  width = '354px',
   ...props
 }: PropsWithChildren<InputProps>) => {
   // IconState를 활용하여 Icon을 가져오면 됩니다. 예시: <Icon src={`${IconState}`} />
 
   return (
     <>
-      <div className={` flex flex-col items-start w-[354px] ${width}`}>
+      <div className={` flex flex-col items-start w-[${width}]`}>
         <div className="flex flex-col items-center px-4 py-0 gap-6 text-xs font-normal text-[#3C3C4399]">
           {title}
         </div>
