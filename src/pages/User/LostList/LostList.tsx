@@ -1,5 +1,4 @@
 import LostList from '../../../components/Lost/Lostlist';
-
 import TopBar from '../../../shared/ui/TopBar/TopBar';
 import { useNavigate } from 'react-router-dom';
 import LostInput from '../../../components/Lost/LostInput';
