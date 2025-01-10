@@ -3,6 +3,7 @@ import TopBar from '../TopBar/TopBar';
 import ModalLayout from './ModalLayout/ModalLayout';
 import TmpRentarCard from '../../../components/User/ReserveList/TmpRentarCard';
 import AlertTwoButton from './Alert/AlertTwoButton';
+import Post from '../Post/Post';
 
 const Example = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -17,6 +18,7 @@ const Example = () => {
   return (
     <>
       <TopBar title="대관확인" onFirstClick={() => {}} />
+      <Post title="야호" date="야호" isReceived={true} />
       <TmpRentarCard
         onClick={() => {
           setIsOpen(true);

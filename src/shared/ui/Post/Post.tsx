@@ -19,10 +19,10 @@ interface PostProps {
 const Post = ({ title, onClick, date, isReceived }: PostProps) => {
   return (
     <div
-      className="w-[380px] h-[46px] pl-6 pr-3 py-3 bg-white border-b border-black justify-between items-center flex overflow-hidden "
+      className="w-[380px] h-[46px] p-3 bg-white border-b-[0.2px] border-black justify-between items-center flex overflow-hidden "
       onClick={onClick}
     >
-      <div className="text-black text-[17px] leading-snug">{title}</div>
+      <p className="text-black text-[17px] leading-snug font-[590]">{title}</p>
       <div className="justify-center items-center gap-2 flex">
         <div className="text-[#8e8e93] text-[13px] font-normal leading-[18px]">
           {date}
