@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Example from './shared/ui/Input/example';
-// import Login from './pages/Login/Login';
+import Login from './pages/Login/Login';
+import LostListPage from './pages/User/LostList/LostList';
 import Layout from './Layout';
 import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
 import ReserveList from './pages/User/ReserveList/ReserveList';
@@ -33,7 +34,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/register" element={<Example />} />
-          {/* <Route path="/login" element={<Login />} /> */}
+          <Route path="/login" element={<Login />} />
           <Route path="/user">
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
@@ -41,7 +42,7 @@ const App = () => {
             <Route path="reserve-form" element={<App />} />
             <Route path="reserve-success" element={<ReserveSuccess />} />
             <Route path="menu" element={<App />} />
-            <Route path="lost-list" element={<App />} />
+            <Route path="lost-list" element={<LostListPage />} />
             <Route path="lost-item" element={<App />} />
           </Route>
           <Route path="/owner">
