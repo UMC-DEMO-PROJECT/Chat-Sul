@@ -2,15 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+#root {
   line-height: 1.5;
   font-weight: 400;
   height: 100vh;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  width: 402px;
+  overflow: auto;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,13 +26,12 @@ a:hover {
 }
 
 body {
-  margin: 0 auto;
+  margin: 0;
   display: flex;
-  width: 402px;
   justify-content: center;
   background-color: #dcdcdc;
-  place-items: center;
-  min-height: 100vh;
+  height: 100vh;
+  color: black;
 }
 
 h1 {
@@ -63,6 +60,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* 다크모드 설정 */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
