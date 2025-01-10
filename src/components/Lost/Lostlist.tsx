@@ -1,4 +1,4 @@
-import LostListData from './mock/LostListData';
+import LostListData from '../../shared/api/mock/LostListData';
 import { useNavigate } from 'react-router-dom';
 
 interface ILostItem {
