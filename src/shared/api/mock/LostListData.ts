@@ -5,31 +5,31 @@ const LostListData = [
     id: 1,
     title: 'Title',
     date: '24/05/12',
-    state: '미수취',
+    state: false,
   },
   {
     id: 2,
     title: 'Title',
     date: '24/05/12',
-    state: '완료',
+    state: true,
   },
   {
     id: 3,
     title: 'Title',
     date: '24/05/12',
-    state: '미수취',
+    state: false,
   },
   {
     id: 4,
     title: 'Title',
     date: '24/05/12',
-    state: '완료',
+    state: true,
   },
   {
     id: 5,
     title: 'Title',
     date: '24/05/12',
-    state: '미수취',
+    state: false,
   },
 ];
 export default LostListData;
