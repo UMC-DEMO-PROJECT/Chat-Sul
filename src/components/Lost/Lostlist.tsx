@@ -1,4 +1,3 @@
-
 import LostListData from '../../shared/api/mock/LostListData';
 import Post from '../../shared/ui/Post/Post';
 import { useNavigate } from 'react-router-dom';

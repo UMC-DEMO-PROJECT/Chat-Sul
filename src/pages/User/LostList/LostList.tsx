@@ -8,6 +8,7 @@ const LostListPage = () => {
   const navigate = useNavigate();
   const [mq, setMq] = useState('');
 
+
   return (
     <div className="flex flex-col justify-center items-center ">
       <TopBar
