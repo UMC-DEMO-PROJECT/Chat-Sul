@@ -1,12 +1,12 @@
 import Post from './Post';
-import lostItem from '../../../../assets/lostItem.svg';
+
 const Example = () => {
   return (
     <Post
-      title="제목입니다."
-      subTitle="부제목입니다."
+      title="예시"
       onClick={() => {}}
-      icon={<img src={lostItem} />}
+      date="2025/01/06"
+      isReceived={false}
     />
   );
 };
