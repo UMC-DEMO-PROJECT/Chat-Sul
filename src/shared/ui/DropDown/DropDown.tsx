@@ -6,7 +6,7 @@ interface DropDownProps {
   onSelect: (value: string) => void; // 선택된 값을 처리하는 함수
 }
 
-const DropDown: React.FC<DropDownProps> = ({ options, onSelect }) => {
+const DropDown = ({ options, onSelect }: DropDownProps): JSX.Element => {
   const [selected, setSelected] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

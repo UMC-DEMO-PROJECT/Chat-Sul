@@ -6,7 +6,7 @@ interface IconProps {
   size?: number; // 아이콘 크기 (옵션)
 }
 
-const Icon: React.FC<IconProps> = ({ name, size = 24 }) => {
+const Icon = ({ name, size = 24 }: IconProps): JSX.Element => {
   // name에 .svg가 포함되지 않으면 .svg 확장자 추가
   const iconPath = name.endsWith('.svg') ? `/icons/${name}` : `/icons/${name}.svg`;
 

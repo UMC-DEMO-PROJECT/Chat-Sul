@@ -9,7 +9,7 @@ interface RentalCardProps {
   location: string;
 }
 
-const RentalCard: React.FC<RentalCardProps> = ({ title, description, image, location }) => {
+const RentalCard: React.FunctionComponent<RentalCardProps> = ({ title, description, image, location }) => {
   return (
     <div className="border border-gray-300 rounded-lg p-4 flex items-center gap-4 shadow-sm">
       <img src={image} alt={title} className="w-20 h-20 rounded-lg object-cover" />

@@ -15,7 +15,7 @@ interface MapProps {
   locations: Location[]; // 지도에 표시할 위치 목록
 }
 
-const Map: React.FC<MapProps> = ({ locations }) => {
+const Map = ({ locations }: MapProps): JSX.Element => {
   useEffect(() => {
     // 카카오 지도 API 로드
     const { kakao } = window;
