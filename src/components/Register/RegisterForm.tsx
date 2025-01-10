@@ -63,11 +63,10 @@ const RegisterForm = () => {
   };
 
   const isButtonDisabled =
-    !nameValue ||
-    !phoneValue ||
+    nameValue.length < 2 ||
+    phoneValue.length < 9 ||
     !emailValue ||
-    !passwordValue ||
-    !passwordCheckValue ||
+    passwordValue.length < 8 ||
     iconState != 'correct' ||
     passwordCheckValue != passwordValue;
 
@@ -126,5 +125,4 @@ export default RegisterForm;
 password가 8자 이상으로 설정해야 하게 하기, passwordCheck도 마찬가지
 전화번호는 10자리 이상으로 입력하게 하기
 이름은 2자리 이상으로 입력하게 하기
-자동완성 시에 흰색이 아니라 파란색으로 되는 거 어떻게 수정할 수 있는지 알아보기
 */
