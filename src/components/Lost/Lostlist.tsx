@@ -18,7 +18,9 @@ const LostList = ({ searchValue }: { searchValue: string | null }) => {
   return (
     <div className="flex flex-col">
       {LostListData.filter((lost: ILostItem) =>
-        searchValue ? lost.title.includes(searchValue) : true
+        searchValue
+          ? lost.title.toLowerCase().includes(searchValue.toLowerCase())
+          : true
       ).map((lost: ILostItem) => {
         return (
           <Post

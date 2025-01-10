@@ -8,17 +8,19 @@ const LostInput = ({
   setSearchValue: (value: string) => void;
 }) => {
   const onChangeSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+    const newValue = event.target.value;
+    setSearchValue(newValue);
+    setSearchParams({ mq: newValue });
   };
-  const [searchParams] = useSearchParams({
+  const [searchParams, setSearchParams] = useSearchParams({
     mq: '',
   });
-  const mq = searchParams.get('mq');
+  const mq = searchParams.get('mq') ?? '';
   return (
     <Input
       placeholder="검색어를 입력해주세요"
       title="검색"
-      value={mq ?? ''}
+      value={mq}
       onChange={onChangeSearchValue}
     />
   );
