@@ -1,12 +1,12 @@
 import Menu from './Menu';
-
+import lostItem from '../../../../assets/lostItem.svg';
 const Example = () => {
   return (
     <Menu
-      title="예시"
+      title="제목입니다."
+      subTitle="부제목입니다."
       onClick={() => {}}
-      date="2025/01/06"
-      isReceived={false}
+      icon={<img src={lostItem} />}
     />
   );
 };
