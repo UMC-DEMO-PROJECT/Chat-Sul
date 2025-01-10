@@ -1,5 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
+import LostListPage from './pages/User/LostList/LostList';
+import LostItemPage from './pages/User/LostItem/LostItem';
+import LostWritingPage from './pages/Owner/LostForm/LostWriting';
 import Layout from './Layout';
 import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
 import ReserveList from './pages/User/ReserveList/ReserveList';
@@ -41,15 +44,16 @@ const App = () => {
             <Route path="reserve-form" element={<App />} />
             <Route path="reserve-success" element={<ReserveSuccess />} />
             <Route path="menu" element={<App />} />
-            <Route path="lost-list" element={<App />} />
-            <Route path="lost-item" element={<App />} />
+            <Route path="lost-list" element={<LostListPage />} />
+            <Route path="lost-item/:id" element={<LostItemPage />} />
           </Route>
           <Route path="/owner">
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
             <Route path="reserve" element={<App />} />
-            <Route path="lost-list" element={<App />} />
-            <Route path="lost-item" element={<App />} />
+            <Route path="lost-list" element={<LostListPage />} />
+            <Route path="lost-item/:id" element={<LostItemPage />} />
+            <Route path="lost-form" element={<LostWritingPage />} />
           </Route>
         </Route>
       </Routes>
