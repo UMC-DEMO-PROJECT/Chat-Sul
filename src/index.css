@@ -15,6 +15,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #32353f inset;
+  box-shadow: 0 0 0 1000px #32353f inset;
+  -webkit-text-fill-color: white;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
