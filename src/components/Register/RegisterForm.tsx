@@ -1,4 +1,4 @@
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import EmailInput from '../../shared/ui/Input/EmailInput';
 import Input from '../../shared/ui/Input/Input';
 import PasswordCheckInput from '../../shared/ui/Input/PasswordCheckInput';
@@ -6,7 +6,7 @@ import Button from '../button';
 import React, { useState } from 'react';
 
 const RegisterForm = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,6 +19,7 @@ const RegisterForm = () => {
     };
 
     console.log(formData);
+    navigate('/login');
   };
 
   const [nameValue, setNameValue] = useState('');
