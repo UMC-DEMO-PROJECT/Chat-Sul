@@ -1,35 +1,64 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login/Login';
+import LostListPage from './pages/User/LostList/LostList';
+import LostItemPage from './pages/User/LostItem/LostItem';
+import LostWritingPage from './pages/Owner/LostForm/LostWriting';
+import Layout from './Layout';
+import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
+import ReserveList from './pages/User/ReserveList/ReserveList';
+import Register from './pages/Register/Register';
 
-function App() {
-  const [count, setCount] = useState(0);
+/**
+ * '/' : Landing Page, 지도 표시
+ * '/register' : 회원 가입
+ * '/login' : 로그인
+ *
+ * '/user' -> 손님 로그인 시 UI
+ *   '/user/shop' : 가게 화면(유저용)
+ *   '/user/reserve-list' : 대관 확인
+ *   '/user/reserve-form' : 대관 신청
+ *   '/user/menu' : 메뉴판
+ *   '/user/lost-list' : 분실물 찾기(유저용)
+ *   '/user/lost-item' : 분실물 찾기(유저용, 게시글)
+ *
+ * '/owner' -> 사장님 로그인 시 UI
+ *   '/owner/shop' : 가게 화면(사장님용)
+ *   '/owner/reserve' : 대관 확인
+ *   '/owner/lost-list' : 분실물 찾기(사장님용)
+ *   '/owner/lost-item' : 분실물 찾기(사장님용, 게시글)
+ *   '/owner/lost-form' : 분실물 찾기(게시글 작성용)
+ *
+ */
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/user">
+            <Route index element={<App />} />
+            <Route path="shop" element={<App />} />
+            <Route path="reserve-list" element={<ReserveList />} />
+            <Route path="reserve-form" element={<App />} />
+            <Route path="reserve-success" element={<ReserveSuccess />} />
+            <Route path="menu" element={<App />} />
+            <Route path="lost-list" element={<LostListPage />} />
+            <Route path="lost-item/:id" element={<LostItemPage />} />
+          </Route>
+          <Route path="/owner">
+            <Route index element={<App />} />
+            <Route path="shop" element={<App />} />
+            <Route path="reserve" element={<App />} />
+            <Route path="lost-list" element={<LostListPage />} />
+            <Route path="lost-item/:id" element={<LostItemPage />} />
+            <Route path="lost-form" element={<LostWritingPage />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
