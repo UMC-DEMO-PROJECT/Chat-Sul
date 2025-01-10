@@ -19,7 +19,12 @@ const example = () => {
           setIsOpen(true);
         }}
       />
-      <ModalLayout isOpen={isOpen}>
+      <ModalLayout
+        isOpen={isOpen}
+        closeModal={() => {
+          setIsOpen(false);
+        }}
+      >
         <AlertOneButton onClick={handleClose} buttonMessage="확인했습니다.">
           <div className="h-[149px] flex-col justify-start items-center gap-6 inline-flex">
             <div className="text-black text-[28px] font-bold leading-[34px] tracking-tight">

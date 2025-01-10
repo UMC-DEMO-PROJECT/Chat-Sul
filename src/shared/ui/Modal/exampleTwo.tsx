@@ -22,7 +22,12 @@ const Example = () => {
           setIsOpen(true);
         }}
       />
-      <ModalLayout isOpen={isOpen}>
+      <ModalLayout
+        isOpen={isOpen}
+        closeModal={() => {
+          setIsOpen(false);
+        }}
+      >
         <AlertTwoButton onCancel={handleCancel} onClose={handleClose}>
           <p>정말로 예약을 취소하시겠습니까?</p>
         </AlertTwoButton>
