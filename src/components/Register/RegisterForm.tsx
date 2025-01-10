@@ -2,7 +2,6 @@
 import EmailInput from '../../shared/ui/Input/EmailInput';
 import Input from '../../shared/ui/Input/Input';
 import PasswordCheckInput from '../../shared/ui/Input/PasswordCheckInput';
-import Message from '../../shared/ui/Message/Message';
 import Button from '../button';
 import React, { useState } from 'react';
 
@@ -30,7 +29,6 @@ const RegisterForm = () => {
   >('invalid');
   const [passwordValue, setPasswordValue] = useState('');
   const [passwordCheckValue, setPasswordCheckValue] = useState('');
-  const [isError, setIsError] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -74,7 +72,7 @@ const RegisterForm = () => {
     passwordCheckValue != passwordValue;
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col mx-auto">
+    <form onSubmit={handleSubmit} className="flex flex-col mx-auto gap-6">
       <Input
         placeholder="이름을 입력해주세요."
         title="이름"
@@ -108,17 +106,12 @@ const RegisterForm = () => {
         onChange={handlePasswordCheckValue}
         password={passwordValue}
       />
-      {isError ? (
-        <Message text="이메일 혹은 비밀번호가 틀렸습니다." />
-      ) : (
-        <div className="h-[17px]"></div>
-      )}
       <Button
         type="submit"
         size="large"
         colorType="filled"
         disabled={isButtonDisabled}
-        customSize="disabled:bg-[#DEDEDE] disabled:text-[#A6A6A6]"
+        customSize="disabled:bg-[#DEDEDE] disabled:text-[#A6A6A6] mt-[81px]"
       >
         완료
       </Button>
