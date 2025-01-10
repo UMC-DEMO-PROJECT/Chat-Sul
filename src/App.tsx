@@ -41,14 +41,14 @@ const App = () => {
             <Route path="reserve-form" element={<App />} />
             <Route path="menu" element={<App />} />
             <Route path="lost-list" element={<LostListPage />} />
-            <Route path="lost-item" element={<LostItemPage />} />
+            <Route path="lost-item/:id" element={<LostItemPage />} />
           </Route>
           <Route path="/owner">
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
             <Route path="reserve" element={<App />} />
-            <Route path="lost-list" element={<App />} />
-            <Route path="lost-item" element={<App />} />
+            <Route path="lost-list" element={<LostListPage />} />
+            <Route path="lost-item/:id" element={<LostItemPage />} />
           </Route>
         </Route>
       </Routes>
