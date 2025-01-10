@@ -17,6 +17,14 @@ const WritingForm = () => {
     }
   };
 
+  const autoResize = (textarea: HTMLTextAreaElement) => {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+    if (textarea.scrollHeight > 300) {
+      textarea.style.height = '400px';
+    }
+  };
+
   return (
     <>
       <form className="flex flex-col gap-[24px] w-[356px] mx-auto mt-[25px]">
@@ -38,10 +46,11 @@ const WritingForm = () => {
           </div>
           <div className="relative w-full">
             <textarea
-              className={`flex w-full h-[114px] items-center self-stretch py-4 pl-4 pr-5 bg-white border-[#000000] border-b-[0.6px] border-solid text-[17px] focus:outline-none placeholder:whitespace-pre-wrap`}
+              className={`flex w-full h-[114px] items-center self-stretch py-4 pl-4 pr-5 bg-white border-[#000000] border-b-[0.6px] border-solid text-[17px] focus:outline-none placeholder:whitespace-pre-wrap overflow-hidden resize-none`}
               placeholder={`분실물에 대한 설명입니다.\n'언제, 어디서, 무엇을'에 대해 \n자세하게 설명해주면 좋습니다.`}
               value={textareaValue}
               onChange={handleInputChange}
+              onInput={(e) => autoResize(e.target as HTMLTextAreaElement)}
             />
           </div>
         </div>
