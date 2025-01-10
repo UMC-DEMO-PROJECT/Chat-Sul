@@ -16,7 +16,7 @@ const LostList = ({ searchValue }: { searchValue: string | null }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-3">
       {LostListData.filter((lost: ILostItem) =>
         searchValue
           ? lost.title.toLowerCase().includes(searchValue.toLowerCase())
