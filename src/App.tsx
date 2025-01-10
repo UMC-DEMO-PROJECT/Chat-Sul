@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Example from './shared/ui/Input/example';
 import Login from './pages/Login/Login';
 import LostListPage from './pages/User/LostList/LostList';
 import LostItemPage from './pages/User/LostItem/LostItem';
@@ -7,6 +6,7 @@ import LostWritingPage from './pages/Owner/LostForm/LostWriting';
 import Layout from './Layout';
 import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
 import ReserveList from './pages/User/ReserveList/ReserveList';
+import Register from './pages/Register/Register';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -35,7 +35,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/register" element={<Example />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user">
             <Route index element={<App />} />
@@ -54,7 +54,6 @@ const App = () => {
             <Route path="lost-list" element={<LostListPage />} />
             <Route path="lost-item/:id" element={<LostItemPage />} />
             <Route path="lost-form" element={<LostWritingPage />} />
-
           </Route>
         </Route>
       </Routes>
