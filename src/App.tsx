@@ -4,6 +4,8 @@ import Login from './pages/Login/Login';
 import LostListPage from './pages/User/LostList/LostList';
 import LostItemPage from './pages/User/LostItem/LostItem';
 import Layout from './Layout';
+import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
+import ReserveList from './pages/User/ReserveList/ReserveList';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -33,12 +35,13 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/register" element={<Example />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/user">
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
-            <Route path="reserve-list" element={<App />} />
+            <Route path="reserve-list" element={<ReserveList />} />
             <Route path="reserve-form" element={<App />} />
+            <Route path="reserve-success" element={<ReserveSuccess />} />
             <Route path="menu" element={<App />} />
             <Route path="lost-list" element={<LostListPage />} />
             <Route path="lost-item/:id" element={<LostItemPage />} />
