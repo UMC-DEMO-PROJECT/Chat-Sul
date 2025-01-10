@@ -6,7 +6,7 @@ interface DropDownProps {
   onChange: (locationName: string) => void; // 선택된 가게 이름을 처리하는 함수
 }
 
-const DropDown: React.FC<DropDownProps> = ({ options, onChange }) => {
+const DropDown = ({ options, onChange }: DropDownProps) => {
   return (
     <select onChange={(e) => onChange(e.target.value)}>
       {options.map((option, index) => (

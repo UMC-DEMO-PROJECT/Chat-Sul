@@ -16,7 +16,11 @@ const DropDown: React.FC<DropDownProps> = ({ options, onSelect }) => {
   };
 
   return (
-    <select value={selected} onChange={handleChange} style={styles.select}>
+    <select
+      value={selected}
+      onChange={handleChange}
+      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
       <option value="" disabled>
         선택해주세요
       </option>
@@ -27,14 +31,6 @@ const DropDown: React.FC<DropDownProps> = ({ options, onSelect }) => {
       ))}
     </select>
   );
-};
-
-const styles = {
-  select: {
-    padding: "7px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  },
 };
 
 export default DropDown;

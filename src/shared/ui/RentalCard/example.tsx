@@ -11,25 +11,15 @@ interface RentalCardProps {
   coordinates: Coordinates;
 }
 
-const RentalCard: React.FC<RentalCardProps> = ({ name, coordinates }) => {
+const RentalCard = ({ name, coordinates }: RentalCardProps) => {
   return (
-    <div style={styles.card}>
-      <h3>{name}</h3>
-      <p>
+    <div className="p-5 border border-gray-300 rounded-lg w-[300px] mt-5">
+      <h3 className="text-lg font-semibold">{name}</h3>
+      <p className="text-sm text-gray-700">
         좌표: {coordinates.lat}, {coordinates.lng}
       </p>
     </div>
   );
-};
-
-const styles = {
-  card: {
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    width: "300px",
-    marginTop: "20px",
-  },
 };
 
 export default RentalCard;

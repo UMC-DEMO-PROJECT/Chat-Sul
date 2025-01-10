@@ -7,7 +7,7 @@ interface IconProps {
   color: string;
 }
 
-const Icon: React.FC<IconProps> = ({ name, size, color }) => {
+const Icon = ({ name, size, color }: IconProps) => {
   // 아이콘 렌더링 로직 (예시로 텍스트로 렌더링)
   // 실제 사용하려면 아이콘 라이브러리 또는 SVG를 이용
   return (
