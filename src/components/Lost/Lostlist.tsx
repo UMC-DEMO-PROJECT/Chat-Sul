@@ -1,4 +1,5 @@
 import LostListData from './mock/LostListData';
+import { useNavigate } from 'react-router-dom';
 
 interface ILostItem {
   id: number;
@@ -8,6 +9,11 @@ interface ILostItem {
 }
 
 const LostList = ({ searchValue }: { searchValue: string | null }) => {
+  const navigate = useNavigate();
+  const handleClick = (id: number) => {
+    navigate(`/user/lost-item/${id}`);
+  };
+
   return (
     <div className="flex flex-col">
       {LostListData.filter((lost: ILostItem) =>
@@ -16,6 +22,7 @@ const LostList = ({ searchValue }: { searchValue: string | null }) => {
         return (
           <div
             key={lost.id}
+            onClick={() => handleClick(lost.id)}
             className="flex justify-between w-[354px] p-3 border-b-[0.2px] border-[#D1D1D6]"
           >
             <p className="font-sans text-[17px] font-[590]">{lost.title}</p>
