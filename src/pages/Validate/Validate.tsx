@@ -3,11 +3,10 @@ import Title from '../../shared/@common/Title';
 
 const Validate = () => {
   return (
-    <>
-      <div>사업자 인증 페이지입니다.</div>
+    <div className="flex flex-col justify-center items-center w-[356px] mx-auto mt-[120px]">
       <Title>사업자 인증</Title>
       <ValidateForm />
-    </>
+    </div>
   );
 };
 

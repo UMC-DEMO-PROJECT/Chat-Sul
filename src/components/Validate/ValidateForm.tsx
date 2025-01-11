@@ -65,7 +65,7 @@ const ValidateForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col mx-auto gap-6">
         <Input
           placeholder="전화번호를 -없이 입력해주세요."
           title="가게 번호"
@@ -91,6 +91,7 @@ const ValidateForm = () => {
           onChange={handleAccountNumberChange}
           dropdownItems={dropdownItems}
           onDropdownSelect={handleDropdownSelect}
+          selectedAccount={selectedAccount}
         />
         <Button size="large" colorType="filled">
           다음

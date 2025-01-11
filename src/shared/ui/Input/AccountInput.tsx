@@ -21,6 +21,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   width?: string;
   dropdownItems?: string[];
   onDropdownSelect?: (selectedItem: string) => void;
+  selectedAccount: string;
 }
 
 const AccountInput = ({
@@ -31,6 +32,7 @@ const AccountInput = ({
   width = '354px',
   dropdownItems = [],
   onDropdownSelect,
+  selectedAccount,
   ...props
 }: PropsWithChildren<InputProps>) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -51,15 +53,15 @@ const AccountInput = ({
       <div className="flex flex-col items-center px-4 py-0 gap-6 text-xs font-normal text-[#3C3C4399]">
         {title}
       </div>
-      <div className="relative w-full">
+      <div className="relative flex w-full">
         <button
-          className="flex w-[87px] h-[54px] p-3 justify-center items-center gap-3 cursor-pointer border border-gray-300"
+          className="flex w-[87px] h-[54px] p-3 bg-white text-black justify-center items-center gap-3 cursor-pointer border border-gray-300"
           onClick={toggleDropdown}
         >
-          드롭다운
+          {selectedAccount ? selectedAccount : '은행'}
         </button>
         {isDropdownOpen && (
-          <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-300 shadow-lg z-10">
+          <div className="absolute top-full left-0 w-[73px] bg-white border border-gray-300 shadow-lg z-10">
             {dropdownItems.map((item, index) => (
               <div
                 key={index}
