@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Input from './Input';
-import EmailInput from './EmailInput';
 import PasswordCheckInput from './PasswordCheckInput';
 
 const Example = () => {

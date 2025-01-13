@@ -8,7 +8,6 @@ const LostListPage = () => {
   const navigate = useNavigate();
   const [mq, setMq] = useState('');
 
-
   return (
     <div className="flex flex-col justify-center items-center ">
       <TopBar
@@ -16,7 +15,7 @@ const LostListPage = () => {
         onFirstClick={() => navigate('/')}
         onSecondClick={() => navigate('/user/lost-list')}
       />
-      <div className="mt-[25px]">
+      <div className="flex flex-col justify-center items-center mt-[25px] ">
         <LostInput setSearchValue={setMq} />
         <LostList searchValue={mq} />
       </div>
