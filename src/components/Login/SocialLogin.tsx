@@ -14,12 +14,7 @@ const SocialLogin = () => {
         <span className="w-[294px] h-[0.6px] rounded-[10px] bg-[#000]"></span>
       </div>
       <div className="flex flex-col gap-3">
-        <Button
-          size="large"
-          colorType="filled"
-          onClick={handleNaverLogin}
-          customSize="bg-[#03C75A]"
-        >
+        <Button size="large" colorType="naver" onClick={handleNaverLogin}>
           네이버로 시작하기
         </Button>
         <Button
