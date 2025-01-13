@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 type TButtonStyleProps = {
   size: 'small' | 'medium' | 'large';
-  colorType: 'filled' | 'tint' | 'unable' | 'naver';
+  colorType: 'filled' | 'tint' | 'unable' | 'naver' | 'kakao';
 };
 interface IButtonProps
   extends TButtonStyleProps,
@@ -30,6 +30,7 @@ const Button = ({
     tint: 'bg-[#CB601566] text-[#CB6015]',
     unable: 'bg-[#DEDEDE] text-[#A6A6A6]',
     naver: 'bg-[#03C75A] text-white',
+    kakao: 'bg-[#FDDC3F] text-black',
   };
   const buttonClasses = classNames(
     baseStyle,

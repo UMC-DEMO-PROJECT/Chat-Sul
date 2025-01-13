@@ -1,4 +1,4 @@
-import Button from '../../../../components/button';
+import Button from '../../Button/button';
 
 /**
  * 버튼이 1개 있는 AlertOneButton 컴포넌트

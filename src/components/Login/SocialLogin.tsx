@@ -1,4 +1,5 @@
-import Button from '../button';
+import Icon from '../../shared/ui/Icon/Icon';
+import Button from '../../shared/ui/Button/button';
 
 const SocialLogin = () => {
   const handleNaverLogin = () => {
@@ -14,17 +15,22 @@ const SocialLogin = () => {
         <span className="w-[294px] h-[0.6px] rounded-[10px] bg-[#000]"></span>
       </div>
       <div className="flex flex-col gap-3">
-        <Button size="large" colorType="naver" onClick={handleNaverLogin}>
-          네이버로 시작하기
-        </Button>
-        <Button
-          size="large"
-          colorType="filled"
-          onClick={handleKakaoLogin}
-          customSize="bg-[#FDDC3F] text-[#3A2929]"
-        >
-          카카오로 시작하기
-        </Button>
+        <div className="relative">
+          <Button size="large" colorType="naver" onClick={handleNaverLogin}>
+            네이버로 시작하기
+          </Button>
+          <div className="absolute left-[80px] top-[26%]">
+            <Icon name="naver" />
+          </div>
+        </div>
+        <div className="relative">
+          <Button size="large" colorType="kakao" onClick={handleKakaoLogin}>
+            카카오로 시작하기
+          </Button>
+          <div className="absolute left-[80px] top-[26%]">
+            <Icon name="kakao" />
+          </div>
+        </div>
       </div>
     </div>
   );

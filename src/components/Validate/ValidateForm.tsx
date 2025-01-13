@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AccountInput from '../../shared/ui/Input/AccountInput';
 import Input from '../../shared/ui/Input/Input';
-import Button from '../button';
+import Button from '../../shared/ui/Button/button';
 
 const ValidateForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // props의 타입 정의
 interface IconProps {
@@ -8,7 +8,9 @@ interface IconProps {
 
 const Icon = ({ name, size = 24 }: IconProps): JSX.Element => {
   // name에 .svg가 포함되지 않으면 .svg 확장자 추가
-  const iconPath = name.endsWith('.svg') ? `/icons/${name}` : `/icons/${name}.svg`;
+  const iconPath = name.endsWith('.svg')
+    ? `/icons/${name}`
+    : `/icons/${name}.svg`;
 
   return (
     <div className="flex flex-col items-center">
@@ -18,9 +20,6 @@ const Icon = ({ name, size = 24 }: IconProps): JSX.Element => {
         className="rounded"
         style={{ width: size, height: size }}
       />
-      <p className="mt-2 text-sm text-gray-600">
-        Icon path: <code className="bg-gray-100 px-1 rounded">{iconPath}</code>
-      </p>
     </div>
   );
 };
