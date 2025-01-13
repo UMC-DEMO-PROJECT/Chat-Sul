@@ -1,35 +1,52 @@
-import React, { useEffect } from "react";
+import { useEffect } from 'react';
 
 // Location 타입 정의
-interface Coordinates {
-  lat: number;
-  lng: number;
-}
 
 interface Location {
   name: string;
-  coordinates: Coordinates;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
 }
 
 interface MapProps {
   locations: Location[]; // 지도에 표시할 위치 목록
 }
 
-const Map = ({ locations }: MapProps): JSX.Element => {
+/**
+ * Map 컴포넌트
+ *
+ * Map을 사용하기 위한 Map Component 입니다.
+ *
+ * @param {Location[]} locations
+ * @param {Object} locations.Location
+ * @param {string} locations.Location.name
+ * @param {Object} locations.Location.coordinates
+ * @param {number} locations.Location.coordinates.lat
+ * @param {number} locations.Location.coordinates.lng
+ *
+
+ */
+
+const Map = ({ locations }: MapProps) => {
   useEffect(() => {
     // 카카오 지도 API 로드
     const { kakao } = window;
-    const container = document.getElementById("map");
+    const container = document.getElementById('map');
     if (container && kakao) {
       const options = {
-        center: new kakao.maps.LatLng(37.5665, 126.9780), // 기본 위치 (서울)
+        center: new kakao.maps.LatLng(37.5665, 126.978), // 기본 위치 (서울)
         level: 3, // 확대 레벨
       };
       const map = new kakao.maps.Map(container, options);
 
       // 마커 추가
       locations.forEach((loc) => {
-        const markerPosition = new kakao.maps.LatLng(loc.coordinates.lat, loc.coordinates.lng);
+        const markerPosition = new kakao.maps.LatLng(
+          loc.coordinates.lat,
+          loc.coordinates.lng
+        );
         const marker = new kakao.maps.Marker({
           position: markerPosition,
         });
@@ -39,7 +56,7 @@ const Map = ({ locations }: MapProps): JSX.Element => {
         const infowindow = new kakao.maps.InfoWindow({
           content: `<div style="padding:5px;">${loc.name}</div>`,
         });
-        kakao.maps.event.addListener(marker, "click", () => {
+        kakao.maps.event.addListener(marker, 'click', () => {
           infowindow.open(map, marker);
         });
       });

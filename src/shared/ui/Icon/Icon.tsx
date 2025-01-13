@@ -1,13 +1,20 @@
-import React from 'react';
+/**
+ * Icon Component
+ *
+ * Icon을 사용할 수 있는 Icon Component입니다.
+ *
+ * name에 svg가 추가되어 있지 않다면 자동으로 .svg가 추가됩니다.
+ *
+ * @param {string} name - 아이콘의 이름 (파일명)
+ * @param {number} size - 아이콘의 크기
+ */
 
-// props의 타입 정의
 interface IconProps {
-  name: string; // 아이콘의 이름 (파일명)
-  size?: number; // 아이콘 크기 (옵션)
+  name: string;
+  size?: number;
 }
 
-const Icon = ({ name, size = 24 }: IconProps): JSX.Element => {
-  // name에 .svg가 포함되지 않으면 .svg 확장자 추가
+const Icon = ({ name, size = 24 }: IconProps) => {
   const iconPath = name.endsWith('.svg')
     ? `/icons/${name}`
     : `/icons/${name}.svg`;
@@ -15,10 +22,9 @@ const Icon = ({ name, size = 24 }: IconProps): JSX.Element => {
   return (
     <div className="flex flex-col items-center">
       <img
+        className={`w-[${size}] h-[${size}] rounded`}
         src={iconPath}
         alt={`${name} icon`}
-        className="rounded"
-        style={{ width: size, height: size }}
       />
     </div>
   );

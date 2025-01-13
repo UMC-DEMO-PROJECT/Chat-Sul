@@ -1,3 +1,5 @@
+import { InputHTMLAttributes, PropsWithChildren } from 'react';
+
 /**
  * Input 컴포넌트
  *
@@ -8,9 +10,6 @@
  * @param {string} value = 입력 필드의 현재 값입니다.
  * @param {function} onChange - 입력 값이 변경될 때 호출되는 이벤트 핸들러입니다.
  */
-
-import { InputHTMLAttributes, PropsWithChildren } from 'react';
-
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   title: string;

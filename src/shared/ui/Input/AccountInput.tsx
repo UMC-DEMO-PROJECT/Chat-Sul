@@ -1,7 +1,9 @@
+import React, { InputHTMLAttributes, PropsWithChildren, useState } from 'react';
+
 /**
- * Input 컴포넌트
+ * AccountInput 컴포넌트
  *
- * 사용자가 입력을 할 수 있는 Text Input Field Component입니다.
+ * 사용자가 계좌 입력을 할 수 있는 Text Input Field Component입니다.
  *
  * @param {string} placeholder - 입력 필드에 표시될 자리표시 텍스트입니다.
  * @param {string} title - 입력 필드 위에 표시될 제목입니다.
@@ -10,9 +12,6 @@
  * @param {string[]} dropdownItems - 드롭다운 항목 배열
  * @param {function} onDropdownSelect - 드롭다운 항목 선택 시 호출되는 이벤트 핸들러입니다.
  */
-
-import React, { InputHTMLAttributes, PropsWithChildren, useState } from 'react';
-
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   title: string;

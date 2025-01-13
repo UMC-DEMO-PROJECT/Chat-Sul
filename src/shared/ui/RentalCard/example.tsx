@@ -1,5 +1,3 @@
-import React from "react";
-
 // Location 타입 정의
 interface Coordinates {
   lat: number;
