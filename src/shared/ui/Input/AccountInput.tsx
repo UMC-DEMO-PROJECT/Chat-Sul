@@ -1,4 +1,5 @@
 import React, { InputHTMLAttributes, PropsWithChildren, useState } from 'react';
+import Icon from '../Icon/Icon';
 
 /**
  * AccountInput 컴포넌트
@@ -48,23 +49,24 @@ const AccountInput = ({
   };
 
   return (
-    <div className={`flex flex-col items-start w-[${width}]`}>
+    <div className={`flex flex-col items-start w-[${width}] z-20`}>
       <div className="flex flex-col items-center px-4 py-0 gap-6 text-xs font-normal text-[#3C3C4399]">
         {title}
       </div>
-      <div className="relative flex w-full">
+      <div className="relative items-center flex w-[354px] border-[#000000] border-b-[0.6px] border-solid">
         <button
-          className="flex w-[87px] h-[54px] p-3 bg-white text-black justify-center items-center gap-3 cursor-pointer border border-gray-300"
+          className="flex w-[87px] h-[54px] p-3 bg-white text-black justify-center items-center gap-3 cursor-pointer hover:border-none active:border-none focus:border-none"
           onClick={toggleDropdown}
         >
           {selectedAccount ? selectedAccount : '은행'}
+          <Icon name="down" />
         </button>
         {isDropdownOpen && (
-          <div className="absolute top-full left-0 w-[73px] bg-white border border-gray-300 shadow-lg z-10">
+          <div className="absolute top-[103%] left-0 w-[87px] p-2 flex flex-col items-start gap-2 rounded-xl border-solid border-[#AEAEB2] background-[#FFF] bg-white border-[0.2px] shadow-lg z-10">
             {dropdownItems.map((item, index) => (
               <div
                 key={index}
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                className="px-4 py-3 text-[15px] tracking-[-0.23px] font-normal flex justify-center items-center gap-[10px] self-stretch rounded-lg hover:bg-[rgba(203,96,21,0.5)] cursor-pointer"
                 onClick={() => handleDropdownSelect(item)}
               >
                 {item}
@@ -72,8 +74,9 @@ const AccountInput = ({
             ))}
           </div>
         )}
+        <div className="w-[0.6px] h-[30px] bg-[#8E8E93]"></div>
         <input
-          className={`flex w-full items-center self-stretch py-4 pl-4 pr-5 bg-white border-[#000000] border-b-[0.6px] border-solid text-[17px] focus:outline-none`}
+          className={`flex w-[267px] items-center self-stretch py-4 pl-4 pr-5 bg-white text-[17px] focus:outline-none`}
           placeholder={placeholder}
           onChange={onChange}
           value={value}
