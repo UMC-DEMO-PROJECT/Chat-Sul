@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import EmailInput from '../../shared/ui/Input/EmailInput';
 import Input from '../../shared/ui/Input/Input';
 import PasswordCheckInput from '../../shared/ui/Input/PasswordCheckInput';
-import Button from '../button';
+import Button from '../../shared/ui/Button/button';
 import React, { useState } from 'react';
 
 const RegisterForm = () => {

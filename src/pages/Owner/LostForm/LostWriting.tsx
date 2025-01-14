@@ -1,6 +1,6 @@
 import TopBar from '../../../shared/ui/TopBar/TopBar';
 import WritingForm from '../../../components/Lostwriting/LostWritingForm';
-import Button from '../../../components/button';
+import Button from '../../../shared/ui/Button/button';
 import { useNavigate } from 'react-router-dom';
 
 const LostWritingPage = () => {

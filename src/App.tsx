@@ -7,6 +7,7 @@ import Layout from './Layout';
 import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
 import ReserveList from './pages/User/ReserveList/ReserveList';
 import Register from './pages/Register/Register';
+import Validate from './pages/Validate/Validate';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/validate" element={<Validate />} />
           <Route path="/user">
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />

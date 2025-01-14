@@ -1,8 +1,7 @@
-//ex) 아이콘을 여러 크기로 표시한 경우 
-import React from "react";
-import Icon from "./Icon"; // Icon 컴포넌트 import
+//ex) 아이콘을 여러 크기로 표시한 경우
+import Icon from './Icon'; // Icon 컴포넌트 import
 
-const App = (): JSX.Element => {
+const IconExample = () => {
   return (
     <div className="p-5 space-y-5">
       <h1 className="text-2xl font-bold mb-4">아이콘 예시</h1>
@@ -34,5 +33,4 @@ const App = (): JSX.Element => {
   );
 };
 
-export default App;
-
+export default IconExample;
