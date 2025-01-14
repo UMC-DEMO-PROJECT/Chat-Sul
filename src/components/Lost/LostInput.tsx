@@ -22,6 +22,7 @@ const LostInput = ({
       title="검색"
       value={mq}
       onChange={onChangeSearchValue}
+      width="w-[380px]"
     />
   );
 };
