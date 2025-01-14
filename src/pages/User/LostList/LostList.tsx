@@ -3,10 +3,12 @@ import TopBar from '../../../shared/ui/TopBar/TopBar';
 import { useNavigate } from 'react-router-dom';
 import LostInput from '../../../components/Lost/LostInput';
 import { useState } from 'react';
+import useDebounce from '../../../hooks/useDebounce';
 
 const LostListPage = () => {
   const navigate = useNavigate();
   const [mq, setMq] = useState('');
+  const useDebouncedValue = useDebounce(mq, 500);
 
   return (
     <div className="flex flex-col justify-center items-center ">
@@ -17,7 +19,7 @@ const LostListPage = () => {
       />
       <div className="flex flex-col justify-center items-center mt-[25px] ">
         <LostInput setSearchValue={setMq} />
-        <LostList searchValue={mq} />
+        <LostList searchValue={useDebouncedValue} />
       </div>
     </div>
   );
