@@ -20,7 +20,7 @@ const LostListPage_Owner = () => {
       />
       <div className="flex flex-col justify-center items-center mt-[25px] ">
         <LostInput setSearchValue={setMq} />
-        <LostList searchValue={useDebouncedValue} />
+        <LostList who="owner" searchValue={useDebouncedValue} />
       </div>
       <button
         onClick={() => navigate('/owner/lost-form')}

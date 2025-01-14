@@ -19,7 +19,7 @@ const LostListPage = () => {
       />
       <div className="flex flex-col justify-center items-center mt-[25px] ">
         <LostInput setSearchValue={setMq} />
-        <LostList searchValue={useDebouncedValue} />
+        <LostList who="user" searchValue={useDebouncedValue} />
       </div>
     </div>
   );

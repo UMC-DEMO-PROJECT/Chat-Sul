@@ -9,10 +9,16 @@ interface ILostItem {
   state: boolean;
 }
 
-const LostList = ({ searchValue }: { searchValue: string | null }) => {
+const LostList = ({
+  who,
+  searchValue,
+}: {
+  who: string;
+  searchValue: string | null;
+}) => {
   const navigate = useNavigate();
   const handleClick = (id: number) => {
-    navigate(`/user/lost-item/${id}`);
+    navigate(`/${who}/lost-item/${id}`);
   };
 
   return (
