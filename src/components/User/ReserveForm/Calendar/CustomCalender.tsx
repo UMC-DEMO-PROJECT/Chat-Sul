@@ -18,7 +18,7 @@ function CustomCalendar() {
     console.log(value);
   }
   return (
-    <div>
+    <>
       <Calendar
         locale="ko-KR"
         onChange={onChange}
@@ -79,9 +79,9 @@ function CustomCalendar() {
         formatDay={(_locale, date) =>
           date.toLocaleString('en', { day: 'numeric' })
         }
-        className="customCalendar w-full" // 여기서 .customCalendar에 대한 CSS를 작성
+        className="customCalendar w-full " // 여기서 .customCalendar에 대한 CSS를 작성
       />
-    </div>
+    </>
   );
 }
 
