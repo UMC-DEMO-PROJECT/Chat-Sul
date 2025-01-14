@@ -1,0 +1,76 @@
+/* 달력 제목 flex */
+.customCalendar .react-calendar__navigation {
+  display: flex;
+}
+
+.customCalendar .react-calendar__navigation__label {
+  padding: 0.6em 1.2em;
+  cursor: auto;
+}
+
+.customCalendar .react-calendar__navigation__arrow {
+  padding: 0.6em 40px;
+}
+
+/* 달력 Container 왼쪽 공백 */
+.customCalendar .react-calendar__viewContainer {
+  padding-left: 10px;
+}
+
+/* Date 요소끼리 gap 설정 */
+.customCalendar .react-calendar__month-view__days {
+  row-gap: 8px;
+  column-gap: 8px;
+}
+
+/* Date 각 요소 크기 설정, 글자 가운데 정렬, */
+.customCalendar .react-calendar__month-view__days__day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  flex-basis: 11.838% !important;
+  width: 40px;
+  height: 40px;
+}
+
+/* 일 월 화 수 div */
+.customCalendar .react-calendar__month-view__weekdays {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  column-gap: 8px;
+}
+
+/* 일 월 화 수 각 요소 text 설정 */
+.customCalendar .react-calendar__month-view__weekdays__weekday {
+  text-align: center;
+  flex-basis: 11.838% !important;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 13px;
+  letter-spacing: 0.06px;
+  color: var(--Grays-Gray, var(--Grays-Gray, #8e8e93));
+}
+
+/* 일 월 화 수 ... 에 밑줄 제거 */
+.customCalendar .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+/* 과거 회색 처리 */
+.past {
+  color: #8e8e93;
+}
+/* 예약된 칸 처리 */
+.reserved {
+  color: #8e8e93;
+  /* background-color: #e0e0e0; */
+}
+
+/* active시 원 처리 */
+.customCalendar .react-calendar__tile--active {
+  background-color: #cb6015;
+  color: white;
+  text-align: center;
+}
