@@ -1,6 +1,7 @@
 import Input from '../../shared/ui/Input/Input';
 import { ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import Icon from '../../shared/ui/Icon/Icon';
 
 const LostInput = ({
   setSearchValue,
@@ -17,13 +18,17 @@ const LostInput = ({
   });
   const mq = searchParams.get('mq') ?? '';
   return (
-    <Input
-      placeholder="검색어를 입력해주세요"
-      title="검색"
-      value={mq}
-      onChange={onChangeSearchValue}
-      width="w-[380px]"
-    />
+    <>
+      <Input
+        placeholder="검색어를 입력해주세요"
+        title="검색"
+        value={mq}
+        onChange={onChangeSearchValue}
+        width="w-[380px]"
+        className="relative"
+      />
+      <Icon name="Search" />
+    </>
   );
 };
 
