@@ -1,5 +1,5 @@
-import React from "react";
-import Icon from "./Icon";
+import React from 'react';
+import Icon from '../Icon/Icon';
 
 // props의 타입 정의
 interface RentalCardProps {
@@ -9,10 +9,19 @@ interface RentalCardProps {
   location: string;
 }
 
-const RentalCard: React.FunctionComponent<RentalCardProps> = ({ title, description, image, location }) => {
+const RentalCard: React.FunctionComponent<RentalCardProps> = ({
+  title,
+  description,
+  image,
+  location,
+}) => {
   return (
     <div className="border border-gray-300 rounded-lg p-4 flex items-center gap-4 shadow-sm">
-      <img src={image} alt={title} className="w-20 h-20 rounded-lg object-cover" />
+      <img
+        src={image}
+        alt={title}
+        className="w-20 h-20 rounded-lg object-cover"
+      />
       <div className="flex-1">
         <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
         <p className="text-sm text-gray-600 mt-2">{description}</p>
