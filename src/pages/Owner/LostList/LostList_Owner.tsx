@@ -24,7 +24,7 @@ const LostListPage_Owner = () => {
       </div>
       <button
         onClick={() => navigate('/owner/lost-form')}
-        className="rounded-full bg-[#CB6015] absolute top-[730px] right-[16px]"
+        className="rounded-full bg-[#CB6015] p-4 absolute top-[730px] right-[16px]"
       >
         <Icon name="pen" />
       </button>
