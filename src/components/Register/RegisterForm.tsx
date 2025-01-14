@@ -4,22 +4,29 @@ import Input from '../../shared/ui/Input/Input';
 import PasswordCheckInput from '../../shared/ui/Input/PasswordCheckInput';
 import Button from '../../shared/ui/Button/button';
 import React, { useState } from 'react';
+import { PostRegister } from '../../shared/api/membersAPI';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = {
       name: nameValue,
-      phone: phoneValue,
+      phoneNumber: phoneValue,
       email: emailValue,
       password: passwordValue,
     };
 
     console.log(formData);
-    navigate('/login');
+    try {
+      const response = await PostRegister(formData);
+      console.log('response: ', response);
+      navigate('/login');
+    } catch (error) {
+      console.error('회원가입 실패', error);
+    }
   };
 
   const [nameValue, setNameValue] = useState('');
