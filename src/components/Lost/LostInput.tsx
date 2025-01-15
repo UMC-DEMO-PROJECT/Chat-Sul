@@ -38,12 +38,12 @@ const LostInput = ({
         onChange={onChangeSearchValue}
         onKeyDown={handleSearchWithKeyboard}
       />
-      <button
+      <div
         onClick={handleSearchButtonClick}
-        className="p-0 absolute top-[34px] right-[10px] bg-transparent"
+        className="p-0 absolute top-[34px] right-[10px] bg-transparent cursor-pointer"
       >
         <Icon name="Search" />
-      </button>
+      </div>
     </div>
   );
 };
