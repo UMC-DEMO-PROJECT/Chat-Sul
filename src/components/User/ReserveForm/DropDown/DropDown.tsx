@@ -7,21 +7,21 @@ import Menu from './Menu';
 //   onSelect: (value: string) => void; // 선택된 값을 처리하는 함수
 // }
 
-function timeToMinutes(timeStr: string): number {
+const timeToMinutes = (timeStr: string): number => {
   const [hh, mm] = timeStr.split(':').map(Number);
   return hh * 60 + mm;
-}
+};
 
 // 분(minute)을 다시 "HH:MM" 형태로 바꿔주는 함수
-function minutesToTime(totalMinutes: number): string {
+const minutesToTime = (totalMinutes: number): string => {
   const hh = Math.floor(totalMinutes / 60)
     .toString()
     .padStart(2, '0');
   const mm = (totalMinutes % 60).toString().padStart(2, '0');
   return `${hh}:${mm}`;
-}
+};
 
-function createTimeTable(startTime: string, endTime: string): string[] {
+const createTimeTable = (startTime: string, endTime: string): string[] => {
   const start = timeToMinutes(startTime); // 예: 18:00 -> 1080
   const end = timeToMinutes(endTime); // 예: 24:00 -> 1440
   const step = 30; // 30분 간격
@@ -31,7 +31,7 @@ function createTimeTable(startTime: string, endTime: string): string[] {
     result.push(minutesToTime(current));
   }
   return result;
-}
+};
 
 const timeTable = createTimeTable('18:00', '24:00'); // 이것도 요청으로 받아야하나?
 const reservedTime = ['20:00', '21:00']; // 이건 API요청으로 받아야함
