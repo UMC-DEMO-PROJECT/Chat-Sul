@@ -1,6 +1,6 @@
 import Input from '../../shared/ui/Input/Input';
 import { useState } from 'react';
-import Button from '../button';
+import Button from '../../shared/ui/Button/button';
 
 const WritingForm = () => {
   const [inputValue, setInputValue] = useState('');

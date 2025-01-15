@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Input from '../../shared/ui/Input/Input';
 import Message from '../../shared/ui/Message/Message';
 import { useNavigate } from 'react-router-dom';
-import Button from '../button';
+import Button from '../../shared/ui/Button/button';
 import EmailInput from '../../shared/ui/Input/EmailInput';
 
 const LoginForm = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 // 위치 정보를 나타내는 타입 정의
 interface Location {
@@ -16,14 +16,15 @@ interface MapProps {
 const Map = ({ locations }: MapProps) => {
   useEffect(() => {
     // 카카오 지도 API 로딩을 위한 스크립트 추가 (여기서는 예시로 사용)
-    const script = document.createElement("script");
-    script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_APP_KEY&autoload=false";
+    const script = document.createElement('script');
+    script.src =
+      '//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_APP_KEY&autoload=false';
     document.body.appendChild(script);
 
     script.onload = () => {
       if (window.Kakao) {
-        window.Kakao.init("YOUR_APP_KEY"); // 카카오 맵 초기화
-        const mapContainer = document.getElementById("map") as HTMLElement; // 지도 요소 찾기
+        window.Kakao.init('YOUR_APP_KEY'); // 카카오 맵 초기화
+        const mapContainer = document.getElementById('map') as HTMLElement; // 지도 요소 찾기
         const mapOptions = {
           center: new window.Kakao.maps.LatLng(37.5665, 126.978), // 서울의 기본 위치
           level: 3,
@@ -32,7 +33,10 @@ const Map = ({ locations }: MapProps) => {
         const map = new window.Kakao.maps.Map(mapContainer, mapOptions); // 지도 생성
 
         locations.forEach((location) => {
-          const position = new window.Kakao.maps.LatLng(location.coordinates.lat, location.coordinates.lng);
+          const position = new window.Kakao.maps.LatLng(
+            location.coordinates.lat,
+            location.coordinates.lng
+          );
           const marker = new window.Kakao.maps.Marker({
             position: position,
           });

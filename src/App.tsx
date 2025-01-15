@@ -8,6 +8,9 @@ import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
 import ReserveList from './pages/User/ReserveList/ReserveList';
 import Register from './pages/Register/Register';
 import ReserveForm from './pages/User/ReserveForm/ReserveForm';
+import LostListPage_Owner from './pages/Owner/LostList/LostList_Owner';
+import Validate from './pages/Validate/Validate';
+
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -38,6 +41,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/validate" element={<Validate />} />
           <Route path="/user">
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
@@ -52,7 +56,7 @@ const App = () => {
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
             <Route path="reserve" element={<App />} />
-            <Route path="lost-list" element={<LostListPage />} />
+            <Route path="lost-list" element={<LostListPage_Owner />} />
             <Route path="lost-item/:id" element={<LostItemPage />} />
             <Route path="lost-form" element={<LostWritingPage />} />
           </Route>
