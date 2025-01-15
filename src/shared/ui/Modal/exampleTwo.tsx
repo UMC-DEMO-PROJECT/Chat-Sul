@@ -28,7 +28,12 @@ const Example = () => {
           setIsOpen(false);
         }}
       >
-        <AlertTwoButton onCancel={handleCancel} onClose={handleClose}>
+        <AlertTwoButton
+          onClick1={handleCancel}
+          onClick2={handleClose}
+          btnMessage1="돌아가기"
+          btnMessage2="취소하기"
+        >
           <p>정말로 예약을 취소하시겠습니까?</p>
         </AlertTwoButton>
       </ModalLayout>
