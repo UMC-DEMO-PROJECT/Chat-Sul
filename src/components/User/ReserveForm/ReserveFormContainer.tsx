@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Input from '../../../shared/ui/Input/Input';
 import ModalLayout from '../../../shared/ui/Modal/ModalLayout/ModalLayout';
 import TopBar from '../../../shared/ui/TopBar/TopBar';
-import Button from '../../button';
+import Button from '../../../shared/ui/Button/button';
 import ViewOnlyInputContainer from './Input/ViewOnlyInputContainer';
 import AlertOneButton from '../../../shared/ui/Modal/Alert/AlertOneButton';
 import ModalContents from './ModalContents/ModalContents';
