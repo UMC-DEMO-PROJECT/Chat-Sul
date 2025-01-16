@@ -24,7 +24,10 @@ const TopBar = ({
 }: TopBarProps) => {
   return (
     <div className="flex w-full h-[52px] px-3 py-[14px] items-center overflow-hidden justify-between">
-      <div className="w-[50px] flex justify-start " onClick={onFirstClick}>
+      <div
+        className="w-[50px] flex justify-start cursor-pointer"
+        onClick={onFirstClick}
+      >
         <svg
           width="24"
           height="24"
@@ -42,7 +45,7 @@ const TopBar = ({
       </div>
 
       <div
-        className="text-black text-[17px] leading-snug font-[600]"
+        className="text-black text-[17px] leading-snug cursor-pointer font-semibold"
         onClick={onSecondClick}
       >
         {title}
