@@ -12,7 +12,6 @@ import LostListPage_Owner from './pages/Owner/LostList/LostList_Owner';
 import LostItemPage_Owner from './pages/Owner/LostItem/LostItem_Owner';
 import Validate from './pages/Validate/Validate';
 
-
 /**
  * '/' : Landing Page, 지도 표시
  * '/register' : 회원 가입
