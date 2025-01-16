@@ -10,8 +10,8 @@ const LostWritingPage = () => {
     <div className="flex flex-col relative">
       <TopBar
         title="분실물"
-        onFirstClick={() => navigate('/')}
-        onSecondClick={() => navigate('/user/lost-list')}
+        onFirstClick={() => navigate('/owner/lost-list')}
+        onSecondClick={() => navigate('/owner/lost-list')}
       />
       <WritingForm />
       <div className="w-[356px] mx-auto absolute top-[760px] left-[24px]">
