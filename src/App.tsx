@@ -7,6 +7,9 @@ import Layout from './Layout';
 import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
 import ReserveList from './pages/User/ReserveList/ReserveList';
 import Register from './pages/Register/Register';
+import ReserveForm from './pages/User/ReserveForm/ReserveForm';
+import LostListPage_Owner from './pages/Owner/LostList/LostList_Owner';
+import LostItemPage_Owner from './pages/Owner/LostItem/LostItem_Owner';
 import Validate from './pages/Validate/Validate';
 
 /**
@@ -43,7 +46,7 @@ const App = () => {
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
             <Route path="reserve-list" element={<ReserveList />} />
-            <Route path="reserve-form" element={<App />} />
+            <Route path="reserve-form" element={<ReserveForm />} />
             <Route path="reserve-success" element={<ReserveSuccess />} />
             <Route path="menu" element={<App />} />
             <Route path="lost-list" element={<LostListPage />} />
@@ -53,8 +56,8 @@ const App = () => {
             <Route index element={<App />} />
             <Route path="shop" element={<App />} />
             <Route path="reserve" element={<App />} />
-            <Route path="lost-list" element={<LostListPage />} />
-            <Route path="lost-item/:id" element={<LostItemPage />} />
+            <Route path="lost-list" element={<LostListPage_Owner />} />
+            <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
             <Route path="lost-form" element={<LostWritingPage />} />
           </Route>
         </Route>
