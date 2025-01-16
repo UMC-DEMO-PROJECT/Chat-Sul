@@ -1,6 +1,5 @@
 import AlertOneButton from '../../../shared/ui/Modal/Alert/AlertOneButton';
 import AlertTwoButton from '../../../shared/ui/Modal/Alert/AlertTwoButton';
-
 interface AlertContainerProps {
   alertType: 'confirmed' | 'failed' | 'pending' | null;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,7 +9,12 @@ const AlertContainer = ({ alertType, setIsOpen }: AlertContainerProps) => {
   // 계좌번호 서버에서 요청 받아야함
   if (alertType === 'confirmed') {
     return (
-      <AlertTwoButton onClose={() => {}} onCancel={() => {}}>
+      <AlertTwoButton
+        onClick1={() => {}}
+        onClick2={() => {}}
+        btnMessage1="돌아가기"
+        btnMessage2="취소하기"
+      >
         <p className="text-[#8e8e93] text-base font-normal leading-[21px]">
           정말로 예약을 취소하시겠습니까?
         </p>
