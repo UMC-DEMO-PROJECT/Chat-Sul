@@ -4,7 +4,7 @@ import Input from '../../shared/ui/Input/Input';
 import PasswordCheckInput from '../../shared/ui/Input/PasswordCheckInput';
 import Button from '../../shared/ui/Button/button';
 import React, { useState } from 'react';
-import { PostRegister } from '../../shared/api/membersAPI';
+import { PostRegister } from '../../shared/api/membersApi';
 
 const RegisterForm = () => {
   const navigate = useNavigate();

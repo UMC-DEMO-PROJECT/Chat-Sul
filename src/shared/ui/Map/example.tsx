@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 // 위치 정보를 나타내는 타입 정의
 interface Location {
@@ -22,22 +22,22 @@ const Map = ({ locations }: MapProps) => {
     document.body.appendChild(script);
 
     script.onload = () => {
-      if (window.Kakao) {
-        window.Kakao.init('YOUR_APP_KEY'); // 카카오 맵 초기화
+      if (window.kakao) {
+        window.kakao.init('YOUR_APP_KEY'); // 카카오 맵 초기화
         const mapContainer = document.getElementById('map') as HTMLElement; // 지도 요소 찾기
         const mapOptions = {
-          center: new window.Kakao.maps.LatLng(37.5665, 126.978), // 서울의 기본 위치
+          center: new window.kakao.maps.LatLng(37.5665, 126.978), // 서울의 기본 위치
           level: 3,
         };
 
-        const map = new window.Kakao.maps.Map(mapContainer, mapOptions); // 지도 생성
+        const map = new window.kakao.maps.Map(mapContainer, mapOptions); // 지도 생성
 
         locations.forEach((location) => {
-          const position = new window.Kakao.maps.LatLng(
+          const position = new window.kakao.maps.LatLng(
             location.coordinates.lat,
             location.coordinates.lng
           );
-          const marker = new window.Kakao.maps.Marker({
+          const marker = new window.kakao.maps.Marker({
             position: position,
           });
 
