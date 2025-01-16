@@ -42,7 +42,7 @@ const TopBar = ({
       </div>
 
       <div
-        className="text-black text-[17px] leading-snug"
+        className="text-black text-[17px] leading-snug font-[600]"
         onClick={onSecondClick}
       >
         {title}
