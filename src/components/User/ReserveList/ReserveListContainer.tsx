@@ -10,6 +10,7 @@ interface DataType {
   personCount: number;
   status: 'confirmed' | 'failed' | 'pending';
 }
+
 const dummyData: DataType[] = [
   { id: 1, shopName: '가게1', personCount: 10, status: 'confirmed' },
   { id: 2, shopName: '가게2', personCount: 5, status: 'failed' },
