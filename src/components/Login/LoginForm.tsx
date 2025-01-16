@@ -17,19 +17,14 @@ const LoginForm = () => {
       password: passwordValue,
     };
 
-    if (emailValue === 'test@example.com' && passwordValue === 'password123') {
-      console.log('로그인 성공', formData);
-      setIsError(false);
-      try {
-        const response = await PostLogin(formData);
-        console.log('response: ', response);
-        navigate('/');
-      } catch (error) {
-        console.error('회원가입 실패', error);
-      }
-    } else {
-      console.log('로그인 실패', formData);
-      setIsError(true);
+    console.log('로그인 성공', formData);
+    setIsError(false);
+    try {
+      const response = await PostLogin(formData);
+      console.log('response: ', response);
+      navigate('/');
+    } catch (error) {
+      console.error('회원가입 실패', error);
     }
   };
 
@@ -70,6 +65,7 @@ const LoginForm = () => {
             title="비밀번호"
             value={passwordValue}
             onChange={handlePasswordChange}
+            type="password"
           />
         </div>
         {isError ? (
