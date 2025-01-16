@@ -1,5 +1,3 @@
-import React from "react";
-
 // props의 타입 정의
 interface DropDownProps {
   options: string[]; // 가게 이름 목록

@@ -4,7 +4,7 @@ import Message from '../../shared/ui/Message/Message';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../shared/ui/Button/button';
 import EmailInput from '../../shared/ui/Input/EmailInput';
-import { PostLogin } from '../../shared/api/membersAPI';
+import { PostLogin } from '../../shared/api/membersApi';
 
 const LoginForm = () => {
   const navigate = useNavigate();

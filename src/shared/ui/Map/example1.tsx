@@ -1,5 +1,5 @@
 //ex) 여러 위치를 지도에 표시하는 경우
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Map from './Map'; // Map 컴포넌트 import
 
 const App = (): JSX.Element => {

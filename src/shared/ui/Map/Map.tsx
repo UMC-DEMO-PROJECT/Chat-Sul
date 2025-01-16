@@ -26,8 +26,13 @@ interface MapProps {
  * @param {number} locations.Location.coordinates.lat
  * @param {number} locations.Location.coordinates.lng
  *
-
  */
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 const Map = ({ locations }: MapProps) => {
   useEffect(() => {
