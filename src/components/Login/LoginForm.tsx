@@ -4,11 +4,12 @@ import Message from '../../shared/ui/Message/Message';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../shared/ui/Button/button';
 import EmailInput from '../../shared/ui/Input/EmailInput';
+import { PostLogin } from '../../shared/api/membersAPI';
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = {
@@ -19,7 +20,13 @@ const LoginForm = () => {
     if (emailValue === 'test@example.com' && passwordValue === 'password123') {
       console.log('로그인 성공', formData);
       setIsError(false);
-      // navigate('/');
+      try {
+        const response = await PostLogin(formData);
+        console.log('response: ', response);
+        navigate('/');
+      } catch (error) {
+        console.error('회원가입 실패', error);
+      }
     } else {
       console.log('로그인 실패', formData);
       setIsError(true);
