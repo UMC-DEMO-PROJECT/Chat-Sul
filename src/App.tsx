@@ -11,7 +11,8 @@ import ReserveForm from './pages/User/ReserveForm/ReserveForm';
 import LostListPage_Owner from './pages/Owner/LostList/LostList_Owner';
 import LostItemPage_Owner from './pages/Owner/LostItem/LostItem_Owner';
 import Validate from './pages/Validate/Validate';
-import ReserveListContainer from './components/Owner/ReserveList/ReserveList';
+import ReserveListContainer from './components/Owner/ReserveList/ReserveList
+import LostModifyPage from './pages/Owner/LostModify/LostModify';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -60,6 +61,7 @@ const App = () => {
             <Route path="lost-list" element={<LostListPage_Owner />} />
             <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
             <Route path="lost-form" element={<LostWritingPage />} />
+            <Route path="lost-modify/:id" element={<LostModifyPage />} />
           </Route>
         </Route>
       </Routes>

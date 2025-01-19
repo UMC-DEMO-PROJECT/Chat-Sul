@@ -1,6 +1,5 @@
 import AlertOneButton from '../../../shared/ui/Modal/Alert/AlertOneButton';
 import AlertTwoButton from '../../../shared/ui/Modal/Alert/AlertTwoButton';
-
 interface AlertContainerProps {
   alertType:
     | 'confirmed'

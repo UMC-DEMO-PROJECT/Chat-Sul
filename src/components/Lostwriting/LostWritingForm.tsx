@@ -35,7 +35,18 @@ const WritingForm = () => {
           onChange={handleInputChange}
         />
         <div className="w-[164px]">
-          <Button size="small" colorType="tint">
+          <input id="file" type="file" name="file" hidden />
+          <Button
+            size="small"
+            colorType="tint"
+            onClick={(e) => {
+              e.preventDefault();
+              const fileInput = document.getElementById(
+                'file'
+              ) as HTMLInputElement | null;
+              fileInput?.click();
+            }}
+          >
             이미지 추가하기
           </Button>
         </div>

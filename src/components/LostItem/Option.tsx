@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import Icon from '../../shared/ui/Icon/Icon';
 import ModalLayout from '../../shared/ui/Modal/ModalLayout/ModalLayout';
 import AlertTwoButton from '../../shared/ui/Modal/Alert/AlertTwoButton';
+import { useNavigate } from 'react-router-dom';
 
-const Option = ({ style }: { style: string }) => {
+const Option = ({ style, id }: { style?: string; id: number }) => {
   const [isClick, setIsClick] = useState(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleDeleteClick = () => {
     setIsOpen(true);
@@ -45,7 +47,10 @@ const Option = ({ style }: { style: string }) => {
           ref={ref}
           className="flex flex-col justify-center items-center gap-2 p-2 rounded-xl border-[0.2px] border-[rgba(208,208,208,0.43)] absolute top-[52px] right-[12px]"
         >
-          <p className="px-5 py-3 text-[15px] font-normal leading-[20px] tracking-[-0.23px] cursor-pointer">
+          <p
+            onClick={() => navigate(`/owner/lost-modify/${id}`)}
+            className="px-5 py-3 text-[15px] font-normal leading-[20px] tracking-[-0.23px] cursor-pointer"
+          >
             수정
           </p>
           <p
