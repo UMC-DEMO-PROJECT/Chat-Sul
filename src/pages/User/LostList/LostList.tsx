@@ -1,9 +1,9 @@
-import LostList from '../../../components/Lost/Lostlist';
-import TopBar from '../../../shared/ui/TopBar/TopBar';
+import LostList from 'components/Lost/Lostlist';
+import TopBar from 'shared/ui/TopBar/TopBar';
 import { useNavigate } from 'react-router-dom';
-import LostInput from '../../../components/Lost/LostInput';
+import LostInput from 'components/Lost/LostInput';
 import { useState } from 'react';
-import useDebounce from '../../../hooks/useDebounce';
+import useDebounce from 'hooks/useDebounce';
 
 const LostListPage = () => {
   const navigate = useNavigate();

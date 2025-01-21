@@ -1,7 +1,7 @@
-import Input from '../../shared/ui/Input/Input';
+import Input from 'shared/ui/Input/Input';
+import Icon from 'shared/ui/Icon/Icon';
 import { ChangeEvent, KeyboardEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Icon from '../../shared/ui/Icon/Icon';
 
 const LostInput = ({
   setSearchValue,
