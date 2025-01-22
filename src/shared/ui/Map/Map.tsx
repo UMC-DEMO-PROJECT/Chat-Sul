@@ -10,6 +10,26 @@ interface Location {
   };
 }
 
+/**
+ * Map 컴포넌트
+ *
+ * Map을 사용하기 위한 Map Component 입니다.
+ *
+ * @param {Location[]} locations
+ * @param {Object} locations.Location
+ * @param {string} locations.Location.name
+ * @param {Object} locations.Location.coordinates
+ * @param {number} locations.Location.coordinates.lat
+ * @param {number} locations.Location.coordinates.lng
+ *
+ */
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 interface MapProps {
   locations: Location[]; // 지도에 표시할 위치 목록
 }
@@ -64,7 +84,7 @@ const Map = ({ locations }: MapProps) => {
   return (
     <div
       id="map"
-      style={{ width: '100%', height: '400px', border: '1px solid #ddd' }}
+      className="w-full h-[400px] border border-solid border-[#ddd]"
     ></div>
   );
 };
