@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import LostInput from 'components/Lost/LostInput';
 import { useState } from 'react';
 import useDebounce from 'hooks/useDebounce';
-import Pagination from 'components/Lost/Page';
+import Pagination from 'components/Lost/Pagination';
 
 const LostListPage = () => {
   const navigate = useNavigate();
