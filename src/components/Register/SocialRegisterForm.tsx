@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { PostSocialRegister } from 'shared/api/membersApi';
 import Button from 'shared/ui/Button/button';
 import Input from 'shared/ui/Input/Input';
 
 const SocialRegisterForm = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = {
@@ -12,7 +13,15 @@ const SocialRegisterForm = () => {
     };
 
     console.log(formData);
+
+    try {
+      const response = await PostSocialRegister(formData);
+      console.log('response:', response);
+    } catch (error) {
+      console.error('회원가입 실패', error);
+    }
   };
+
   const [nameValue, setNameValue] = useState('');
   const [phoneValue, setPhoneValue] = useState('');
 
