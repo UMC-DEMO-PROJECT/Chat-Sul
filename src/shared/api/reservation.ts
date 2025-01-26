@@ -16,7 +16,8 @@ export const PostReservation = async (
   try {
     const response = await axiosInstance.post(
       `/reservation/${venueId}`,
-      reservationData
+      reservationData,
+      { headers: { Authorization: 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6' } }
     );
     return response.data;
   } catch (error) {

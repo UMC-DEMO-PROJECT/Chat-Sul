@@ -1,38 +1,55 @@
-import { useState } from 'react';
 import Calendar from 'react-calendar';
 import './Calendar.css';
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+import { useMemo } from 'react';
+import { Value } from '../types/types';
+
+// ISOString은 9시간을 잃어버림.
+// ISOString을 사용하기 위해 offset을 더해준다.
+const parsingBeforetoISOString = (date: Date) => {
+  const offset = date.getTimezoneOffset() / 60;
+  const dateOffset = new Date(date);
+  dateOffset.setHours(date.getHours() - offset);
+  return dateOffset;
+};
+
 // 예약된 날짜 예시
-const reservedDates = [
-  '2025-01-03',
-  '2025-01-06',
-  '2025-01-10', // 예약이 끝난 날짜 배열
-];
-function CustomCalendar() {
-  const [value, onChange] = useState<Value>(null);
-  // 내일 할 거 버튼이 눌리면 그 안에 시간이 펼쳐지게
-  // 예약된 시간이 있다면 흰색으로 표시
-  // 시나리오는 버튼을 누르면
-  if (value instanceof Date) {
-    console.log(value);
-  }
+const reservedDates = ['2025-02-03', '2025-02-06', '2025-02-10'];
+interface CustomCalendarProps {
+  reservedDate: string | null;
+  setReservationDate: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const CustomCalendar = ({
+  reservedDate,
+  setReservationDate,
+}: CustomCalendarProps) => {
+  const parsedDate = useMemo(() => {
+    return reservedDate ? new Date(reservedDate) : null;
+  }, [reservedDate]);
+
+  const handleDateChange = (value: Value) => {
+    // 단일 Date만 처리
+    if (value instanceof Date) {
+      const dateOffset = parsingBeforetoISOString(value);
+
+      const dateString = dateOffset.toISOString().split('T')[0];
+      setReservationDate(dateString);
+    }
+  };
+
   return (
     <>
       <Calendar
         locale="ko-KR"
-        onChange={onChange}
-        value={value}
+        onChange={handleDateChange}
+        value={parsedDate}
         calendarType="gregory" // 일요일부터 시작
         minDetail="month"
         maxDetail="month"
         prev2Label={null}
         next2Label={null}
         tileDisabled={({ date }) => {
-          const offset = date.getTimezoneOffset() / 60;
-          const dateOffset = new Date(date);
-          dateOffset.setHours(date.getHours() - offset);
-
+          const dateOffset = parsingBeforetoISOString(date);
           const today = new Date();
           const isPast = date < new Date(today.setHours(0, 0, 0, 0));
           const isReserved = reservedDates.includes(
@@ -41,9 +58,7 @@ function CustomCalendar() {
           return isPast || isReserved; // 과거 날짜 또는 예약된 날짜 비활성화
         }}
         tileClassName={({ date }) => {
-          const offset = date.getTimezoneOffset() / 60;
-          const dateOffset = new Date(date);
-          dateOffset.setHours(date.getHours() - offset);
+          const dateOffset = parsingBeforetoISOString(date);
 
           const today = new Date();
           const isReserved = reservedDates.includes(
@@ -51,13 +66,12 @@ function CustomCalendar() {
           );
           const isPast: boolean = date < new Date(today.setHours(0, 0, 0, 0));
 
-          // 조건에 따라 클래스 추가
           if (isPast) return 'past';
           if (isReserved) return 'reserved';
           if (
-            value instanceof Date &&
+            parsedDate &&
             dateOffset.toISOString().split('T')[0] ===
-              value.toISOString().split('T')[0]
+              parsedDate.toISOString().split('T')[0]
           ) {
             return 'selected';
           }
@@ -79,10 +93,10 @@ function CustomCalendar() {
         formatDay={(_locale, date) =>
           date.toLocaleString('en', { day: 'numeric' })
         }
-        className="customCalendar w-full " // 여기서 .customCalendar에 대한 CSS를 작성
+        className="customCalendar w-full "
       />
     </>
   );
-}
+};
 
 export default CustomCalendar;
