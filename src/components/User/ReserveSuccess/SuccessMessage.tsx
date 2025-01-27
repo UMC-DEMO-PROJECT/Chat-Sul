@@ -15,7 +15,7 @@ const SuccessMessage = () => {
       <div className="flex justify-center">
         <img src="/icons/check-one.svg" />
       </div>
-      <p className="text-center text-black text-[22px] font-bold leading-7 mt-6">
+      <p className="textcenter text-black text-[22px] font-bold leading-7 mt-6">
         예약이 완료되었습니다.
       </p>
       <p className=" text-center text-[#8e8e93] text-xs font-normal leading-none">

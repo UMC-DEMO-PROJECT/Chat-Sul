@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Menu from './Menu';
 
 // props의 타입 정의
@@ -36,19 +35,21 @@ const createTimeTable = (startTime: string, endTime: string): string[] => {
 const timeTable = createTimeTable('18:00', '24:00'); // 이것도 요청으로 받아야하나?
 const reservedTime = ['20:00', '21:00']; // 이건 API요청으로 받아야함
 
-const DropDown = () => {
-  const [timeToReserve, setTimeToReserve] = useState<string>(''); // 이건 form에 있는게 맞음
-
+interface DropDownProps {
+  reservationTime: string | null;
+  setReservationTime: React.Dispatch<React.SetStateAction<string | null>>;
+}
+const DropDown = ({ reservationTime, setReservationTime }: DropDownProps) => {
   return (
     <div className="w-full h-80 p-2 bg-white border-b border-black flex-col justify-start items-start gap-2 inline-flex overflow-auto">
       {timeTable.map((time, index) => (
         <Menu
           key={index}
           text={time}
-          isSelected={timeToReserve === time}
+          isSelected={reservationTime === time}
           isReserved={reservedTime.includes(time)}
           onClick={(e) => {
-            setTimeToReserve(e.currentTarget.name);
+            setReservationTime(e.currentTarget.name);
           }}
         />
       ))}
