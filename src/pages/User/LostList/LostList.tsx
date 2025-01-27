@@ -1,9 +1,10 @@
-import LostList from '../../../components/Lost/Lostlist';
-import TopBar from '../../../shared/ui/TopBar/TopBar';
+import LostList from 'components/Lost/Lostlist';
+import TopBar from 'shared/ui/TopBar/TopBar';
 import { useNavigate } from 'react-router-dom';
-import LostInput from '../../../components/Lost/LostInput';
+import LostInput from 'components/Lost/LostInput';
 import { useState } from 'react';
-import useDebounce from '../../../hooks/useDebounce';
+import useDebounce from 'hooks/useDebounce';
+import Pagination from 'components/Lost/Pagination';
 
 const LostListPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const LostListPage = () => {
   const useDebouncedValue = useDebounce(mq, 500);
 
   return (
-    <div className="flex flex-col justify-center items-center ">
+    <div className="flex flex-col items-center h-full relative">
       <TopBar
         title="분실물"
         onFirstClick={() => navigate('/')}
@@ -20,6 +21,9 @@ const LostListPage = () => {
       <div className="flex flex-col justify-center items-center mt-[25px] ">
         <LostInput setSearchValue={setMq} />
         <LostList who="user" searchValue={useDebouncedValue} />
+      </div>
+      <div className="absolute bottom-[16px]">
+        <Pagination />
       </div>
     </div>
   );
