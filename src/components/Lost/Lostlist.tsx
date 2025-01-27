@@ -6,6 +6,7 @@ import Icon from 'shared/ui/Icon/Icon';
 interface ILostItem {
   id: number;
   title: string;
+  content: string;
   date: string;
   state: boolean;
 }
@@ -35,6 +36,7 @@ const LostList = ({
             <Post
               key={lost.id}
               title={lost.title}
+              content={lost.content}
               onClick={() => {
                 handleClick(lost.id);
               }}
