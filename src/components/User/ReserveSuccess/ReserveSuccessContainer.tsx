@@ -38,8 +38,6 @@ const ReserveSuccessContainer = () => {
     location.state.reservationDate,
     location.state.reservationTime
   );
-  console.log(location.state.reservationDate);
-  console.log(location.state.reservationTime);
   return (
     <>
       <TopBar title="시오" onFirstClick={() => {}} />

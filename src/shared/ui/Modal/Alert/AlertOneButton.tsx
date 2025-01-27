@@ -13,7 +13,7 @@ interface AlertProps {
   onClick: () => void;
   children: React.ReactNode;
   buttonMessage: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const AlertOneButton = ({
