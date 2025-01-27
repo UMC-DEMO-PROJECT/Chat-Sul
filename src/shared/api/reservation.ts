@@ -1,28 +1,23 @@
 import axios from 'axios';
 import { axiosInstance } from './common/axiosInstance';
 
-export const PostReservation = async (
-  venueId: number,
+export const PostReservation = (
+  venueId: string | undefined,
   reservationData: {
     reservationName: string;
-    userId: number;
     phoneNumber: string;
-    reservationData: string;
+    reservationDate: string;
     reservationTime: string;
     numberOfGuests: number;
     depositorName: string;
   }
 ) => {
-  try {
-    const response = await axiosInstance.post(
-      `/reservation/${venueId}`,
-      reservationData
-    );
-    return response.data;
-  } catch (error) {
-    console.error('예약 실패', error);
-    throw error;
-  }
+  const token = localStorage.getItem('token');
+  return axiosInstance.post(`/reservation/${venueId}`, reservationData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const GetReservation = async (userId: number, page: number) => {
