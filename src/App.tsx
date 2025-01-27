@@ -13,7 +13,9 @@ import LostItemPage_Owner from './pages/Owner/LostItem/LostItem_Owner';
 import Validate from './pages/Validate/Validate';
 import ReserveListContainer from './components/Owner/ReserveList/ReserveList
 import LostModifyPage from './pages/Owner/LostModify/LostModify';
+import SocialRegister from './pages/Register/SocialRegister/SocialRegister';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -45,7 +47,10 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/register" element={<Register />} />
+            <Route path="/register">
+              <Route index element={<Register />} />
+              <Route path="social" element={<SocialRegister />} />
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/validate" element={<Validate />} />
             <Route path="/user">

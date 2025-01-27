@@ -27,3 +27,19 @@ export const PostRegister = async (registerData: {
     throw error;
   }
 };
+
+export const PostSocialRegister = async (socialRegisterData: {
+  name: string;
+  phoneNumber: string;
+}) => {
+  try {
+    const response = await axiosInstance.post(
+      '/members/signup/social',
+      socialRegisterData
+    );
+    return response.data;
+  } catch (error) {
+    console.error('회원가입 실패', error);
+    throw error;
+  }
+};
