@@ -1,4 +1,4 @@
-import ReserveFormContainer from '../../../components/User/ReserveForm/ReserveFormContainer';
+import ReserveFormContainer from '../../../components/User/ReserveForm/ui/ReserveFormContainer';
 
 const ReserveForm = () => {
   return <ReserveFormContainer />;

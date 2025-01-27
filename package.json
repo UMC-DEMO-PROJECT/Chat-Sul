@@ -11,6 +11,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.64.2",
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
     "react": "^19.0.0",

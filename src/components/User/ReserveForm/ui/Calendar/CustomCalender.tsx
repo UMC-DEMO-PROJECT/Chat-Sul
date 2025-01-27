@@ -1,7 +1,7 @@
 import Calendar from 'react-calendar';
 import './Calendar.css';
 import { useMemo } from 'react';
-import { Value } from '../types/types';
+import { Value } from '../../types/types';
 
 // ISOString은 9시간을 잃어버림.
 // ISOString을 사용하기 위해 offset을 더해준다.

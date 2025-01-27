@@ -12,6 +12,7 @@ import LostListPage_Owner from './pages/Owner/LostList/LostList_Owner';
 import LostItemPage_Owner from './pages/Owner/LostItem/LostItem_Owner';
 import Validate from './pages/Validate/Validate';
 import LostModifyPage from './pages/Owner/LostModify/LostModify';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -35,36 +36,40 @@ import LostModifyPage from './pages/Owner/LostModify/LostModify';
  *
  */
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/validate" element={<Validate />} />
-          <Route path="/user">
-            <Route index element={<App />} />
-            <Route path="shop" element={<App />} />
-            <Route path="reserve-list" element={<ReserveList />} />
-            <Route path="reserve-form" element={<ReserveForm />} />
-            <Route path="reserve-success" element={<ReserveSuccess />} />
-            <Route path="menu" element={<App />} />
-            <Route path="lost-list" element={<LostListPage />} />
-            <Route path="lost-item/:id" element={<LostItemPage />} />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/validate" element={<Validate />} />
+            <Route path="/user">
+              <Route index element={<App />} />
+              <Route path="shop" element={<App />} />
+              <Route path="reserve-list" element={<ReserveList />} />
+              <Route path="reserve-form/:id" element={<ReserveForm />} />
+              <Route path="reserve-success" element={<ReserveSuccess />} />
+              <Route path="menu" element={<App />} />
+              <Route path="lost-list" element={<LostListPage />} />
+              <Route path="lost-item/:id" element={<LostItemPage />} />
+            </Route>
+            <Route path="/owner">
+              <Route index element={<App />} />
+              <Route path="shop" element={<App />} />
+              <Route path="reserve" element={<App />} />
+              <Route path="lost-list" element={<LostListPage_Owner />} />
+              <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
+              <Route path="lost-form" element={<LostWritingPage />} />
+              <Route path="lost-modify/:id" element={<LostModifyPage />} />
+            </Route>
           </Route>
-          <Route path="/owner">
-            <Route index element={<App />} />
-            <Route path="shop" element={<App />} />
-            <Route path="reserve" element={<App />} />
-            <Route path="lost-list" element={<LostListPage_Owner />} />
-            <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
-            <Route path="lost-form" element={<LostWritingPage />} />
-            <Route path="lost-modify/:id" element={<LostModifyPage />} />
-          </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 
