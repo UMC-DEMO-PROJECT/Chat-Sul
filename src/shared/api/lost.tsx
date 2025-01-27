@@ -27,3 +27,16 @@ export const DeleteLost = async (lostItemId: number) => {
   console.log('상세 게시글 삭제하기 성공 : ', response);
   return response.data;
 };
+
+export const PatchLost = async (lostItemId: number) => {
+  const response = await axiosInstance.patch(
+    `/lost-item/business/${lostItemId}/status`
+  );
+  console.log('분실물 수취상태 변경 성공 : ', response);
+  return response.data;
+};
+
+export const GetUserLostList = async ({ page }: { page: number }) => {
+  const response = await axiosInstance.get(`/lost-item/member/list/${page}`);
+  return response.data;
+};
