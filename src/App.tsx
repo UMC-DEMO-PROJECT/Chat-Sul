@@ -16,7 +16,6 @@ import SocialRegister from './pages/Register/SocialRegister/SocialRegister';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReserveList_Owner from './pages/Owner/Reserve/ReserveList_Owner';
 
-
 /**
  * '/' : Landing Page, 지도 표시
  * '/register' : 회원 가입
@@ -47,11 +46,11 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route index element={<Login />} />
             <Route path="/register">
               <Route index element={<Register />} />
               <Route path="social" element={<SocialRegister />} />
             </Route>
-            <Route path="/login" element={<Login />} />
             <Route path="/validate" element={<Validate />} />
             <Route path="/user">
               <Route index element={<App />} />

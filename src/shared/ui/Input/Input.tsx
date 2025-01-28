@@ -14,7 +14,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   title: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   width?: string;
 }
 
@@ -22,7 +21,6 @@ const Input = ({
   placeholder,
   title,
   value,
-  onChange,
   width = '354px',
   ...props
 }: PropsWithChildren<InputProps>) => {
@@ -38,7 +36,6 @@ const Input = ({
           <input
             className={`flex w-full items-center self-stretch py-4 pl-4 pr-5 bg-white border-[#000000] border-b-[0.6px] border-solid text-[17px] focus:outline-none `}
             placeholder={placeholder}
-            onChange={onChange}
             value={value}
             {...props}
           />
