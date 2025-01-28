@@ -89,10 +89,10 @@ const LoginForm = () => {
       </form>
 
       <div className="flex text-[11px] mt-4">
-        <p> 계정이 없으신가요? </p>
+        <p className="text-[#8E8E93] text-[11px]"> 계정이 없으신가요? </p>
         <p
           onClick={handleRegisterClick}
-          className="px-3 text-dongguk cursor-pointer"
+          className="px-3 text-dongguk cursor-pointer font-semibold"
         >
           계정 만들기
         </p>
