@@ -11,11 +11,10 @@ import ReserveForm from './pages/User/ReserveForm/ReserveForm';
 import LostListPage_Owner from './pages/Owner/LostList/LostList_Owner';
 import LostItemPage_Owner from './pages/Owner/LostItem/LostItem_Owner';
 import Validate from './pages/Validate/Validate';
-import ReserveListContainer from './components/Owner/ReserveList/ReserveList
+// import ReserveListContainer from './components/Owner/ReserveList/ReserveList;
 import LostModifyPage from './pages/Owner/LostModify/LostModify';
 import SocialRegister from './pages/Register/SocialRegister/SocialRegister';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -66,7 +65,7 @@ const App = () => {
             <Route path="/owner">
               <Route index element={<App />} />
               <Route path="shop" element={<App />} />
-              <Route path="reserve-list" element={<ReserveListContainer />} />
+              {/* <Route path="reserve-list" element={<ReserveListContainer />} /> */}
               <Route path="lost-list" element={<LostListPage_Owner />} />
               <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
               <Route path="lost-form" element={<LostWritingPage />} />
