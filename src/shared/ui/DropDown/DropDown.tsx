@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 // props의 타입 정의
 interface DropDownProps {
@@ -7,7 +7,7 @@ interface DropDownProps {
 }
 
 const DropDown = ({ options, onSelect }: DropDownProps): JSX.Element => {
-  const [selected, setSelected] = useState<string>("");
+  const [selected, setSelected] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
