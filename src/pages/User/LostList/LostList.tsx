@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import LostInput from 'components/Lost/LostInput';
 import { useState } from 'react';
 import useDebounce from 'hooks/useDebounce';
-import Pagination from 'components/Lost/Pagination';
 
 const LostListPage = () => {
   const navigate = useNavigate();
@@ -21,9 +20,6 @@ const LostListPage = () => {
       <div className="flex flex-col justify-center items-center mt-[25px] ">
         <LostInput setSearchValue={setMq} />
         <LostList who="user" searchValue={useDebouncedValue} />
-      </div>
-      <div className="absolute bottom-[16px]">
-        <Pagination />
       </div>
     </div>
   );

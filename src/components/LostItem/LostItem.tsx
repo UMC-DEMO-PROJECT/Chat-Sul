@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 import LostItemData from '../../shared/api/mock/LostItemData';
+// import { useQuery } from '@tanstack/react-query';
+// import { GetLostDetail } from 'shared/api/lost';
 
 type TLostItem = {
   id: number;
@@ -15,6 +17,22 @@ const LostItem = () => {
   const { id } = useParams();
   const ItemId = Number(id);
   const item = LostItemData.find((item: TLostItem) => item.id === ItemId);
+
+  // const {
+  //   data: item,
+  //   isPending,
+  //   isError,
+  // } = useQuery({
+  //   queryFn: () => GetLostDetail(ItemId),
+  //   queryKey: ['contents', ItemId],
+  // });
+
+  // if (isPending) {
+  //   return <p>로딩중</p>;
+  // }
+  // if (isError) {
+  //   return <p>에러</p>;
+  // }
 
   return (
     <div className="flex flex-col gap-4 w-[300px] mx-auto">

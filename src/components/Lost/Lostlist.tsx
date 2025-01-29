@@ -2,10 +2,15 @@ import LostListData from 'shared/api/mock/LostListData';
 import Post from 'shared/ui/Post/Post';
 import { useNavigate } from 'react-router-dom';
 import Icon from 'shared/ui/Icon/Icon';
+// import { useQuery } from '@tanstack/react-query';
+// import { useGetInfiniteLostList } from 'hooks/useGetInfiniteLostList';
+// import { useInView } from 'react-intersection-observer';
+// import { useEffect } from 'react';
 
 interface ILostItem {
   id: number;
   title: string;
+  content: string;
   date: string;
   state: boolean;
 }
@@ -22,6 +27,35 @@ const LostList = ({
     navigate(`/${who}/lost-item/${id}`);
   };
 
+  // const {
+  //   data: losts,
+  //   isPending,
+  //   isError,
+  //   isFetching,
+  //   hasNextPage,
+  //   fetchNextPage,
+  // } = useQuery({
+  //   queryFn: () => useGetInfiniteLostList(),
+  //   queryKey: ['losts'],
+  // });
+
+  // const { ref, inView } = useInView({
+  //   threshold: 0,
+  // });
+
+  // useEffect(() => {
+  //   if (inView && !isFetching && hasNextPage) {
+  //     fetchNextPage();
+  //   }
+  // }, [inView, isFetching, hasNextPage, fetchNextPage]);
+  //
+  // if (isPending) {
+  //   return <p>로딩중</p>;
+  // }
+  // if (isError) {
+  //   return <p>에러</p>;
+  // }
+
   const filteredLostList = LostListData.filter((lost: ILostItem) =>
     searchValue
       ? lost.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -35,6 +69,7 @@ const LostList = ({
             <Post
               key={lost.id}
               title={lost.title}
+              content={lost.content}
               onClick={() => {
                 handleClick(lost.id);
               }}
@@ -51,6 +86,7 @@ const LostList = ({
           </p>
         </div>
       )}
+      {/* <div ref={ref}>{isFetching}</div> */}
     </div>
   );
 };

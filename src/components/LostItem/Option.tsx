@@ -3,6 +3,7 @@ import Icon from '../../shared/ui/Icon/Icon';
 import ModalLayout from '../../shared/ui/Modal/ModalLayout/ModalLayout';
 import AlertTwoButton from '../../shared/ui/Modal/Alert/AlertTwoButton';
 import { useNavigate } from 'react-router-dom';
+import { DeleteLost } from 'shared/api/lost';
 
 const Option = ({ style, id }: { style?: string; id: number }) => {
   const [isClick, setIsClick] = useState(false);
@@ -17,8 +18,14 @@ const Option = ({ style, id }: { style?: string; id: number }) => {
     setIsOpen(false);
   };
 
-  const handleModalDeleteClick = () => {
-    setIsOpen(false);
+  const handleModalDeleteClick = async () => {
+    try {
+      setIsOpen(false);
+      await DeleteLost(id);
+      navigate('/owner/lost-list');
+    } catch (error) {
+      console.log('삭제 실패 : ', error);
+    }
   };
 
   useEffect(() => {
