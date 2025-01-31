@@ -1,13 +1,17 @@
 import AlertTwoButton from '../../../shared/ui/Modal/Alert/AlertTwoButton';
 
 interface AlertContainerProps {
-  alertType: 'confirmed' | 'watingConfirmation' | 'waitingDeposit';
+  alertType:
+    | 'CONFIRMED'
+    | 'WAITING_CONFIRMATION'
+    | 'WAITING_DEPOSIT'
+    | 'CANCELLED';
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AlertContainer = ({ alertType, setIsOpen }: AlertContainerProps) => {
   // 계좌번호 서버에서 요청 받아야함
-  if (alertType === 'confirmed') {
+  if (alertType === 'CONFIRMED') {
     return (
       <AlertTwoButton
         btnMessage1="돌아가기"
@@ -21,7 +25,7 @@ const AlertContainer = ({ alertType, setIsOpen }: AlertContainerProps) => {
       </AlertTwoButton>
     );
   }
-  if (alertType === 'watingConfirmation') {
+  if (alertType === 'WAITING_CONFIRMATION') {
     return (
       <AlertTwoButton
         btnMessage1="뒤로가기"
@@ -39,7 +43,7 @@ const AlertContainer = ({ alertType, setIsOpen }: AlertContainerProps) => {
       </AlertTwoButton>
     );
   }
-  if (alertType === 'waitingDeposit') {
+  if (alertType === 'WAITING_DEPOSIT') {
     return (
       <AlertTwoButton
         btnMessage1="거절하기"
