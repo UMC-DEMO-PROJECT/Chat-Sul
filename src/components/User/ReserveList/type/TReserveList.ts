@@ -1,22 +1,46 @@
-export type TAlertType =
+export type TDataStatus =
   | 'CONFIRMED'
   | 'WAITING_CONFIRMATION'
   | 'WAITING_DEPOSIT'
   | 'CANCELLED';
 
+export type TAlertType =
+  | 'CONFIRMED'
+  | 'WAITING_CONFIRMATION'
+  | 'WAITING_DEPOSIT'
+  | 'CANCELLED'
+  | 'RESERVATION_CANCEL'
+  | 'RESERVATION_CANCEL_FAIL';
+
 export interface TSetIsOpen {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface TAlertContainerProps extends TSetIsOpen {
-  alertType: TAlertType;
+export type THandleModalOpen = (
+  alertType: TAlertType,
+  reservationId?: number
+) => void;
+
+export interface ReserVationCancelAlertProps extends TSetIsOpen {
+  reservationId: number;
+  handleModalOpen: THandleModalOpen;
 }
 
-export interface TReserveListResponse {
+export interface WaitingDepositProps extends TSetIsOpen {
+  reservationId: number;
+}
+
+export interface AlertContainerProps extends TSetIsOpen {
+  alertType: TAlertType;
+  handleModalOpen: (alertType: TAlertType, reservationId?: number) => void;
+  reservationId: number;
+}
+
+export interface IReserveListResponse {
   numberOfGuests: number;
   reservationDate: string;
   reservationId: number;
   reservationTime: string;
-  status: TAlertType;
+  status: TDataStatus;
   venueName: string;
 }

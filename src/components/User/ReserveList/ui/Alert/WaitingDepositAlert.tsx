@@ -1,12 +1,16 @@
 import AlertOneButton from 'shared/ui/Modal/Alert/AlertOneButton';
-import { TSetIsOpen } from '../../type/TReserveList';
-// import { useQuery } from '@tanstack/react-query';
-// import { GetReservationAccountInfo } from 'shared/api/reservation';
+import { useQuery } from '@tanstack/react-query';
+import { GetReservationAccountInfo } from 'shared/api/reservation';
+import { WaitingDepositProps } from '../../type/TReserveList';
 
-const WaitingDepositAlert = ({ setIsOpen }: TSetIsOpen) => {
-  // const depoitInfo = useQuery({
-  //   queryFn: ()=> GetReservationAccountInfo(),
-  // });
+const WaitingDepositAlert = ({
+  setIsOpen,
+  reservationId,
+}: WaitingDepositProps) => {
+  const { data, isError, isLoading } = useQuery({
+    queryKey: [`account-${reservationId}`],
+    queryFn: () => GetReservationAccountInfo(reservationId),
+  });
   return (
     <AlertOneButton
       buttonMessage="확인"
@@ -23,7 +27,9 @@ const WaitingDepositAlert = ({ setIsOpen }: TSetIsOpen) => {
           <br />
         </p>
         <p className="text-black text-base font-bold leading-[21px]">
-          계좌번호: 하나 21512521514
+          {isError && '서버와의 연결이 불안정합니다.'}
+          {isLoading && '계좌번호 가져오는 중'}
+          {data?.result.bank}
         </p>
       </div>
     </AlertOneButton>

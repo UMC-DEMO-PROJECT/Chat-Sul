@@ -22,9 +22,22 @@ export const PostReservation = (
 
 export const GetReservation = async (pageParam: number) => {
   const accessToken = localStorage.getItem('accessToken');
-  const response = await axiosInstance.get('/reservation/list', {
+  const response = await axiosInstance.get(`/reservation/list`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     params: { page: pageParam },
+  });
+  return response.data;
+};
+
+export const GetOwnerReservation = async (
+  pageParam: number,
+  status: string,
+  venueId: number
+) => {
+  const accessToken = localStorage.getItem('accessToken');
+  const response = await axiosInstance.get(`/reservation/list/${venueId}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    params: { page: pageParam, status },
   });
   return response.data;
 };
@@ -45,10 +58,28 @@ export const DeleteReservation = async (
   }
 };
 
-export const GetReservationAccountInfo = async (reservationId: string) => {
+export const GetReservationAccountInfo = async (reservationId: number) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.get(
     `/reservation/${reservationId}/account-info`,
-    {}
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const PatchReservationCancel = async (reservationId: number) => {
+  const accessToken = localStorage.getItem('accessToken');
+  const response = await axiosInstance.patch(
+    `/reservation/cancel/${reservationId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   return response.data;
 };
