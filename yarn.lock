@@ -481,7 +481,8 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.64.2.tgz#be06e7c7966d14ea3e7c82bea1086b463f2f6809"
   integrity sha512-hdO8SZpWXoADNTWXV9We8CwTkXU88OVWRBcsiFrk7xJQnhm6WRlweDzMD+uH+GnuieTBVSML6xFa17C2cNV8+g==
 
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
+=========
 "@tanstack/query-devtools@5.64.2":
   version "5.64.2"
   resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.64.2.tgz#3d8f8abb17815a7302482b67713cb933c79ed6ba"
@@ -494,8 +495,7 @@
   dependencies:
     "@tanstack/query-devtools" "5.64.2"
 
-=======
->>>>>>> 7349ea84381b5c5d94eb2fef3d3ba2028d36647b
+>>>>>>>>> Temporary merge branch 2
 "@tanstack/react-query@^5.64.2":
   version "5.64.2"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.64.2.tgz#199c8a5a8ff92a8565f8cdd378747398347512a2"

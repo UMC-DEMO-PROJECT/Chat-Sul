@@ -10,14 +10,9 @@
     "preview": "vite preview",
     "format": "prettier --write ."
   },
-<<<<<<< HEAD
   "dependencies": {
     "@tanstack/react-query": "^5.64.2",
     "@tanstack/react-query-devtools": "^5.64.2",
-=======
-  "dependencies": 
-    "@tanstack/react-query": "^5.64.2",
->>>>>>> 7349ea84381b5c5d94eb2fef3d3ba2028d36647b
     "@types/node": "^22.10.7",
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
