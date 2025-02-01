@@ -46,10 +46,7 @@ const Main = () => {
           const currentPosition = new kakao.maps.LatLng(latitude, longitude);
 
           // 지도 중심을 내 위치로 이동
-          if (map) {
-            map.setCenter(currentPosition);
-          }
-
+          new kakao.maps.setCenter(currentPosition);
           // 내 위치 마커 표시
           const marker = new kakao.maps.Marker({
             position: currentPosition,
