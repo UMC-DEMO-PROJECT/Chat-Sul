@@ -18,7 +18,8 @@ export interface TSetIsOpen {
 
 export type THandleModalOpen = (
   alertType: TAlertType,
-  reservationId?: number
+  reservationId?: number,
+  phone?: string
 ) => void;
 
 export interface ReserVationCancelAlertProps extends TSetIsOpen {
@@ -34,6 +35,11 @@ export interface AlertContainerProps extends TSetIsOpen {
   alertType: TAlertType;
   handleModalOpen: (alertType: TAlertType, reservationId?: number) => void;
   reservationId: number;
+  phone: string;
+}
+
+export interface ReservationCancelFailAlertProps extends TSetIsOpen {
+  phone: string;
 }
 
 export interface IReserveListResponse {

@@ -71,15 +71,11 @@ export const GetReservationAccountInfo = async (reservationId: number) => {
   return response.data;
 };
 
-export const PatchReservationCancel = async (reservationId: number) => {
+export const PatchReservationCancel = (reservationId: number) => {
   const accessToken = localStorage.getItem('accessToken');
-  const response = await axiosInstance.patch(
-    `/reservation/cancel/${reservationId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
-  return response.data;
+  return axiosInstance.patch(`/reservation/cancel/${reservationId}`, null, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 };

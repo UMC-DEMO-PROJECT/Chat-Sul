@@ -18,7 +18,7 @@ const ReserveListContainer = () => {
   const [alertType, setAlertType] = useState<TAlertType>('CONFIRMED');
   const [selectedReservationId, setSelectedReservationId] =
     useState<number>(-1);
-
+  const [phone, setPhone] = useState<string>('');
   const [ref, inView] = useInView();
 
   // isError는 어떻게 처리할 지 회의 필요
@@ -45,8 +45,15 @@ const ReserveListContainer = () => {
     }
   }, [inView, hasNextPage]);
 
-  const handleModalOpen: THandleModalOpen = (alertType, reservationId) => {
+  const handleModalOpen: THandleModalOpen = (
+    alertType,
+    reservationId,
+    phone
+  ) => {
     setAlertType(alertType);
+    if (phone) {
+      setPhone(phone);
+    }
     if (reservationId) {
       setSelectedReservationId(reservationId);
     }
@@ -91,6 +98,7 @@ const ReserveListContainer = () => {
           setIsOpen={setIsOpen}
           handleModalOpen={handleModalOpen}
           reservationId={selectedReservationId}
+          phone={phone}
         />
       </ModalLayout>
     </>

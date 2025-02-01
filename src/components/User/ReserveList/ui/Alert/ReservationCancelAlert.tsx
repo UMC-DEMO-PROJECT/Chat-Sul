@@ -8,20 +8,23 @@ const ResrvationCancelAlert = ({
   handleModalOpen,
   reservationId,
 }: ReserVationCancelAlertProps) => {
-  const { data, mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: () => PatchReservationCancel(reservationId),
-    onSuccess: () => {
-      //성공했을 때 여기서 서버요청의 결과에 따라
-      // 서버 요청 성공인데 취소 불가능인 경우handleModalOpen('RESERVATION_CANCEL_FAIL');
-      // 서버 요청 성공인데 취소 가능한 경우 setIsOpen(false);
-      // 로딩 시 로딩중인거 어떻게 넣을까
+    onSuccess: ({ data }) => {
+      if (data.isSuccess == false) {
+        handleModalOpen(
+          'RESERVATION_CANCEL_FAIL',
+          undefined,
+          data.result.phone
+        );
+      } else {
+        setIsOpen(true);
+      }
     },
     onError: () => {
-      // 에러처리는 어떻게 할지 고민.
+      alert('서버와의 연결이 불안정합니다');
     },
   });
-  console.log(data);
-  // 돌아가기
   return (
     <AlertTwoButton
       btnMessage1="돌아가기"

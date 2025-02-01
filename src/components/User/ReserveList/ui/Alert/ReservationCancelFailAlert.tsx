@@ -1,8 +1,17 @@
 import AlertOneButton from 'shared/ui/Modal/Alert/AlertOneButton';
+import { ReservationCancelFailAlertProps } from '../../type/TReserveList';
 
-const ReservationCancelFailAlert = () => {
+const ReservationCancelFailAlert = ({
+  phone,
+  setIsOpen,
+}: ReservationCancelFailAlertProps) => {
   return (
-    <AlertOneButton buttonMessage="확인" onClick={() => {}}>
+    <AlertOneButton
+      buttonMessage="확인"
+      onClick={() => {
+        setIsOpen(false);
+      }}
+    >
       <div className=" text-center">
         <p className="text-[#8e8e93] text-base font-normal leading-[21px]">
           예약 취소 실패.
@@ -11,7 +20,7 @@ const ReservationCancelFailAlert = () => {
           <br />
           세부 사항은 가게 전화를 이용해주세요.
           <br />
-          전화번호: 010-1234-5678
+          전화번호: {phone}
           <br />
         </p>
       </div>

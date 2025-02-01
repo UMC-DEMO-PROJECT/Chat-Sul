@@ -9,6 +9,7 @@ const AlertContainer = ({
   setIsOpen,
   handleModalOpen,
   reservationId,
+  phone,
 }: AlertContainerProps) => {
   if (alertType === 'CONFIRMED') {
     return <ConfirmedAlert />;
@@ -23,7 +24,7 @@ const AlertContainer = ({
     );
   }
   if (alertType === 'RESERVATION_CANCEL_FAIL') {
-    return <ReservationCancelFailAlert />;
+    return <ReservationCancelFailAlert phone={phone} setIsOpen={setIsOpen} />;
   }
   if (alertType === 'WAITING_DEPOSIT') {
     return (
