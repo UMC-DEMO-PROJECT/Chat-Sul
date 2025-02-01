@@ -15,6 +15,8 @@ import LostModifyPage from './pages/Owner/LostModify/LostModify';
 import SocialRegister from './pages/Register/SocialRegister/SocialRegister';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReserveList_Owner from './pages/Owner/Reserve/ReserveList_Owner';
+import UserShop from './pages/User/Shop/userShop';
+import OwnerShop from './pages/Owner/Shop/OwnerShop';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -54,7 +56,7 @@ const App = () => {
             <Route path="/validate" element={<Validate />} />
             <Route path="/user">
               <Route index element={<App />} />
-              <Route path="shop" element={<App />} />
+              <Route path="shop" element={<UserShop />} />
               <Route path="reserve-list" element={<ReserveList />} />
               <Route path="reserve-form/:id" element={<ReserveForm />} />
               <Route path="reserve-success" element={<ReserveSuccess />} />
@@ -63,8 +65,7 @@ const App = () => {
               <Route path="lost-item/:id" element={<LostItemPage />} />
             </Route>
             <Route path="/owner">
-              <Route index element={<App />} />
-              <Route path="shop" element={<App />} />
+              <Route index element={<OwnerShop />} />
               <Route path="reserve-list" element={<ReserveList_Owner />} />
               <Route path="lost-list" element={<LostListPage_Owner />} />
               <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
