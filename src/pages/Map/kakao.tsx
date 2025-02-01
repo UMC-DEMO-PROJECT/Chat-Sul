@@ -31,7 +31,7 @@ const Data = [
   },
 ];
 
-const KakaoMapPage = () => {
+const Main = () => {
   const navigate = useNavigate();
   const [map, setMap] = useState<any>(null);
 
@@ -72,16 +72,20 @@ const KakaoMapPage = () => {
     window.location.reload(); // 페이지 새로고침
   };
 
+  const handleBusiness = () => {
+    navigate('/validate');
+  };
+
   return (
     <div className="w-full h-full relative">
       <Map locations={Data} onMapLoad={(loadedMap) => setMap(loadedMap)} />
-      <div className="flex flex-col absolute top-[136px] right-[24px]">
-        <KakaoMapButton IconName="mapchange" onClick={handleReload} />
-        {/* GPS 버튼 클릭 시 내 위치로 이동 */}
+      <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
+        <KakaoMapButton IconName="renew" onClick={handleReload} />
+        <KakaoMapButton IconName="business" onClick={handleBusiness} />
         <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
       </div>
     </div>
   );
 };
 
-export default KakaoMapPage;
+export default Main;

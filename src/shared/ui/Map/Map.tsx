@@ -25,7 +25,7 @@ const Map = ({ locations, onMapLoad }: MapProps): JSX.Element => {
     if (!existingScript) {
       const script = document.createElement('script');
       script.id = 'kakao-map-script';
-      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_APP_KEY&autoload=false`;
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_MAP_APPKEY%&autoload=false`;
       script.async = true;
       script.onload = () => {
         setScriptLoaded(true);
