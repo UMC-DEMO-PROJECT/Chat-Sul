@@ -2,7 +2,6 @@ export type TPostLost = {
   title: string;
   itemImg: string;
   description: string;
-  venueId: number;
 };
 
 export type TContent = [

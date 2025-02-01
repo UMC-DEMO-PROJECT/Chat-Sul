@@ -21,6 +21,7 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
   const handleModalDeleteClick = async () => {
     try {
       setIsOpen(false);
+      //DeleteLOst(venueId, itemId)
       await DeleteLost(1, itemId);
       navigate('/owner/lost-list');
     } catch (error) {
