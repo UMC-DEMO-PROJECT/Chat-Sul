@@ -14,8 +14,10 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { GetOwnerReservation } from 'shared/api/reservation';
 import RentarCardSkeleton from 'shared/ui/RentalCard/RentarCardSkeleton';
 import AlertContainer from './ui/Alert/AlertContainer';
+import { useNavigate } from 'react-router-dom';
 
 const ReserveListContainer = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [menuStatus, setMenuStatus] = useState<TMenuStatus>('ALL');
   const [alertType, setAlertType] = useState<TAlertType>(
@@ -64,7 +66,12 @@ const ReserveListContainer = () => {
 
   return (
     <>
-      <TopBar title="대관확인" onFirstClick={() => {}} />
+      <TopBar
+        title="대관확인"
+        onFirstClick={() => {
+          navigate('/owner');
+        }}
+      />
       <TagBar status={menuStatus} setStatus={setMenuStatus} />
       {data?.pages.map((element) =>
         element.result.reservationList.map(
