@@ -35,7 +35,7 @@ const KakaoMapPage = () => {
   const navigate = useNavigate();
   const [map, setMap] = useState<any>(null);
 
-  // GPS 버튼 클릭 시 내 위치로 이동
+  // GPS 버튼 클릭 시 내 위치 이동
   const handleGPSClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
