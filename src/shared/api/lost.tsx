@@ -61,6 +61,21 @@ export const DeleteLost = async ({
   return response.data;
 };
 
+//분실물 수정 API
+export const PatchUpdate = async ({
+  venueId,
+  lostItemId,
+}: {
+  venueId: number;
+  lostItemId: number;
+}) => {
+  const response = await axiosInstance.patch(
+    `/lost-item/business/${venueId}/update/${lostItemId}`
+  );
+  console.log('분실물 수정 성공 : ', response);
+  return response.data;
+};
+
 //분실물 수취 상태 변경 API
 export const PatchLost = async ({
   venueId,
