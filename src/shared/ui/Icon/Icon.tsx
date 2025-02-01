@@ -22,7 +22,7 @@ const Icon = ({ name, size = 24 }: IconProps) => {
   return (
     <div className="flex flex-col items-center">
       <img
-        className={`w-${size} h-${size} rounded`}
+        className={`w-${size}px h-${size}px rounded`}
         src={iconPath}
         alt={`${name} icon`}
       />
