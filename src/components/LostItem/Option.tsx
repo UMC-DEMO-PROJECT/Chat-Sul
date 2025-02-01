@@ -5,7 +5,7 @@ import AlertTwoButton from '../../shared/ui/Modal/Alert/AlertTwoButton';
 import { useNavigate } from 'react-router-dom';
 import { DeleteLost } from 'shared/api/lost';
 
-const Option = ({ style, id }: { style?: string; id: number }) => {
+const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
   const [isClick, setIsClick] = useState(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -21,7 +21,8 @@ const Option = ({ style, id }: { style?: string; id: number }) => {
   const handleModalDeleteClick = async () => {
     try {
       setIsOpen(false);
-      await DeleteLost(id);
+      //DeleteLOst(venueId, itemId)
+      await DeleteLost(1, itemId);
       navigate('/owner/lost-list');
     } catch (error) {
       console.log('삭제 실패 : ', error);
@@ -55,7 +56,7 @@ const Option = ({ style, id }: { style?: string; id: number }) => {
           className="flex flex-col justify-center items-center gap-2 p-2 rounded-xl border-[0.2px] border-[rgba(208,208,208,0.43)] absolute top-[52px] right-[12px]"
         >
           <p
-            onClick={() => navigate(`/owner/lost-modify/${id}`)}
+            onClick={() => navigate(`/owner/lost-modify/${itemId}`)}
             className="px-5 py-3 text-[15px] font-normal leading-[20px] tracking-[-0.23px] cursor-pointer"
           >
             수정
