@@ -16,16 +16,12 @@ const LoginForm = () => {
       email: emailValue,
       password: passwordValue,
     };
-
-    console.log('로그인 성공', formData);
     setIsError(false);
     try {
       const response = await PostLogin(formData);
-      console.log('response: ', response);
       const { accessToken } = response.result;
 
       localStorage.setItem('accessToken', accessToken);
-      console.log('로그인 성공, AccessToken 저장:', accessToken);
       navigate('/user');
     } catch (error) {
       console.error('회원가입 실패', error);

@@ -23,7 +23,7 @@ const RegisterForm = () => {
     try {
       const response = await PostRegister(formData);
       console.log('response: ', response);
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('회원가입 실패', error);
     }
@@ -57,7 +57,6 @@ const RegisterForm = () => {
     state: 'valid' | 'correct' | 'error' | 'invalid'
   ) => {
     setIconState(state);
-    console.log('아이콘 상태 변경:', state);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
