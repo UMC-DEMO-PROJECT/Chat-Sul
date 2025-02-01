@@ -45,10 +45,6 @@ const ReserveFormContainer = () => {
     },
   });
 
-  const handleBackCilck = () => {
-    // navigate(-1); // 가게화면으로 이동
-  };
-
   const handleSubmit = () => {
     if (isReservable === false) {
       return;
@@ -68,7 +64,7 @@ const ReserveFormContainer = () => {
   };
   return (
     <>
-      <TopBar title="대관 신청" onFirstClick={handleBackCilck} />
+      <TopBar title="대관 신청" />
       <div className=" flex flex-col px-6 my-6 gap-4">
         <Input
           value={nullToString(datas.reservationName)}
