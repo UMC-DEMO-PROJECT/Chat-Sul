@@ -27,11 +27,9 @@ const TopBar = ({
   const navigate = useNavigate();
   const handleBack = () => {
     if (onFirstClick) {
-      return () => {
-        navigate(-1);
-      };
+      onFirstClick();
     } else {
-      return onFirstClick;
+      navigate(-1);
     }
   };
   return (

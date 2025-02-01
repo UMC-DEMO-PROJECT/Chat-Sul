@@ -36,10 +36,10 @@ const ValidateForm = () => {
     try {
       const response = await PostAdd(formData);
       console.log('response: ', response);
-      navigate('/user');
+      navigate('/owner');
     } catch (error) {
       console.error(error);
-      navigate('/user');
+      navigate('/owner');
     }
   };
 
