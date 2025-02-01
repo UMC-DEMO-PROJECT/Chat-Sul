@@ -1,19 +1,19 @@
-import { DataTypeInView } from './types/dataTypes';
+import { TMenuStatus } from '../../types/TReserveList';
 
 interface TagBarProps {
-  status: DataTypeInView;
-  setStatus: React.Dispatch<React.SetStateAction<DataTypeInView>>;
+  status: TMenuStatus;
+  setStatus: React.Dispatch<React.SetStateAction<TMenuStatus>>;
 }
 interface tabsProps {
   label: string;
-  value: DataTypeInView;
+  value: TMenuStatus;
 }
 const TagBar = ({ status, setStatus }: TagBarProps) => {
   const tabs: tabsProps[] = [
-    { label: '모두', value: 'all' },
-    { label: '확정', value: 'confirmed' },
-    { label: '입금 대기', value: 'waitingDeposit' },
-    { label: '확정 대기', value: 'watingConfirmation' },
+    { label: '모두', value: 'ALL' },
+    { label: '확정', value: 'CONFIRMED' },
+    { label: '입금 대기', value: 'WAITING_DEPOSIT' },
+    { label: '확정 대기', value: 'WAITING_CONFIRMATION' },
   ];
 
   return (

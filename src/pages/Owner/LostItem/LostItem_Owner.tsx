@@ -15,11 +15,15 @@ const LostItemPage_Owner = () => {
         onFirstClick={() => navigate('/owner/lost-list')}
         onSecondClick={() => navigate('/owner/lost-list')}
       />
-      <Option id={itemId} />
+      <Option itemId={itemId} />
       <div className="mt-[25px]">
         <LostItem />
         <div className="w-[356px] mx-auto absolute top-[760px] left-[24px]">
-          <Button size="large" colorType="filled">
+          <Button
+            size="large"
+            colorType="filled"
+            onClick={() => navigate('/owner/lost-list')}
+          >
             수취 완료하기
           </Button>
         </div>

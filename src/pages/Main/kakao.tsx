@@ -1,6 +1,6 @@
 import KakaoMapButton from 'components/KakaoMap/KakaoMapButton';
 import { useNavigate } from 'react-router-dom';
-import Map from 'shared/ui/Map/example33';
+import Map from 'shared/ui/Map/Map';
 import { useState } from 'react';
 
 const Data = [

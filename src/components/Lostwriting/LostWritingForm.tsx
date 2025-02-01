@@ -32,11 +32,10 @@ const WritingForm = () => {
       title: titleValue,
       itemImg: imgValue,
       description: textareaValue,
-      venueId: 1,
     };
 
     console.log('제출할 데이터 : ', formdata);
-
+    //postMutation(formdata, venueId);
     postMutation(formdata, venueId);
   };
 

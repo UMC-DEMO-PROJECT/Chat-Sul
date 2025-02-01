@@ -5,10 +5,10 @@ import {
   useInfiniteQuery,
   UseInfiniteQueryOptions,
 } from '@tanstack/react-query';
-import { GetLostList } from 'shared/api/lost';
+import { GetLostList_User } from 'shared/api/lost';
 import { TLostListResponse } from 'shared/type/LostType';
 
-export function useGetInfiniteLostList(
+interface IUseGetInfiniteLostLIstProps {
   queryOptions?: UseInfiniteQueryOptions<
     TLostListResponse,
     DefaultError,
@@ -16,11 +16,17 @@ export function useGetInfiniteLostList(
     TLostListResponse,
     QueryKey,
     number
-  >
-) {
+  >;
+  venueId: number;
+}
+
+export function useGetInfiniteLostList({
+  queryOptions,
+  venueId,
+}: IUseGetInfiniteLostLIstProps) {
   return useInfiniteQuery({
-    queryFn: ({ pageParam }) => GetLostList({ page: pageParam }),
-    queryKey: ['Lost'],
+    queryFn: ({ pageParam }) => GetLostList_User({ page: pageParam, venueId }),
+    queryKey: ['Lost', venueId],
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPage) => {
       const lastMovie = lastPage.content[lastPage.content.length - 1];

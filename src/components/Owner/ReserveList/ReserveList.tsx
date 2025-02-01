@@ -2,63 +2,118 @@ import { useEffect, useState } from 'react';
 import ModalLayout from '../../../shared/ui/Modal/ModalLayout/ModalLayout';
 import TopBar from '../../../shared/ui/TopBar/TopBar';
 import RentalCard from '../../../shared/ui/RentalCard/RentalCard';
-import AlertContainer from './AlertContainer';
-import TagBar from './TagBar';
-import { DataTypeInView } from './types/dataTypes';
-
-type alertType = 'confirmed' | 'watingConfirmation' | 'waitingDeposit';
-
-interface DataType {
-  id: number;
-  shopName: string;
-  personCount: number;
-  status: alertType;
-}
-
-const dummyData: DataType[] = [
-  { id: 1, shopName: '가게1', personCount: 10, status: 'confirmed' },
-  { id: 1, shopName: '가게1', personCount: 10, status: 'confirmed' },
-  { id: 1, shopName: '가게1', personCount: 10, status: 'confirmed' },
-  { id: 2, shopName: '가게2', personCount: 5, status: 'waitingDeposit' },
-  { id: 3, shopName: '가게3', personCount: 20, status: 'watingConfirmation' },
-];
+import TagBar from './ui/TagBar/TagBar';
+import {
+  IOwnerReservationResponse,
+  ISelectedReservationInfo,
+  TAlertType,
+  TMenuStatus,
+} from './types/TReserveList';
+import { useInView } from 'react-intersection-observer';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { GetOwnerReservation } from 'shared/api/reservation';
+import RentarCardSkeleton from 'shared/ui/RentalCard/RentarCardSkeleton';
+import AlertContainer from './ui/Alert/AlertContainer';
 
 const ReserveListContainer = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [status, setStatus] = useState<DataTypeInView>('all'); // status에 따라 서버에 요청을 다르게 보내면 RentalCard는 건들지않아도됨
-  const [alertType, setAlertType] = useState<alertType>('confirmed');
+  const [menuStatus, setMenuStatus] = useState<TMenuStatus>('ALL');
+  const [alertType, setAlertType] = useState<TAlertType>(
+    'WAITING_CONFIRMATION'
+  );
+  const [selectedReservationInfo, setSelectedReservationInfo] =
+    useState<ISelectedReservationInfo>({
+      reservationDate: '',
+      reservationTime: '',
+      numberOfGuests: -1,
+      reservationName: '',
+      reservationId: -1,
+    });
+  const [ref, inView] = useInView();
+
+  const venueId = 6; // venueId랑 TopBar title를 useParams랑 uselocation으로 받아서 넣어야함.
+
+  // isError 처리해야함.
+  const { data, hasNextPage, fetchNextPage, refetch, isLoading } =
+    useInfiniteQuery({
+      queryKey: [`owner-reserve-list-${venueId}`],
+      queryFn: ({ pageParam }) =>
+        GetOwnerReservation(pageParam, menuStatus, venueId),
+      getNextPageParam: (
+        lastPage,
+        _allPage,
+        lastPageParam
+      ): number | undefined => {
+        if (lastPage.result.totalPage == lastPageParam + 1) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      initialPageParam: 0,
+    });
 
   useEffect(() => {
-    // status에 따른 서버 요청
-  }, [status]);
+    refetch();
+  }, [menuStatus]);
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage]);
 
   return (
     <>
       <TopBar title="대관확인" onFirstClick={() => {}} />
-      <TagBar status={status} setStatus={setStatus} />
-      {dummyData.map((item) => {
-        return (
-          <RentalCard
-            key={item.id}
-            shopName={item.shopName}
-            personCount={item.personCount}
-            status={item.status}
-            disabled={item.status == 'confirmed'}
-            onClick={() => {
-              setAlertType(item.status);
-              setIsOpen(true);
-            }}
-          />
-        );
-      })}
-
+      <TagBar status={menuStatus} setStatus={setMenuStatus} />
+      {data?.pages.map((element) =>
+        element.result.reservationList.map(
+          (item: IOwnerReservationResponse) => {
+            return (
+              <RentalCard
+                key={item.reservationId}
+                Name={item.reservationName}
+                numberOfGuests={item.numberOfGuests}
+                reservationDate={item.reservationDate}
+                reservationTime={item.reservationTime}
+                status={item.status}
+                isUser={false}
+                onCancel={() => {}}
+                onClick={() => {
+                  setSelectedReservationInfo({
+                    reservationName: item.reservationName,
+                    reservationDate: item.reservationDate,
+                    reservationTime: item.reservationTime,
+                    numberOfGuests: item.numberOfGuests,
+                    reservationId: item.reservationId,
+                  });
+                  console.log(item);
+                  if (
+                    item.status == 'WAITING_CONFIRMATION' ||
+                    item.status == 'WAITING_DEPOSIT'
+                  ) {
+                    setAlertType(item.status);
+                    setIsOpen(true);
+                  }
+                }}
+              />
+            );
+          }
+        )
+      )}
+      <RentarCardSkeleton isLoading={isLoading} count={6} />
+      <div ref={ref}></div>
       <ModalLayout
         isOpen={isOpen}
         closeModal={() => {
           setIsOpen(false);
         }}
       >
-        <AlertContainer alertType={alertType} setIsOpen={setIsOpen} />
+        <AlertContainer
+          alertType={alertType}
+          setIsOpen={setIsOpen}
+          selectedReservationInfo={selectedReservationInfo}
+        />
       </ModalLayout>
     </>
   );

@@ -1,6 +1,6 @@
 import LostListData from 'shared/api/mock/LostListData';
 import Post from 'shared/ui/Post/Post';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Icon from 'shared/ui/Icon/Icon';
 // import { useQuery } from '@tanstack/react-query';
 // import { useGetInfiniteLostList } from 'hooks/useGetInfiniteLostList';
@@ -27,6 +27,9 @@ const LostList = ({
     navigate(`/${who}/lost-item/${id}`);
   };
 
+  const { id } = useParams();
+  const venueId = Number(id);
+
   // const {
   //   data: losts,
   //   isPending,
@@ -35,7 +38,7 @@ const LostList = ({
   //   hasNextPage,
   //   fetchNextPage,
   // } = useQuery({
-  //   queryFn: () => useGetInfiniteLostList(),
+  //   queryFn: () => useGetInfiniteLostList(venueId),
   //   queryKey: ['losts'],
   // });
 
