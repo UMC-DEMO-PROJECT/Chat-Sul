@@ -37,7 +37,7 @@ const WritingForm = () => {
 
     console.log('제출할 데이터 : ', formdata);
 
-    postMutation(formdata);
+    postMutation(formdata, venueId);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
