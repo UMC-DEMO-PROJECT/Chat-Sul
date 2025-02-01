@@ -8,7 +8,7 @@ const OwnerShop = () => {
           icon="lostlist"
           titleP="분실물 등록"
           descriptionP="잃어버린 물건, 찾기 쉽게!"
-          navigation="/owner/reserve-list"
+          navigation="/owner/lost-list"
         />
         <ShoppingCard
           icon="reserve"
