@@ -22,10 +22,26 @@ export const PostReservation = (
 
 export const GetReservation = async (pageParam: number) => {
   const accessToken = localStorage.getItem('accessToken');
-  const response = await axiosInstance.get('/reservation/list', {
+  const response = await axiosInstance.get(`/reservation/list`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     params: { page: pageParam },
   });
+  return response.data;
+};
+
+export const GetOwnerReservation = async (
+  pageParam: number,
+  status: string,
+  venueId: number
+) => {
+  const accessToken = localStorage.getItem('accessToken');
+  const response = await axiosInstance.get(
+    `/reservation/business/list/${venueId}`,
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      params: { page: pageParam, status },
+    }
+  );
   return response.data;
 };
 
@@ -45,10 +61,72 @@ export const DeleteReservation = async (
   }
 };
 
-export const GetReservationAccountInfo = async (reservationId: string) => {
+export const GetReservationAccountInfo = async (reservationId: number) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.get(
     `/reservation/${reservationId}/account-info`,
-    {}
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   return response.data;
+};
+
+export const PatchReservationCancel = (reservationId: number) => {
+  const accessToken = localStorage.getItem('accessToken');
+  return axiosInstance.patch(`/reservation/cancel/${reservationId}`, null, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const PatchReservationBusinessReject = (
+  reservationId: number,
+  venueId: number
+) => {
+  const accessToken = localStorage.getItem('accessToken');
+  return axiosInstance.patch(
+    `/reservation/business/${venueId}/reject/${reservationId}`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
+
+export const PatchReservationBusinessConfirm = (
+  reservationId: number,
+  venueId: number
+) => {
+  const accessToken = localStorage.getItem('accessToken');
+  return axiosInstance.patch(
+    `/reservation/business/${venueId}/confirm/${reservationId}`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
+
+export const PatchReservationBusinessAccept = (
+  reservationId: number,
+  venueId: number
+) => {
+  const accessToken = localStorage.getItem('accessToken');
+  return axiosInstance.patch(
+    `/reservation/business/${venueId}/accept/${reservationId}`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
 };
