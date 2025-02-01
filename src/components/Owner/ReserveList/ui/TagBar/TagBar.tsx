@@ -1,4 +1,4 @@
-import { TMenuStatus } from './types/dataTypes';
+import { TMenuStatus } from '../../types/TReserveList';
 
 interface TagBarProps {
   status: TMenuStatus;

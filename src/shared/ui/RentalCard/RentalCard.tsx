@@ -2,7 +2,7 @@ import dateToformattedKorean from '../../../utils/dateToFormattedKorean';
 
 interface RentalCardProps {
   onClick?: () => void;
-  venueName: string;
+  Name: string;
   numberOfGuests: number;
   reservationDate: string;
   reservationTime: string;
@@ -33,7 +33,7 @@ const textContents = {
 const RentalCard = ({
   onClick,
   onCancel,
-  venueName,
+  Name,
   numberOfGuests,
   reservationDate,
   reservationTime,
@@ -52,7 +52,7 @@ const RentalCard = ({
         onClick={onClick}
         disabled={disabled}
       >
-        <div className=" text-black text-[17px] leading-snug">{venueName}</div>
+        <div className=" text-black text-[17px] leading-snug">{Name}</div>
         <div className="flex justify-start items-center gap-1">
           <div className="w-4 h-4 overflow-hidden">
             <img src="/icons/calendar.svg" alt="calendar" />

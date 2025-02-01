@@ -9,6 +9,8 @@
  *
  */
 
+import { useNavigate } from 'react-router-dom';
+
 interface TopBarProps {
   title: string;
   onFirstClick?: () => void;
@@ -22,11 +24,21 @@ const TopBar = ({
   onSecondClick,
   children,
 }: TopBarProps) => {
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (onFirstClick) {
+      return () => {
+        navigate(-1);
+      };
+    } else {
+      return onFirstClick;
+    }
+  };
   return (
     <div className="flex w-full h-[52px] px-3 py-[14px] items-center overflow-hidden justify-between">
       <div
         className="w-[50px] flex justify-start cursor-pointer"
-        onClick={onFirstClick}
+        onClick={handleBack}
       >
         <svg
           width="24"

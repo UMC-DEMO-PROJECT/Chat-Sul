@@ -1,5 +1,4 @@
 import { AlertContainerProps } from '../../type/TReserveList';
-import ConfirmedAlert from './ConfirmedAlert';
 import WaitingConfirmation from './WaitingConfirmation';
 import WaitingDepositAlert from './WaitingDepositAlert';
 import ReservationCancelAlert from './ReservationCancelAlert';
@@ -11,9 +10,6 @@ const AlertContainer = ({
   reservationId,
   phone,
 }: AlertContainerProps) => {
-  if (alertType === 'CONFIRMED') {
-    return <ConfirmedAlert />;
-  }
   if (alertType === 'RESERVATION_CANCEL') {
     return (
       <ReservationCancelAlert

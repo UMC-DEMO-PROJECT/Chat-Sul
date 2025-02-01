@@ -2,26 +2,41 @@ import { useEffect, useState } from 'react';
 import ModalLayout from '../../../shared/ui/Modal/ModalLayout/ModalLayout';
 import TopBar from '../../../shared/ui/TopBar/TopBar';
 import RentalCard from '../../../shared/ui/RentalCard/RentalCard';
-import AlertContainer from './AlertContainer';
-import TagBar from './TagBar';
-import { TDataStatus, TMenuStatus } from './types/dataTypes';
+import TagBar from './ui/TagBar/TagBar';
+import {
+  IOwnerReservationResponse,
+  ISelectedReservationInfo,
+  TAlertType,
+  TMenuStatus,
+} from './types/TReserveList';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { GetOwnerReservation } from 'shared/api/reservation';
 import RentarCardSkeleton from 'shared/ui/RentalCard/RentarCardSkeleton';
+import AlertContainer from './ui/Alert/AlertContainer';
 
 const ReserveListContainer = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [menuStatus, setMenuStatus] = useState<TMenuStatus>('ALL');
-  const [alertType, setAlertType] = useState<TDataStatus>('CONFIRMED');
+  const [alertType, setAlertType] = useState<TAlertType>(
+    'WAITING_CONFIRMATION'
+  );
+  const [selectedReservationInfo, setSelectedReservationInfo] =
+    useState<ISelectedReservationInfo>({
+      reservationDate: '',
+      reservationTime: '',
+      numberOfGuests: -1,
+      reservationName: '',
+      reservationId: -1,
+    });
   const [ref, inView] = useInView();
 
-  const venueId = 2; // venueId랑 TopBar title를 useParams랑 uselocation으로 받아서 넣어야함.
+  const venueId = 6; // venueId랑 TopBar title를 useParams랑 uselocation으로 받아서 넣어야함.
 
   // isError 처리해야함.
   const { data, hasNextPage, fetchNextPage, refetch, isLoading } =
     useInfiniteQuery({
-      queryKey: [`owner-reserve-list-${venueId}-${menuStatus}`],
+      queryKey: [`owner-reserve-list-${venueId}`],
       queryFn: ({ pageParam }) =>
         GetOwnerReservation(pageParam, menuStatus, venueId),
       getNextPageParam: (
@@ -38,7 +53,6 @@ const ReserveListContainer = () => {
     });
 
   useEffect(() => {
-    // menuStatus가 바뀌었을 때 다른status로 요청
     refetch();
   }, [menuStatus]);
 
@@ -53,25 +67,39 @@ const ReserveListContainer = () => {
       <TopBar title="대관확인" onFirstClick={() => {}} />
       <TagBar status={menuStatus} setStatus={setMenuStatus} />
       {data?.pages.map((element) =>
-        element.result.reservationList.map((item) => {
-          return (
-            <RentalCard
-              key={item.reservationId}
-              venueName={item.venueName}
-              numberOfGuests={item.numberOfGuests}
-              reservationDate={item.reservationDate}
-              reservationTime={item.reservationTime}
-              status={item.status}
-              isUser={true}
-              onCancel={() => {}}
-              onClick={() => {
-                console.log(item);
-                setAlertType(item.status);
-                setIsOpen(true);
-              }}
-            />
-          );
-        })
+        element.result.reservationList.map(
+          (item: IOwnerReservationResponse) => {
+            return (
+              <RentalCard
+                key={item.reservationId}
+                Name={item.reservationName}
+                numberOfGuests={item.numberOfGuests}
+                reservationDate={item.reservationDate}
+                reservationTime={item.reservationTime}
+                status={item.status}
+                isUser={false}
+                onCancel={() => {}}
+                onClick={() => {
+                  setSelectedReservationInfo({
+                    reservationName: item.reservationName,
+                    reservationDate: item.reservationDate,
+                    reservationTime: item.reservationTime,
+                    numberOfGuests: item.numberOfGuests,
+                    reservationId: item.reservationId,
+                  });
+                  console.log(item);
+                  if (
+                    item.status == 'WAITING_CONFIRMATION' ||
+                    item.status == 'WAITING_DEPOSIT'
+                  ) {
+                    setAlertType(item.status);
+                    setIsOpen(true);
+                  }
+                }}
+              />
+            );
+          }
+        )
       )}
       <RentarCardSkeleton isLoading={isLoading} count={6} />
       <div ref={ref}></div>
@@ -81,7 +109,11 @@ const ReserveListContainer = () => {
           setIsOpen(false);
         }}
       >
-        <AlertContainer alertType={alertType} setIsOpen={setIsOpen} />
+        <AlertContainer
+          alertType={alertType}
+          setIsOpen={setIsOpen}
+          selectedReservationInfo={selectedReservationInfo}
+        />
       </ModalLayout>
     </>
   );

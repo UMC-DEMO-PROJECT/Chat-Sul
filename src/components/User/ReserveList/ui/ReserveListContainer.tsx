@@ -21,7 +21,6 @@ const ReserveListContainer = () => {
   const [phone, setPhone] = useState<string>('');
   const [ref, inView] = useInView();
 
-  // isError는 어떻게 처리할 지 회의 필요
   const { data, hasNextPage, fetchNextPage, isLoading, isError } =
     useInfiniteQuery({
       queryKey: ['user-reserve-list'],
@@ -50,6 +49,13 @@ const ReserveListContainer = () => {
     reservationId,
     phone
   ) => {
+    if (
+      alertType == 'CONFIRMED' ||
+      alertType == 'CANCELLED' ||
+      alertType == 'WAITING_CONFIRMATION'
+    ) {
+      return;
+    }
     setAlertType(alertType);
     if (phone) {
       setPhone(phone);
@@ -68,7 +74,7 @@ const ReserveListContainer = () => {
           return (
             <RentalCard
               key={item.reservationId}
-              venueName={item.venueName}
+              Name={item.venueName}
               numberOfGuests={item.numberOfGuests}
               reservationDate={item.reservationDate}
               reservationTime={item.reservationTime}
