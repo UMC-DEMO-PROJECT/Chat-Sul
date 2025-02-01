@@ -15,6 +15,7 @@ import LostModifyPage from './pages/Owner/LostModify/LostModify';
 import SocialRegister from './pages/Register/SocialRegister/SocialRegister';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReserveList_Owner from './pages/Owner/Reserve/ReserveList_Owner';
+import KakaoMapPage from './pages/Map/kakao';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -53,7 +54,7 @@ const App = () => {
             </Route>
             <Route path="/validate" element={<Validate />} />
             <Route path="/user">
-              <Route index element={<App />} />
+              <Route index element={<KakaoMapPage />} />
               <Route path="shop" element={<App />} />
               <Route path="reserve-list" element={<ReserveList />} />
               <Route path="reserve-form/:id" element={<ReserveForm />} />
