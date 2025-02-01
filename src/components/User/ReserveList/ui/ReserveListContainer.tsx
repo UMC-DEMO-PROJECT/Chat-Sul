@@ -12,6 +12,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { GetReservation } from 'shared/api/reservation';
 import { useInView } from 'react-intersection-observer';
 import RentarCardSkeleton from '../../../../shared/ui/RentalCard/RentarCardSkeleton';
+import { useNavigate } from 'react-router-dom';
 
 const ReserveListContainer = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -20,6 +21,7 @@ const ReserveListContainer = () => {
     useState<number>(-1);
   const [phone, setPhone] = useState<string>('');
   const [ref, inView] = useInView();
+  const navigate = useNavigate();
 
   const { data, hasNextPage, fetchNextPage, isLoading, isError } =
     useInfiniteQuery({
@@ -30,14 +32,13 @@ const ReserveListContainer = () => {
         _allPage,
         lastPageParam
       ): number | undefined => {
-        if (lastPage.result.totalPage == lastPageParam + 1) {
+        if (lastPage.result?.totalPage == lastPageParam + 1) {
           return undefined;
         }
         return lastPageParam + 1;
       },
       initialPageParam: 0,
     });
-
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
@@ -68,7 +69,12 @@ const ReserveListContainer = () => {
 
   return (
     <>
-      <TopBar title="대관확인" onFirstClick={() => {}} />
+      <TopBar
+        title="대관확인"
+        onFirstClick={() => {
+          navigate('/user/shop');
+        }}
+      />
       {data?.pages.map((element) =>
         element.result.reservationList.map((item: IReserveListResponse) => {
           return (
