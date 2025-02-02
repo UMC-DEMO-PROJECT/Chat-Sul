@@ -12,7 +12,6 @@ const LostItemPage_Owner = () => {
     <div className="relative">
       <TopBar
         title="분실물"
-        onFirstClick={() => navigate('/owner/lost-list')}
         onSecondClick={() => navigate('/owner/lost-list')}
       />
       <Option itemId={itemId} />

@@ -27,7 +27,7 @@ const ValidateForm = () => {
       phone: shopNumberValue,
       name: shopTitleValue,
       address: locationValue,
-      // detailAddress: locationDetailValue,
+      detailAddress: locationDetailValue,
       bank: selectedAccount,
       account: accountNumberValue,
     };
@@ -36,9 +36,10 @@ const ValidateForm = () => {
     try {
       const response = await PostAdd(formData);
       console.log('response: ', response);
-      navigate('/map');
+      navigate('/owner');
     } catch (error) {
       console.error(error);
+      navigate('/owner');
     }
   };
 
@@ -71,25 +72,31 @@ const ValidateForm = () => {
 
   const [selectedAccount, setSelectedAccount] = useState(''); // 선택된 계좌 항목을 저장
 
-  const accountItems: { id: number; name: string }[] = [
-    { id: 1, name: '신한' },
-    { id: 2, name: '하나' },
-    { id: 3, name: '우리' },
-    { id: 4, name: '기업' },
-    { id: 5, name: '카카오' },
-    { id: 6, name: '토스' },
-    { id: 7, name: '케이뱅크' },
-    { id: 8, name: '국민' },
-    { id: 9, name: '새마을' },
-    { id: 10, name: '농협' },
+  const accountItems: { id: number; name: string; code: string }[] = [
+    { id: 1, name: '신한', code: 'SHINHAN_BANK' },
+    { id: 2, name: '하나', code: 'HANA_BANK' },
+    { id: 3, name: '우리', code: 'WOORI_BANK' },
+    { id: 4, name: '기업', code: 'IBK_BANK' },
+    { id: 5, name: '카카오', code: 'KAKAO_BANK' },
+    { id: 6, name: '씨티', code: 'CITY_BANK' },
+    { id: 7, name: '제일', code: 'SC_BANK' },
+    { id: 8, name: '국민', code: 'KB_BANK' },
+    { id: 9, name: '농협', code: 'NH_BANK' },
   ];
 
   const dropdownItems: string[] = accountItems.map((item) => item.name);
 
   const handleDropdownSelect = (selectedItem: string) => {
-    setSelectedAccount(selectedItem);
-    console.log(`선택된 계좌: ${selectedItem}`);
+    const selectedBank = accountItems.find(
+      (item) => item.name === selectedItem
+    );
+    if (selectedBank) {
+      setSelectedAccount(selectedBank.code);
+    }
   };
+
+  const selectedAccountName =
+    accountItems.find((item) => item.code === selectedAccount)?.name || '';
 
   return (
     <>
@@ -113,7 +120,7 @@ const ValidateForm = () => {
           onChange={handleAccountNumberChange}
           dropdownItems={dropdownItems}
           onDropdownSelect={handleDropdownSelect}
-          selectedAccount={selectedAccount}
+          selectedAccount={selectedAccountName}
         />
         <Input
           title="도로명 주소"

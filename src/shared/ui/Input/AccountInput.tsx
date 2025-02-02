@@ -57,6 +57,7 @@ const AccountInput = ({
         <button
           className="flex w-[87px] h-[54px] p-3 bg-white text-xs text-black justify-center items-center gap-3 cursor-pointer hover:border-none active:border-none focus:border-none"
           onClick={toggleDropdown}
+          type="button"
         >
           {selectedAccount ? selectedAccount : '은행'}
           <Icon size={3} name="down" />

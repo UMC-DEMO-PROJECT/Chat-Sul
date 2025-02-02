@@ -63,13 +63,10 @@ const EmailInput = ({
 
     if (inputValue === '') {
       setState('invalid');
-      console.log(state);
     } else if (emailRegex.test(inputValue)) {
       setState('correct');
-      console.log(state);
     } else {
       setState('error');
-      console.log(state);
     }
 
     onChange(e);

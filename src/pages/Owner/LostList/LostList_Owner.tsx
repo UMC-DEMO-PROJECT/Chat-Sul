@@ -15,7 +15,7 @@ const LostListPage_Owner = () => {
     <div className="flex flex-col items-center h-full relative">
       <TopBar
         title="분실물"
-        onFirstClick={() => navigate('/')}
+        onFirstClick={() => navigate('/owner')}
         onSecondClick={() => navigate('/user/lost-list')}
       />
       <div className="flex flex-col justify-center items-center mt-[25px] ">

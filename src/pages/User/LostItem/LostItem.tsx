@@ -8,7 +8,6 @@ const LostItemPage = () => {
     <div>
       <TopBar
         title="분실물"
-        onFirstClick={() => navigate('/user/lost-list')}
         onSecondClick={() => navigate('/user/lost-list')}
       />
       <div className="mt-[25px]">

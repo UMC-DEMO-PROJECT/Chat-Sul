@@ -9,7 +9,6 @@ const LostWritingPage = () => {
     <div className="flex flex-col relative">
       <TopBar
         title="분실물"
-        onFirstClick={() => navigate('/owner/lost-list')}
         onSecondClick={() => navigate('/owner/lost-list')}
       />
       <WritingForm />

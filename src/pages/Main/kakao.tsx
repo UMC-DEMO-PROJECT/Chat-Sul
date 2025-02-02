@@ -1,6 +1,6 @@
-import KakaoMapButton from 'components/kakaomap/kakaomapbutton';
+import KakaoMapButton from '../../components/KakaoMap/KakaoMapButton';
 import { useNavigate } from 'react-router-dom';
-import Map from 'shared/ui/Map/example33';
+import Map from '../../shared/ui/Map/example33';
 import { useState } from 'react';
 
 const Data = [
@@ -77,8 +77,8 @@ const Main = () => {
     <div className="w-full h-full relative">
       <Map locations={Data} onMapLoad={(loadedMap) => setMap(loadedMap)} />
       <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
-        <KakaoMapButton IconName="renew" onClick={handleReload} />
         <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        <KakaoMapButton IconName="renew" onClick={handleReload} />
         <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
       </div>
     </div>
