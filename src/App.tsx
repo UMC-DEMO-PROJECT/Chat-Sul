@@ -57,13 +57,15 @@ const App = () => {
             <Route path="/validate" element={<Validate />} />
             <Route path="/user">
               <Route index element={<Main />} />
-              <Route path="shop" element={<UserShop />} />
-              <Route path="reserve-list" element={<ReserveList />} />
-              <Route path="reserve-form/:id" element={<ReserveForm />} />
-              <Route path="reserve-success" element={<ReserveSuccess />} />
-              <Route path="menu" element={<App />} />
-              <Route path="lost-list" element={<LostListPage />} />
-              <Route path="lost-item/:id" element={<LostItemPage />} />
+              <Route path="shop/:id">
+                <Route index element={<UserShop />} />
+                <Route path="reserve-list" element={<ReserveList />} />
+                <Route path="reserve-form/:id" element={<ReserveForm />} />
+                <Route path="reserve-success" element={<ReserveSuccess />} />
+                <Route path="menu" element={<App />} />
+                <Route path="lost-list" element={<LostListPage />} />
+                <Route path="lost-item/:id" element={<LostItemPage />} />
+              </Route>
             </Route>
             <Route path="/owner">
               <Route index element={<OwnerShop />} />

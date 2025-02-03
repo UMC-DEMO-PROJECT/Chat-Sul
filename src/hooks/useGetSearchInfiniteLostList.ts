@@ -5,7 +5,7 @@ import {
   useInfiniteQuery,
   UseInfiniteQueryOptions,
 } from '@tanstack/react-query';
-import { GetLostList_User } from 'shared/api/lost';
+import { GetSearch } from 'shared/api/lost';
 import { IGetLostListResponse } from 'shared/type/LostType';
 
 interface IUseGetInfiniteLostLIstProps {
@@ -18,15 +18,17 @@ interface IUseGetInfiniteLostLIstProps {
     number
   >;
   venueId: number;
+  text: string;
 }
 
-export function useGetInfiniteLostList({
+export function useGetSearchInfiniteLostList({
   queryOptions,
   venueId,
+  text,
 }: IUseGetInfiniteLostLIstProps) {
   return useInfiniteQuery({
-    queryFn: ({ pageParam }) => GetLostList_User({ page: pageParam, venueId }),
-    queryKey: ['Lost', venueId],
+    queryFn: ({ pageParam }) => GetSearch({ page: pageParam, venueId, text }),
+    queryKey: ['SearchLost', venueId],
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage?.result?.isLast) {

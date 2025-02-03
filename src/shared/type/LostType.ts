@@ -4,22 +4,35 @@ export type TPostLost = {
   description: string;
 };
 
-export type TContent = [
-  {
-    lostItemId: number;
-    title: string;
-    foundDate: string;
-    lostItemStatus: string;
-    venueId: number;
-    venueName: string;
-    venueAddress: string;
-    venuePhone: string;
-  },
-];
-export type TLostListResponse = {
-  content: TContent[];
-  currentPage: number;
-  totalPages: number;
+export interface ILostItem {
+  lostItemId: number;
+  title: string;
+  description: string;
+  foundDate: string;
+  lostItemStatus: boolean;
+}
+
+export interface ILostItemPreview {
+  lostItemId: number;
+  title: string;
+  foundDate: string;
+  lostItemStatus: 'LOST' | 'FOUND';
+  venueName: string;
+  venueAddress: string;
+  venuePhone: string;
+}
+
+export interface ILostItemResponse {
+  lostItemPreViewDTOList: ILostItemPreview[];
+  listSize: number;
+  totalPage: number;
   totalElements: number;
-  hasNext: false;
-};
+  isFirst: boolean;
+  isLast: boolean;
+}
+export interface IGetLostListResponse {
+  isSuccess: boolean;
+  code: string;
+  message: string;
+  result: ILostItemResponse;
+}
