@@ -1,8 +1,10 @@
 import { createContext, useState, useContext, PropsWithChildren } from 'react';
 
 type TAuthContext = {
+  isRole: string | null;
+  setIsRole: (role: string) => void;
   ownerId: string | null;
-  setOwnerId: (role: string) => void;
+  setOwnerId: (ownerId: string) => void;
   shopName: string | null;
   setShopName: (shopName: string) => void;
 };
@@ -10,12 +12,15 @@ type TAuthContext = {
 const OwnerContext = createContext<TAuthContext | null>(null);
 
 export const OwnerProvider = ({ children }: PropsWithChildren) => {
+  const [isRole, setIsRole] = useState<string | null>(null);
   const [ownerId, setOwnerId] = useState<string | null>(null);
   const [shopName, setShopName] = useState<string | null>(null);
 
   return (
     <OwnerContext.Provider
       value={{
+        isRole,
+        setIsRole,
         ownerId,
         setOwnerId,
         shopName,
