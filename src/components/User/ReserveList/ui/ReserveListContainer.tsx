@@ -75,27 +75,29 @@ const ReserveListContainer = () => {
           navigate('/user/shop');
         }}
       />
-      {data?.pages.map((element) =>
-        element.result.reservationList.map((item: IReserveListResponse) => {
-          return (
-            <RentalCard
-              key={item.reservationId}
-              Name={item.venueName}
-              numberOfGuests={item.numberOfGuests}
-              reservationDate={item.reservationDate}
-              reservationTime={item.reservationTime}
-              status={item.status}
-              isUser={true}
-              onCancel={() => {
-                handleModalOpen('RESERVATION_CANCEL', item.reservationId);
-              }}
-              onClick={() => {
-                handleModalOpen(item.status, item.reservationId);
-              }}
-            />
-          );
-        })
-      )}
+      <div className="mt-[52px]">
+        {data?.pages.map((element) =>
+          element.result.reservationList.map((item: IReserveListResponse) => {
+            return (
+              <RentalCard
+                key={item.reservationId}
+                Name={item.venueName}
+                numberOfGuests={item.numberOfGuests}
+                reservationDate={item.reservationDate}
+                reservationTime={item.reservationTime}
+                status={item.status}
+                isUser={true}
+                onCancel={() => {
+                  handleModalOpen('RESERVATION_CANCEL', item.reservationId);
+                }}
+                onClick={() => {
+                  handleModalOpen(item.status, item.reservationId);
+                }}
+              />
+            );
+          })
+        )}
+      </div>
       <RentarCardSkeleton isLoading={isLoading} count={6} />
       {isError && '서버와의 연결이 불안정합니다.'}
       <div ref={ref}></div>

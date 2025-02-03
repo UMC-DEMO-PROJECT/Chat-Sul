@@ -65,7 +65,7 @@ const ReserveFormContainer = () => {
   return (
     <>
       <TopBar title="대관 신청" />
-      <div className=" flex flex-col px-6 my-6 gap-4">
+      <div className=" flex flex-col px-6 my-6 gap-4 mt-[52px]">
         <Input
           value={nullToString(datas.reservationName)}
           onChange={(e) => setFun.setReservationName(e.target.value)}

@@ -11,7 +11,7 @@ const UserShop = () => {
   return (
     <>
       <TopBar title="시오" onFirstClick={handleBack} />
-      <div className="flex px-[54px] pt-[64px] flex-col items-start gap-10">
+      <div className="flex px-[54px] pt-[64px] flex-col items-start gap-10 mt-[52px]">
         <ShoppingCard
           icon="lostlist"
           titleP="분실물 찾기"

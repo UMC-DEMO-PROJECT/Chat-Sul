@@ -17,7 +17,7 @@ const TagBar = ({ status, setStatus }: TagBarProps) => {
   ];
 
   return (
-    <div className="w-[402px] h-[52px] justify-center items-center gap-5 inline-flex">
+    <div className="w-[402px] h-[52px] justify-center items-center gap-5 inline-flex mt-[52px]">
       {tabs.map((tab) => {
         const isActive = status === tab.value;
 
