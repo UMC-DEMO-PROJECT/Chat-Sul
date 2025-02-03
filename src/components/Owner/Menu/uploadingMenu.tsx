@@ -12,7 +12,7 @@ const UploadingMenu = () => {
   const [images, setImages] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<MenuItem[]>([]);
 
-  const venueId = 18;
+  const venueId = 6;
 
   useEffect(() => {
     const fetchMenuImages = async () => {
