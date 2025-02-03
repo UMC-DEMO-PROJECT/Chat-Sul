@@ -55,7 +55,7 @@ const AccountInput = ({
       </div>
       <div className="relative items-center flex w-[354px] border-[#000000] border-b-[0.6px] border-solid">
         <button
-          className="flex w-[87px] h-[54px] p-3 bg-white text-xs text-black justify-center items-center gap-3 cursor-pointer hover:border-none active:border-none focus:border-none"
+          className="flex w-[107px] h-[54px] p-3 bg-white text-xs text-black justify-center items-center gap-3 cursor-pointer hover:border-none active:border-none focus:border-none"
           onClick={toggleDropdown}
           type="button"
         >
@@ -63,7 +63,7 @@ const AccountInput = ({
           <Icon size={3} name="down" />
         </button>
         {isDropdownOpen && (
-          <div className="absolute top-[103%] left-0 w-[87px] p-2 flex flex-col items-start gap-2 rounded-xl border-solid border-[#AEAEB2] background-[#FFF] bg-white border-[0.2px] shadow-lg z-10">
+          <div className="absolute top-[103%] left-0 w-[107px] p-2 flex flex-col items-start gap-2 rounded-xl border-solid border-[#AEAEB2] background-[#FFF] bg-white border-[0.2px] shadow-lg z-10">
             {dropdownItems.map((item, index) => (
               <div
                 key={index}
@@ -77,7 +77,7 @@ const AccountInput = ({
         )}
         <div className="w-[0.6px] h-[30px] bg-[#8E8E93]"></div>
         <input
-          className={`flex w-[267px] items-center self-stretch py-4 pl-4 pr-5 bg-white text-[17px] focus:outline-none`}
+          className={`flex w-[247px] items-center self-stretch py-4 pl-4 pr-5 bg-white text-[17px] focus:outline-none`}
           placeholder={placeholder}
           onChange={onChange}
           value={value}
