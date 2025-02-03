@@ -1,28 +1,27 @@
 import Post from 'shared/ui/Post/Post';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useGetInfiniteLostList } from 'hooks/useGetInfiniteLostList';
+import { useNavigate } from 'react-router-dom';
+import Icon from 'shared/ui/Icon/Icon';
+import { useGetSearchInfiniteLostList } from 'hooks/useGetSearchInfiniteLostList';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import SearchLostList from './SearchLostList';
 import { ILostItem } from 'shared/type/LostType';
 
-const LostList = ({
+const SearchLostList = ({
   who,
-  searchValue,
+  venueId,
+  text,
 }: {
   who: string;
-  searchValue: string | null;
+  venueId: number;
+  text: string;
 }) => {
   const navigate = useNavigate();
   const handleClick = (id: number) => {
     navigate(`/${who}/shop/${venueId}/lost-item/${id}`);
   };
 
-  const { id } = useParams();
-  const venueId = Number(id);
-
   const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage } =
-    useGetInfiniteLostList({ venueId });
+    useGetSearchInfiniteLostList({ venueId, text });
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -38,25 +37,22 @@ const LostList = ({
     return <p>로딩중</p>;
   }
   if (isError) {
-    return <p>에러</p>;
+    return (
+      <div className="flex flex-col items-center gap-4 mt-[209px]">
+        <Icon name="Exclamation" />
+        <p className="text-[#8E8E93] text-[17px] font-[590]">
+          검색된 분실물이 없습니다.
+        </p>
+      </div>
+    );
   }
 
   const LostPageList = data.pages[0].result;
-
-  // const LostList = data?.pages?.flatMap(
-  //   (page) => page.result.lostItemPreViewDTOList
-  // );
-  // const filteredLostList = LostList.filter((lost: ILostItem) =>
-  //   searchValue
-  //     ? lost.title.toLowerCase().includes(searchValue.toLowerCase())
-  //     : true
-  // );
+  console.log(data);
 
   return (
     <div className="flex flex-col mt-3">
-      {searchValue ? (
-        <SearchLostList who={who} venueId={venueId} text={searchValue} />
-      ) : LostPageList.lostItemPreViewDTOList.length > 0 ? (
+      {LostPageList.lostItemPreViewDTOList.length > 0 ? (
         LostPageList.lostItemPreViewDTOList.map((lost: ILostItem) => {
           return (
             <Post
@@ -72,11 +68,7 @@ const LostList = ({
           );
         })
       ) : (
-        <div className="flex flex-col items-center gap-4 mt-[209px]">
-          <p className="text-[#8E8E93] text-[17px] font-[590]">
-            아직 분실물 글이 올라오지 않았어요.
-          </p>
-        </div>
+        <></>
       )}
 
       <div ref={ref}>{isFetching}</div>
@@ -84,4 +76,4 @@ const LostList = ({
   );
 };
 
-export default LostList;
+export default SearchLostList;

@@ -51,12 +51,17 @@ export const PatchLostState = async ({
 export const GetSearch = async ({
   page,
   venueId,
+  text,
 }: {
   page: number;
   venueId: number;
+  text: string;
 }) => {
   const response = await axiosInstance.get(
-    `/lost-item/${venueId}/search/${page}`
+    `/lost-item/${venueId}/search/${page}`,
+    {
+      params: { keyword: text },
+    }
   );
   return response.data;
 };
@@ -68,8 +73,14 @@ export const GetLostList_User = async ({
   page: number;
   venueId: number;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.get(
-    `/lost-item/member/${venueId}/list/${page}`
+    `/lost-item/member/${venueId}/list/${page}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   return response.data;
 };
