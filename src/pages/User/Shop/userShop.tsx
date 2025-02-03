@@ -1,12 +1,15 @@
 import ShoppingCard from 'components/User/Shop/shoppingCard';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TopBar from 'shared/ui/TopBar/TopBar';
 
 const UserShop = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const venueId = Number(id);
   const handleBack = () => {
     navigate(-1);
   };
+
   return (
     <>
       <TopBar title="시오" onFirstClick={handleBack} />
@@ -15,25 +18,25 @@ const UserShop = () => {
           icon="lostlist"
           titleP="분실물 찾기"
           descriptionP="잃어버린 물건, 쉽게 찾아요!"
-          navigation="/user/lost-list"
+          navigation={`/user/shop/${venueId}/lost-list`}
         />
         <ShoppingCard
           icon="menu"
           titleP="메뉴판"
           descriptionP="메뉴 고민? 한눈에 해결!"
-          navigation="/user/menu"
+          navigation={`/user/shop/${venueId}/menu`}
         />
         <ShoppingCard
           icon="reserve"
           titleP="대관 신청"
           descriptionP="특별한 날, 간편히 대관하세요!"
-          navigation="/user/reserve-form/:id"
+          navigation={`/user/shop/${venueId}/reserve-form/:id`}
         />
         <ShoppingCard
           icon="checked"
           titleP="대관 확인"
           descriptionP="대관 내역을 확인하세요!"
-          navigation="/user/reserve-list"
+          navigation={`/user/shop/${venueId}/reserve-list`}
         />
       </div>
     </>
