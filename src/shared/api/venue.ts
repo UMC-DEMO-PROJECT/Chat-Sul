@@ -6,9 +6,13 @@ export const PostAdd = async (addData: {
   phone: string;
   account: string;
   bank: string;
+  detailAddress: string;
 }) => {
   try {
-    const response = await axiosInstance.post('/venue/add', addData);
+    const token = localStorage.getItem('accessToken');
+    const response = await axiosInstance.post('/venue/add', addData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   } catch (error) {
     console.error('매장 생성 실패', error);

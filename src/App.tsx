@@ -18,6 +18,7 @@ import ReserveList_Owner from './pages/Owner/Reserve/ReserveList_Owner';
 import Main from './pages/Main/kakao';
 import UserShop from './pages/User/Shop/userShop';
 import OwnerShop from './pages/Owner/Shop/OwnerShop';
+import Menu from './pages/User/MenuList/Menu';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -62,7 +63,7 @@ const App = () => {
                 <Route path="reserve-list" element={<ReserveList />} />
                 <Route path="reserve-form/:id" element={<ReserveForm />} />
                 <Route path="reserve-success" element={<ReserveSuccess />} />
-                <Route path="menu" element={<App />} />
+                <Route path="menu" element={<Menu />} />
                 <Route path="lost-list" element={<LostListPage />} />
                 <Route path="lost-item/:id" element={<LostItemPage />} />
               </Route>
