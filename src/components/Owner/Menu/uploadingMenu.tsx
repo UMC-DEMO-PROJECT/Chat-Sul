@@ -28,7 +28,6 @@ const UploadingMenu = () => {
   }, []);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('upload gogo');
     const files = e.target.files;
     if (files) {
       const newImages = Array.from(files);
@@ -38,19 +37,14 @@ const UploadingMenu = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('제출 완료');
-
     try {
       const formData = new FormData();
       images.forEach((image) => {
         formData.append(`imageUrl`, image);
       });
-
       await PostMenu(venueId, formData);
-      alert('모든 이미지가 성공적으로 업로드되었습니다.');
     } catch (error) {
       console.error('이미지 업로드 중 오류 발생', error);
-      alert('이미지 업로드에 실패했습니다.');
     }
   };
 
