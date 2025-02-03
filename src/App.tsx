@@ -19,6 +19,7 @@ import Main from './pages/Main/kakao';
 import UserShop from './pages/User/Shop/userShop';
 import OwnerShop from './pages/Owner/Shop/OwnerShop';
 import Menu from './pages/User/MenuList/Menu';
+import MenuOwner from './pages/Owner/MenuList/Menu_Owner';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -75,6 +76,7 @@ const App = () => {
               <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
               <Route path="lost-form" element={<LostWritingPage />} />
               <Route path="lost-modify/:id" element={<LostModifyPage />} />
+              <Route path="menu" element={<MenuOwner />} />
             </Route>
           </Route>
         </Routes>

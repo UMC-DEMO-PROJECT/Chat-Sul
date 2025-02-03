@@ -1,15 +1,14 @@
-import { axiosInstance } from './common/axiosInstance';
+import { axiosBasic, axiosInstance } from './common/axiosInstance';
 
-export const PostMenu = async (venueId: number, imageUrl: string) => {
+export const PostMenu = async (venueId: number, imageUrl: FormData) => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axiosInstance.post(
-      `/menu/add/${venueId}`,
-      imageUrl,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await axiosBasic.post(`/menu/add/${venueId}`, imageUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('메뉴 등록 실패', error);
