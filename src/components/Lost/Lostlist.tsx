@@ -19,7 +19,10 @@ const LostList = ({
   };
 
   const { id } = useParams();
-  const venueId = id ? Number(id) : <>contextAPI 사용해서 정보 불러오기</>;
+  const venueId = id
+    ? Number(id)
+    : //contextAPI 사용해서 정보 불러오기
+      Number('1');
 
   const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage } =
     useGetInfiniteLostList({ venueId });

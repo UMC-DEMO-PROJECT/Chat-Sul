@@ -12,7 +12,8 @@ type TAuthContext = {
 const OwnerContext = createContext<TAuthContext | null>(null);
 
 export const OwnerProvider = ({ children }: PropsWithChildren) => {
-  const [isRole, setIsRole] = useState<string | null>(null);
+  const role = localStorage.getItem('role');
+  const [isRole, setIsRole] = useState<string | null>(role);
   const [ownerId, setOwnerId] = useState<string | null>(null);
   const [shopName, setShopName] = useState<string | null>(null);
 

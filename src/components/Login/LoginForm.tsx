@@ -21,10 +21,11 @@ const LoginForm = () => {
     setIsError(false);
     try {
       const response = await PostLogin(formData);
-      const { accessToken } = response.result;
+      const { accessToken, role } = response.result;
       localStorage.setItem('accessToken', accessToken);
-      console.log(response.result.role);
-      setIsRole(response.result.role);
+      localStorage.setItem('role', role);
+      console.log(role);
+      setIsRole(role);
 
       navigate('/user');
     } catch (error) {
