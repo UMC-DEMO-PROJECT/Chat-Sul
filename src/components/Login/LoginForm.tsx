@@ -20,7 +20,6 @@ const LoginForm = () => {
     try {
       const response = await PostLogin(formData);
       const { accessToken } = response.result;
-
       localStorage.setItem('accessToken', accessToken);
       navigate('/user');
     } catch (error) {
