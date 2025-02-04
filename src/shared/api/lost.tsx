@@ -2,17 +2,23 @@ import { TPostLost } from 'shared/type/LostType';
 import { axiosInstance } from './common/axiosInstance';
 
 //분실물 등록 API
-export const PostLost = async ({
-  data,
-  venueId,
-}: {
-  data: TPostLost;
-  venueId: number;
-}) => {
+export const PostLost = async ({ data }: { data: TPostLost }) => {
+  const accessToken = localStorage.getItem('accessToken');
+  console.log(data);
   const response = await axiosInstance.post(
-    `/lost-item/business/${venueId}/post`,
-    data
+    `/lost-item/business/${data.venueId}/post`,
+    {
+      title: data.title,
+      itemImg: data.itemImg,
+      description: data.description,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
+
   console.log('분실물 등록 API :', response);
   return response.data;
 };

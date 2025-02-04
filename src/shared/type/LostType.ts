@@ -1,7 +1,8 @@
 export type TPostLost = {
   title: string;
-  itemImg: string;
+  itemImg?: File | null;
   description: string;
+  venueId: number;
 };
 
 export interface ILostItem {
