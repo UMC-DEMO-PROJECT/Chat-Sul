@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../shared/ui/Button/button';
 import EmailInput from '../../shared/ui/Input/EmailInput';
 import { PostLogin } from '../../shared/api/membersApi';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { setIsRole } = useOwnerContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,8 +21,12 @@ const LoginForm = () => {
     setIsError(false);
     try {
       const response = await PostLogin(formData);
-      const { accessToken } = response.result;
+      const { accessToken, role } = response.result;
       localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('role', role);
+      console.log(role);
+      setIsRole(role);
+
       navigate('/user');
     } catch (error) {
       console.error('회원가입 실패', error);

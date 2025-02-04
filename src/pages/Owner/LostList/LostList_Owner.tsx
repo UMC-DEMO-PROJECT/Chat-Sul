@@ -16,7 +16,7 @@ const LostListPage_Owner = () => {
       <TopBar
         title="분실물"
         onFirstClick={() => navigate('/owner')}
-        onSecondClick={() => navigate('/user/lost-list')}
+        onSecondClick={() => navigate('/owner/lost-list')}
       />
       <div className="flex flex-col justify-center items-center mt-[73px] ">
         <LostInput setSearchValue={setMq} />

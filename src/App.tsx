@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import LostListPage from './pages/User/LostList/LostList';
 import LostItemPage from './pages/User/LostItem/LostItem';
@@ -20,6 +20,8 @@ import UserShop from './pages/User/Shop/userShop';
 import OwnerShop from './pages/Owner/Shop/OwnerShop';
 import Menu from './pages/User/MenuList/Menu';
 import MenuOwner from './pages/Owner/MenuList/Menu_Owner';
+import { useOwnerContext, OwnerProvider } from './context/OwnerContext';
+import { PropsWithChildren } from 'react';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -45,42 +47,102 @@ import MenuOwner from './pages/Owner/MenuList/Menu_Owner';
 
 const queryClient = new QueryClient();
 
+const OwnerRoute = ({ children }: PropsWithChildren) => {
+  const { isRole } = useOwnerContext();
+  if (isRole == 'USER') {
+    alert('권한이 없습니다.');
+    return <Navigate to="/user" replace />;
+  }
+  return children;
+};
+
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Login />} />
-            <Route path="/register">
-              <Route index element={<Register />} />
-              <Route path="social" element={<SocialRegister />} />
-            </Route>
-            <Route path="/validate" element={<Validate />} />
-            <Route path="/user">
-              <Route index element={<Main />} />
-              <Route path="shop/:id">
-                <Route index element={<UserShop />} />
-                <Route path="reserve-list" element={<ReserveList />} />
-                <Route path="reserve-form/:id" element={<ReserveForm />} />
-                <Route path="reserve-success" element={<ReserveSuccess />} />
-                <Route path="menu" element={<Menu />} />
-                <Route path="lost-list" element={<LostListPage />} />
-                <Route path="lost-item/:id" element={<LostItemPage />} />
+      <OwnerProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Login />} />
+              <Route path="/register">
+                <Route index element={<Register />} />
+                <Route path="social" element={<SocialRegister />} />
+              </Route>
+              <Route path="/validate" element={<Validate />} />
+              <Route path="/user">
+                <Route index element={<Main />} />
+                <Route path="shop/:id">
+                  <Route index element={<UserShop />} />
+                  <Route path="reserve-list" element={<ReserveList />} />
+                  <Route path="reserve-form/:id" element={<ReserveForm />} />
+                  <Route path="reserve-success" element={<ReserveSuccess />} />
+                  <Route path="menu" element={<Menu />} />
+                  <Route path="lost-list" element={<LostListPage />} />
+                  <Route path="lost-item/:id" element={<LostItemPage />} />
+                </Route>
+              </Route>
+              <Route path="/owner">
+                <Route
+                  index
+                  element={
+                    <OwnerRoute>
+                      <OwnerShop />
+                    </OwnerRoute>
+                  }
+                />
+                <Route
+                  path="reserve-list"
+                  element={
+                    <OwnerRoute>
+                      <ReserveList_Owner />
+                    </OwnerRoute>
+                  }
+                />
+                <Route
+                  path="lost-list"
+                  element={
+                    <OwnerRoute>
+                      <LostListPage_Owner />
+                    </OwnerRoute>
+                  }
+                />
+                <Route
+                  path="lost-item/:id"
+                  element={
+                    <OwnerRoute>
+                      <LostItemPage_Owner />
+                    </OwnerRoute>
+                  }
+                />
+                <Route
+                  path="lost-form"
+                  element={
+                    <OwnerRoute>
+                      <LostWritingPage />
+                    </OwnerRoute>
+                  }
+                />
+                <Route
+                  path="lost-modify/:id"
+                  element={
+                    <OwnerRoute>
+                      <LostModifyPage />
+                    </OwnerRoute>
+                  }
+                />
+                <Route
+                  path="menu"
+                  element={
+                    <OwnerRoute>
+                      <MenuOwner />
+                    </OwnerRoute>
+                  }
+                />
               </Route>
             </Route>
-            <Route path="/owner">
-              <Route index element={<OwnerShop />} />
-              <Route path="reserve-list" element={<ReserveList_Owner />} />
-              <Route path="lost-list" element={<LostListPage_Owner />} />
-              <Route path="lost-item/:id" element={<LostItemPage_Owner />} />
-              <Route path="lost-form" element={<LostWritingPage />} />
-              <Route path="lost-modify/:id" element={<LostModifyPage />} />
-              <Route path="menu" element={<MenuOwner />} />
-            </Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </OwnerProvider>
     </QueryClientProvider>
   );
 };
