@@ -18,7 +18,7 @@ const ReserveSuccessContainer = () => {
           navigate('/user/shop');
         }}
       />
-      <div className="grid grid-rows-3">
+      <div className="grid grid-rows-3 mt-[52px]">
         <div className="flex flex-col row-start-2">
           <div className="flex justify-center">
             <img src="/icons/check-one.svg" />

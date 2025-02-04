@@ -32,14 +32,11 @@ const ValidateForm = () => {
       account: accountNumberValue,
     };
 
-    console.log('사업자 인증 성공', formData);
     try {
-      const response = await PostAdd(formData);
-      console.log('response: ', response);
+      await PostAdd(formData);
       navigate('/owner');
     } catch (error) {
       console.error(error);
-      navigate('/owner');
     }
   };
 

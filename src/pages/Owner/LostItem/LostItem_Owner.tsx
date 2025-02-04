@@ -14,17 +14,19 @@ const LostItemPage_Owner = () => {
         title="분실물"
         onSecondClick={() => navigate('/owner/lost-list')}
       />
-      <Option itemId={itemId} />
-      <div className="mt-[25px]">
-        <LostItem />
-        <div className="w-[356px] mx-auto absolute top-[760px] left-[24px]">
-          <Button
-            size="large"
-            colorType="filled"
-            onClick={() => navigate('/owner/lost-list')}
-          >
-            수취 완료하기
-          </Button>
+      <div className="mt-[52px]">
+        <Option itemId={itemId} />
+        <div className="mt-[25px]">
+          <LostItem />
+          <div className="w-[356px] mx-auto absolute top-[760px] left-[24px]">
+            <Button
+              size="large"
+              colorType="filled"
+              onClick={() => navigate('/owner/lost-list')}
+            >
+              수취 완료하기
+            </Button>
+          </div>
         </div>
       </div>
     </div>

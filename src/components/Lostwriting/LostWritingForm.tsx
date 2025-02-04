@@ -77,7 +77,7 @@ const WritingForm = () => {
     <>
       <form
         onSubmit={handledSubmit}
-        className="flex flex-col gap-[24px] w-[356px] mx-auto mt-[25px]"
+        className="flex flex-col gap-[24px] w-[356px] mx-auto mt-[73px]"
       >
         <Input
           placeholder="제목을 입력해주세요"

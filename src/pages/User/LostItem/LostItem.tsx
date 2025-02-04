@@ -10,7 +10,7 @@ const LostItemPage = () => {
         title="분실물"
         onSecondClick={() => navigate('/user/lost-list')}
       />
-      <div className="mt-[25px]">
+      <div className="mt-[73px]">
         <LostItem />
       </div>
     </div>

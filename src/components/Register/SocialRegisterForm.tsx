@@ -15,8 +15,7 @@ const SocialRegisterForm = () => {
     console.log(formData);
 
     try {
-      const response = await PostSocialRegister(formData);
-      console.log('response:', response);
+      await PostSocialRegister(formData);
     } catch (error) {
       console.error('회원가입 실패', error);
     }

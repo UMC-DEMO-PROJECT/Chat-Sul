@@ -19,7 +19,7 @@ const LostListPage = () => {
         onFirstClick={() => navigate(`/user/shop/${venueId}`)}
         onSecondClick={() => navigate(`/user/shop/${venueId}/lost-list`)}
       />
-      <div className="flex flex-col justify-center items-center mt-[25px] ">
+      <div className="flex flex-col justify-center items-center mt-[73px] ">
         <LostInput setSearchValue={setMq} />
         <LostList who="user" searchValue={useDebouncedValue} />
       </div>

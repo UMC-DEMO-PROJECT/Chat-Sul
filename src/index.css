@@ -13,6 +13,8 @@
   width: 402px;
   overflow: auto;
   background-color: white;
+  scrollbar-width: none;
+  position: relative;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

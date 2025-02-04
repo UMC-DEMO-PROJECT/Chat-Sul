@@ -21,8 +21,7 @@ const RegisterForm = () => {
 
     console.log(formData);
     try {
-      const response = await PostRegister(formData);
-      console.log('response: ', response);
+      await PostRegister(formData);
       navigate('/');
     } catch (error) {
       console.error('회원가입 실패', error);
