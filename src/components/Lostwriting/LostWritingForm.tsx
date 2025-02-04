@@ -4,8 +4,8 @@ import Button from '../../shared/ui/Button/button';
 import { PostLost } from '../../shared/api/lost';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import Icon from 'shared/ui/Icon/Icon';
 import { TPostLost } from 'shared/type/LostType';
+import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
 const WritingForm = () => {
   const [titleValue, setTitleValue] = useState('');
@@ -74,14 +74,7 @@ const WritingForm = () => {
     return <p>로딩중</p>;
   }
   if (isError) {
-    return (
-      <div className="flex flex-col items-center gap-4 mt-[209px]">
-        <Icon name="Exclamation" />
-        <p className="text-[#8E8E93] text-[17px] font-[590]">
-          등록에 실패하였습니다.
-        </p>
-      </div>
-    );
+    return <FailedAPI text="등록에 실패하였습니다." />;
   }
 
   return (
