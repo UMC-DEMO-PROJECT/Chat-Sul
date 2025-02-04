@@ -99,8 +99,14 @@ export const GetLostDetail_User = async ({
   venueId: number;
   lostItemId: number;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.get(
-    `/lost-item/member/${venueId}/detail/${lostItemId}`
+    `/lost-item/member/${venueId}/detail/${lostItemId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   console.log('상세 게시글 가져오기 성공 : ', response);
   return response.data;

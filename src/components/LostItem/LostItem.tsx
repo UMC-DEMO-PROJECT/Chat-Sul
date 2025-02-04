@@ -1,64 +1,51 @@
 import { useParams } from 'react-router-dom';
-import LostItemData from '../../shared/api/mock/LostItemData';
-// import { useQuery } from '@tanstack/react-query';
-// import { GetLostDetail } from 'shared/api/lost';
-
-type TLostItem = {
-  id: number;
-  title: string;
-  date: string;
-  state: string;
-  name: string;
-  imgUrl: string;
-  content: string;
-};
+import { useQuery } from '@tanstack/react-query';
+import { GetLostDetail_User } from 'shared/api/lost';
+import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
 const LostItem = () => {
-  const { id } = useParams();
+  const { venueId, id } = useParams();
+  const VenueId = Number(venueId);
   const ItemId = Number(id);
-  const item = LostItemData.find((item: TLostItem) => item.id === ItemId);
 
-  // const {
-  //   data: item,
-  //   isPending,
-  //   isError,
-  // } = useQuery({
-  //   queryFn: () => GetLostDetail(ItemId),
-  //   queryKey: ['contents', ItemId],
-  // });
+  console.log(VenueId, ItemId);
 
-  // if (isPending) {
-  //   return <p>로딩중</p>;
-  // }
-  // if (isError) {
-  //   return <p>에러</p>;
-  // }
+  const {
+    data: item,
+    isPending,
+    isError,
+  } = useQuery({
+    queryFn: () => GetLostDetail_User({ venueId: VenueId, lostItemId: ItemId }),
+    queryKey: ['contents', ItemId],
+  });
+
+  if (isPending) {
+    return <p>로딩중</p>;
+  }
+  if (isError) {
+    return <FailedAPI text="상세 페이지를 불러오는데 실패했습니다." />;
+  }
 
   return (
     <div className="flex flex-col gap-4 w-[300px] mx-auto">
       <div className="flex flex-col gap-[2px]">
         <p className="text-[28px] font-bold leading-[34px] tracking-[0.38px] text-left">
-          {item?.title}
+          {item?.result?.title}
         </p>
         <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left text-[#CB6015]">
-          {item?.name}
+          {item?.result?.name}
         </p>
         <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left">
-          {item?.date}
+          {item?.result?.date}
         </p>
         <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left text-[#8E8E93]">
-          {item?.state}
+          {item?.result?.state}
         </p>
       </div>
 
       <img className="w-[294px] rounded-lg" src={item?.imgUrl} />
       <p className="text-[17px] font-normal leading-[22px] tracking-[-0.43px] text-left text-[#939393]">
-        {item?.content.split('\n').map((line, index) => (
-          <p key={index}>
-            {line}
-            <br />
-          </p>
-        ))}
+        {item?.result?.description}
       </p>
     </div>
   );

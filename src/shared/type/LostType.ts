@@ -5,6 +5,16 @@ export type TPostLost = {
   venueId: number;
 };
 
+export type TLostItem = {
+  id: number;
+  title: string;
+  date: string;
+  state: string;
+  name: string;
+  imgUrl: string;
+  content: string;
+};
+
 export interface ILostItem {
   lostItemId: number;
   title: string;
