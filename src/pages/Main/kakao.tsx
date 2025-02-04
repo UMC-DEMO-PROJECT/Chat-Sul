@@ -1,7 +1,8 @@
-import KakaoMapButton from '../../components/KakaoMap/KakaoMapButton';
+import KakaoMapButton from 'components/kakaomap/kakaomapbutton';
 import { useNavigate } from 'react-router-dom';
 import Map from '../../shared/ui/Map/example33';
 import { useState } from 'react';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const Data = [
   {
@@ -33,6 +34,7 @@ const Data = [
 
 const Main = () => {
   const navigate = useNavigate();
+  const { isRole } = useOwnerContext();
   const [map, setMap] = useState<any>(null);
 
   // GPS 버튼 클릭 시 내 위치 이동
@@ -70,14 +72,20 @@ const Main = () => {
   };
 
   const handleBusiness = () => {
-    navigate('/validate');
+    if (isRole == 'OWNER') navigate('/owner');
+    else navigate('/validate');
   };
 
   return (
     <div className="w-full h-full relative">
       <Map locations={Data} onMapLoad={(loadedMap) => setMap(loadedMap)} />
       <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
-        <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        {isRole === 'USER' ? (
+          <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        ) : (
+          <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        )}
+
         <KakaoMapButton IconName="renew" onClick={handleReload} />
         <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
       </div>
