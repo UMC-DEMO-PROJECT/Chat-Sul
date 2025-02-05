@@ -1,5 +1,5 @@
 import TopBar from '../../../shared/ui/TopBar/TopBar';
-import WritingForm from '../../../components/Lostwriting/LostWritingForm';
+import ModifyForm from 'components/LostModify/LostModifyForm';
 import Button from '../../../shared/ui/Button/button';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const LostModifyPage = () => {
         onFirstClick={() => navigate(`/owner/lost-item/${itemId}`)}
         onSecondClick={() => navigate('/owner/lost-list')}
       />
-      <WritingForm />
+      <ModifyForm />
       <div className="w-[356px] mx-auto absolute top-[760px] left-[24px]">
         <Button size="large" colorType="filled">
           수정완료

@@ -71,7 +71,7 @@ const App = () => {
               <Route path="/validate" element={<Validate />} />
               <Route path="/user">
                 <Route index element={<Main />} />
-                <Route path="shop/:id">
+                <Route path="shop/:venueId">
                   <Route index element={<UserShop />} />
                   <Route path="reserve-list" element={<ReserveList />} />
                   <Route path="reserve-form/:id" element={<ReserveForm />} />

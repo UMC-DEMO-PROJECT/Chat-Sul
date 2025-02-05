@@ -3,8 +3,8 @@ import { createContext, useState, useContext, PropsWithChildren } from 'react';
 type TAuthContext = {
   isRole: string | null;
   setIsRole: (role: string) => void;
-  ownerId: string | null;
-  setOwnerId: (ownerId: string) => void;
+  ownerId: number;
+  setOwnerId: (ownerId: number) => void;
   shopName: string | null;
   setShopName: (shopName: string) => void;
 };
@@ -13,8 +13,9 @@ const OwnerContext = createContext<TAuthContext | null>(null);
 
 export const OwnerProvider = ({ children }: PropsWithChildren) => {
   const role = localStorage.getItem('role');
+  const id = localStorage.getItem('ownerId');
   const [isRole, setIsRole] = useState<string | null>(role);
-  const [ownerId, setOwnerId] = useState<string | null>(null);
+  const [ownerId, setOwnerId] = useState<number>(Number(id));
   const [shopName, setShopName] = useState<string | null>(null);
 
   return (

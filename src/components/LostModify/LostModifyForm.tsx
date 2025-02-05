@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { TPostLost } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
-const WritingForm = () => {
+const ModifyForm = () => {
   const [titleValue, setTitleValue] = useState('');
   const [imgValue, setImgValue] = useState<File | null>(null);
   const [textareaValue, setTextareaValue] = useState('');
@@ -150,4 +150,4 @@ const WritingForm = () => {
   );
 };
 
-export default WritingForm;
+export default ModifyForm;

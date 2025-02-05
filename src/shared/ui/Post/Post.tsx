@@ -6,7 +6,7 @@
  * @param {string} content - Post 영역에 표시할 내용용
  * @param {function} [onClick] - Post를 클릭했을 때 실행되는 이벤트 핸들러
  * @param {string} date - Post 우측에 표시할 날짜
- * @param {boolean} isReceived - 수취 상태 설정 (true: 완료, false: 미수취)
+ * @param {string} isReceived - 수취 상태 설정 (true: 완료, false: 미수취)
  *
  */
 
@@ -15,7 +15,7 @@ interface PostProps {
   content: string;
   onClick?: () => void;
   date: string;
-  isReceived: boolean;
+  isReceived: string;
 }
 
 const Post = ({ title, content, onClick, date, isReceived }: PostProps) => {
@@ -39,7 +39,7 @@ const Post = ({ title, content, onClick, date, isReceived }: PostProps) => {
         </div>
         {
           <>
-            {isReceived ? (
+            {isReceived !== 'LOST' ? (
               <div className="text-center text-[#34c759] text-[11px] font-normal font-['SF Pro'] leading-[13px] tracking-tight">
                 완료
               </div>

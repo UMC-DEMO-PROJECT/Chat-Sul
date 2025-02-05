@@ -2,17 +2,22 @@ import { TPostLost } from 'shared/type/LostType';
 import { axiosInstance } from './common/axiosInstance';
 
 //분실물 등록 API
-export const PostLost = async ({
-  data,
-  venueId,
-}: {
-  data: TPostLost;
-  venueId: number;
-}) => {
+export const PostLost = async ({ data }: { data: TPostLost }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.post(
-    `/lost-item/business/${venueId}/post`,
-    data
+    `/lost-item/business/${data.venueId}/post`,
+    {
+      title: data.title,
+      itemImg: data.itemImg,
+      description: data.description,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
+
   console.log('분실물 등록 API :', response);
   return response.data;
 };
@@ -40,8 +45,15 @@ export const PatchLostState = async ({
   venueId: number;
   lostItemId: number;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.patch(
-    `/lost-item/business/${venueId}/status/${lostItemId}`
+    `/lost-item/business/${venueId}/status/${lostItemId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   console.log('분실물 수취상태 변경 성공 : ', response);
   return response.data;
@@ -93,8 +105,14 @@ export const GetLostDetail_User = async ({
   venueId: number;
   lostItemId: number;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.get(
-    `/lost-item/member/${venueId}/detail/${lostItemId}`
+    `/lost-item/member/${venueId}/detail/${lostItemId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   console.log('상세 게시글 가져오기 성공 : ', response);
   return response.data;
@@ -137,8 +155,14 @@ export const DeleteLost = async ({
   venueId: number;
   lostItemId: number;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.delete(
-    `/lost-item/business/${venueId}/detail/${lostItemId}`
+    `/lost-item/business/${venueId}/delete/${lostItemId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   console.log('상세 게시글 삭제하기 성공 : ', response);
   return response.data;
