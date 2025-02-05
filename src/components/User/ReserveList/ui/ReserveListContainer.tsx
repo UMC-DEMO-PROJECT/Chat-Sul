@@ -1,71 +1,22 @@
-import { useEffect, useState } from 'react';
 import ModalLayout from '../../../../shared/ui/Modal/ModalLayout/ModalLayout';
 import TopBar from '../../../../shared/ui/TopBar/TopBar';
 import RentalCard from '../../../../shared/ui/RentalCard/RentalCard';
 import AlertContainer from './Alert/AlertContainer';
-import {
-  IReserveListResponse,
-  TAlertType,
-  THandleModalOpen,
-} from '../type/TReserveList';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { GetReservation } from 'shared/api/reservation';
-import { useInView } from 'react-intersection-observer';
+import { IReserveListResponse } from '../type/TReserveList';
 import RentarCardSkeleton from '../../../../shared/ui/RentalCard/RentarCardSkeleton';
 import { useNavigate } from 'react-router-dom';
+import { useGetReserveListInfinity } from '../hooks/useGetReserveListInfinity';
+import ModalDataProvider from '../context/SelectedModalDataContextProvider';
+import {
+  useSelectedDataDispatch,
+  useSelectedDataState,
+} from '../context/SelectedModalDataContext';
 
-const ReserveListContainer = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [alertType, setAlertType] = useState<TAlertType>('CONFIRMED');
-  const [selectedReservationId, setSelectedReservationId] =
-    useState<number>(-1);
-  const [phone, setPhone] = useState<string>('');
-  const [ref, inView] = useInView();
+const ReserveListInner = () => {
   const navigate = useNavigate();
-
-  const { data, hasNextPage, fetchNextPage, isLoading, isError } =
-    useInfiniteQuery({
-      queryKey: ['user-reserve-list'],
-      queryFn: ({ pageParam }) => GetReservation(pageParam),
-      getNextPageParam: (
-        lastPage,
-        _allPage,
-        lastPageParam
-      ): number | undefined => {
-        if (lastPage.result?.totalPage == lastPageParam + 1) {
-          return undefined;
-        }
-        return lastPageParam + 1;
-      },
-      initialPageParam: 0,
-    });
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage]);
-
-  const handleModalOpen: THandleModalOpen = (
-    alertType,
-    reservationId,
-    phone
-  ) => {
-    if (
-      alertType == 'CONFIRMED' ||
-      alertType == 'CANCELLED' ||
-      alertType == 'WAITING_CONFIRMATION'
-    ) {
-      return;
-    }
-    setAlertType(alertType);
-    if (phone) {
-      setPhone(phone);
-    }
-    if (reservationId) {
-      setSelectedReservationId(reservationId);
-    }
-    setIsOpen(true);
-  };
+  const { data, isLoading, isError, ref } = useGetReserveListInfinity();
+  const modalData = useSelectedDataState();
+  const dispatch = useSelectedDataDispatch();
 
   return (
     <>
@@ -75,48 +26,55 @@ const ReserveListContainer = () => {
           navigate('/user/shop');
         }}
       />
-      <div className="mt-[52px]">
-        {data?.pages.map((element) =>
-          element.result.reservationList.map((item: IReserveListResponse) => {
-            return (
-              <RentalCard
-                key={item.reservationId}
-                Name={item.venueName}
-                numberOfGuests={item.numberOfGuests}
-                reservationDate={item.reservationDate}
-                reservationTime={item.reservationTime}
-                status={item.status}
-                isUser={true}
-                onCancel={() => {
-                  handleModalOpen('RESERVATION_CANCEL', item.reservationId);
-                }}
-                onClick={() => {
-                  handleModalOpen(item.status, item.reservationId);
-                }}
-              />
-            );
-          })
-        )}
-      </div>
+      {data?.pages.map((element) =>
+        element.result.reservationList.map((item: IReserveListResponse) => {
+          return (
+            <RentalCard
+              key={item.reservationId}
+              Name={item.venueName}
+              numberOfGuests={item.numberOfGuests}
+              reservationDate={item.reservationDate}
+              reservationTime={item.reservationTime}
+              status={item.status}
+              isUser={true}
+              onCancel={() => {
+                dispatch({
+                  type: 'RESERVATION_CANCEL',
+                  reservationId: item.reservationId,
+                });
+              }}
+              onClick={() => {
+                if (item.status == 'WAITING_DEPOSIT') {
+                  dispatch({
+                    type: item.status,
+                    reservationId: item.reservationId,
+                  });
+                }
+              }}
+            />
+          );
+        })
+      )}
       <RentarCardSkeleton isLoading={isLoading} count={6} />
       {isError && '서버와의 연결이 불안정합니다.'}
       <div ref={ref}></div>
       <ModalLayout
-        isOpen={isOpen}
+        isOpen={modalData.isOpen}
         closeModal={() => {
-          setIsOpen(false);
+          dispatch({ type: 'CLOSE_MODAL' });
         }}
       >
-        <AlertContainer
-          alertType={alertType}
-          setIsOpen={setIsOpen}
-          handleModalOpen={handleModalOpen}
-          reservationId={selectedReservationId}
-          phone={phone}
-        />
+        <AlertContainer />
       </ModalLayout>
     </>
   );
 };
 
+const ReserveListContainer = () => {
+  return (
+    <ModalDataProvider>
+      <ReserveListInner />
+    </ModalDataProvider>
+  );
+};
 export default ReserveListContainer;
