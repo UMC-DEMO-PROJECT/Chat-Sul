@@ -1,21 +1,25 @@
 import AlertOneButton from 'shared/ui/Modal/Alert/AlertOneButton';
 import { useQuery } from '@tanstack/react-query';
 import { GetReservationAccountInfo } from 'shared/api/reservation';
-import { WaitingDepositProps } from '../../type/TReserveList';
+import {
+  useSelectedDataDispatch,
+  useSelectedDataState,
+} from '../../context/SelectedModalDataContext';
 
-const WaitingDepositAlert = ({
-  setIsOpen,
-  reservationId,
-}: WaitingDepositProps) => {
+const WaitingDepositAlert = () => {
+  const modalData = useSelectedDataState();
+  const dispatch = useSelectedDataDispatch();
   const { data, isError, isLoading } = useQuery({
-    queryKey: [`account-${reservationId}`],
-    queryFn: () => GetReservationAccountInfo(reservationId),
+    queryKey: [`account-${modalData.reservationId}`],
+    queryFn: () => GetReservationAccountInfo(modalData.reservationId),
   });
   return (
     <AlertOneButton
       buttonMessage="확인"
       onClick={() => {
-        setIsOpen(false);
+        dispatch({
+          type: 'CLOSE_MODAL',
+        });
       }}
     >
       <div className="text-center">
@@ -28,7 +32,7 @@ const WaitingDepositAlert = ({
         </p>
         <p className="text-black text-base font-bold leading-[21px]">
           {isError && '서버와의 연결이 불안정합니다.'}
-          {isLoading && '계좌번호 가져오는 중'}
+          {isLoading && '로딩중'}
           {data?.result.bank}
         </p>
       </div>

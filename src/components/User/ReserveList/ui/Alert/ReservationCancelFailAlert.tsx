@@ -1,15 +1,19 @@
 import AlertOneButton from 'shared/ui/Modal/Alert/AlertOneButton';
-import { ReservationCancelFailAlertProps } from '../../type/TReserveList';
+import {
+  useSelectedDataDispatch,
+  useSelectedDataState,
+} from '../../context/SelectedModalDataContext';
 
-const ReservationCancelFailAlert = ({
-  phone,
-  setIsOpen,
-}: ReservationCancelFailAlertProps) => {
+const ReservationCancelFailAlert = () => {
+  const modalData = useSelectedDataState();
+  const dispatch = useSelectedDataDispatch();
   return (
     <AlertOneButton
       buttonMessage="확인"
       onClick={() => {
-        setIsOpen(false);
+        dispatch({
+          type: 'CLOSE_MODAL',
+        });
       }}
     >
       <div className=" text-center">
@@ -20,7 +24,7 @@ const ReservationCancelFailAlert = ({
           <br />
           세부 사항은 가게 전화를 이용해주세요.
           <br />
-          전화번호: {phone}
+          전화번호: {modalData.phone}
           <br />
         </p>
       </div>

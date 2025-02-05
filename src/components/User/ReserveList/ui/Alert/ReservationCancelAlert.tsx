@@ -1,24 +1,30 @@
 import { useMutation } from '@tanstack/react-query';
 import AlertTwoButton from 'shared/ui/Modal/Alert/AlertTwoButton';
-import { ReserVationCancelAlertProps } from '../../type/TReserveList';
 import { PatchReservationCancel } from 'shared/api/reservation';
+import {
+  useSelectedDataDispatch,
+  useSelectedDataState,
+} from '../../context/SelectedModalDataContext';
+import useReserveListValidateQuery from '../../hooks/useReserveListValidateQuery';
 
-const ResrvationCancelAlert = ({
-  setIsOpen,
-  handleModalOpen,
-  reservationId,
-}: ReserVationCancelAlertProps) => {
+const ResrvationCancelAlert = () => {
+  const modalData = useSelectedDataState();
+  const dispatch = useSelectedDataDispatch();
+  const vaildateReserveList = useReserveListValidateQuery();
+
   const { mutate } = useMutation({
-    mutationFn: () => PatchReservationCancel(reservationId),
+    mutationFn: () => PatchReservationCancel(modalData.reservationId),
     onSuccess: ({ data }) => {
       if (data.isSuccess == false) {
-        handleModalOpen(
-          'RESERVATION_CANCEL_FAIL',
-          undefined,
-          data.result.phone
-        );
+        dispatch({
+          type: 'RESERVATION_CANCEL_FAIL',
+          phone: data.result.phone,
+        });
       } else {
-        setIsOpen(true);
+        vaildateReserveList();
+        dispatch({
+          type: 'CLOSE_MODAL',
+        });
       }
     },
     onError: () => {
@@ -30,7 +36,9 @@ const ResrvationCancelAlert = ({
       btnMessage1="돌아가기"
       btnMessage2="취소하기"
       onClick1={() => {
-        setIsOpen(false);
+        dispatch({
+          type: 'CLOSE_MODAL',
+        });
       }}
       onClick2={() => {
         mutate();
