@@ -20,7 +20,7 @@ export interface ILostItem {
   title: string;
   description: string;
   foundDate: string;
-  lostItemStatus: boolean;
+  lostItemStatus: string;
 }
 
 export interface ILostItemPreview {
