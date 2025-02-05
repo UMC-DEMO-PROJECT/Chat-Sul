@@ -4,7 +4,6 @@ import { axiosInstance } from './common/axiosInstance';
 //분실물 등록 API
 export const PostLost = async ({ data }: { data: TPostLost }) => {
   const accessToken = localStorage.getItem('accessToken');
-  console.log(data);
   const response = await axiosInstance.post(
     `/lost-item/business/${data.venueId}/post`,
     {
@@ -46,8 +45,15 @@ export const PatchLostState = async ({
   venueId: number;
   lostItemId: number;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.patch(
-    `/lost-item/business/${venueId}/status/${lostItemId}`
+    `/lost-item/business/${venueId}/status/${lostItemId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   console.log('분실물 수취상태 변경 성공 : ', response);
   return response.data;
