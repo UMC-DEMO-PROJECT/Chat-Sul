@@ -17,8 +17,6 @@ const LostItem = () => {
 
   const ItemId = Number(id);
 
-  console.log(VenueId, ItemId);
-
   const {
     data: item,
     isPending,
@@ -36,7 +34,7 @@ const LostItem = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-[300px] mx-auto">
+    <div className="flex flex-col gap-4 w-[300px] min-h-[500px] mx-auto">
       <div className="flex flex-col gap-[2px]">
         <p className="text-[28px] font-bold leading-[34px] tracking-[0.38px] text-left">
           {item?.result?.title}

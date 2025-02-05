@@ -4,12 +4,14 @@ import ModalLayout from '../../shared/ui/Modal/ModalLayout/ModalLayout';
 import AlertTwoButton from '../../shared/ui/Modal/Alert/AlertTwoButton';
 import { useNavigate } from 'react-router-dom';
 import { DeleteLost } from 'shared/api/lost';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
   const [isClick, setIsClick] = useState(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { ownerId } = useOwnerContext();
 
   const handleDeleteClick = () => {
     setIsOpen(true);
@@ -21,8 +23,8 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
   const handleModalDeleteClick = async () => {
     try {
       setIsOpen(false);
-      //DeleteLOst(venueId, itemId)
-      await DeleteLost(1, itemId);
+      //console.log('삭제 요청: venueId =', ownerId, 'lostItemId =', itemId);
+      await DeleteLost({ venueId: ownerId, lostItemId: itemId });
       navigate('/owner/lost-list');
     } catch (error) {
       console.log('삭제 실패 : ', error);

@@ -18,7 +18,7 @@ const LostItemPage_Owner = () => {
         <Option itemId={itemId} />
         <div className="mt-[25px]">
           <LostItem />
-          <div className="w-[356px] mx-auto absolute top-[760px] left-[24px]">
+          <div className="w-[356px] mx-auto mt-[185px]">
             <Button
               size="large"
               colorType="filled"

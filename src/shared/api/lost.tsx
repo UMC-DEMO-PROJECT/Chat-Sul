@@ -149,8 +149,14 @@ export const DeleteLost = async ({
   venueId: number;
   lostItemId: number;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.delete(
-    `/lost-item/business/${venueId}/detail/${lostItemId}`
+    `/lost-item/business/${venueId}/delete/${lostItemId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
   );
   console.log('상세 게시글 삭제하기 성공 : ', response);
   return response.data;
