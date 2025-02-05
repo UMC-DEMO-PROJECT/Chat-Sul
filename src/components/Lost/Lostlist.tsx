@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import SearchLostList from './SearchLostList';
 import { ILostItem } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const LostList = ({
   who,
@@ -14,9 +15,12 @@ const LostList = ({
   who: string;
   searchValue: string | null;
 }) => {
+  const { isRole } = useOwnerContext();
+
   const navigate = useNavigate();
   const handleClick = (id: number) => {
-    navigate(`/${who}/shop/${venueId}/lost-item/${id}`);
+    if (isRole == 'OWNER') navigate(`/${who}/lost-item/${id}`);
+    else navigate(`/${who}/shop/${venueId}/lost-item/${id}`);
   };
 
   const { id } = useParams();

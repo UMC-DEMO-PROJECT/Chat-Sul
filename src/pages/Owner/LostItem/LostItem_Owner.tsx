@@ -9,7 +9,7 @@ const LostItemPage_Owner = () => {
   const { id } = useParams();
   const itemId = Number(id);
   return (
-    <div className="relative">
+    <div className="flex flex-col items-center h-full relative">
       <TopBar
         title="분실물"
         onSecondClick={() => navigate('/owner/lost-list')}
