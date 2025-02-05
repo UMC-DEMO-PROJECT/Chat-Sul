@@ -23,7 +23,6 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
   const handleModalDeleteClick = async () => {
     try {
       setIsOpen(false);
-      //console.log('삭제 요청: venueId =', ownerId, 'lostItemId =', itemId);
       await DeleteLost({ venueId: ownerId, lostItemId: itemId });
       navigate('/owner/lost-list');
     } catch (error) {
