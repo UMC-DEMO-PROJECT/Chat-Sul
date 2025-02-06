@@ -5,12 +5,14 @@ import { PatchLostState } from 'shared/api/lost';
 import { useOwnerContext } from '.././../context/OwnerContext';
 import ModalLayout from '../../shared/ui/Modal/ModalLayout/ModalLayout';
 import AlertTwoButton from '../../shared/ui/Modal/Alert/AlertTwoButton';
+import { useItemStateContext } from '../../pages/Owner/LostItem/context/LostItemStateContext';
 
 const ButtonModal = ({ itemId }: { itemId: number }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { ownerId } = useOwnerContext();
+  const { itemState } = useItemStateContext();
 
   const handleClose = () => {
     setIsOpen(false);
@@ -41,11 +43,17 @@ const ButtonModal = ({ itemId }: { itemId: number }) => {
 
   return (
     <>
-      <div className="w-[356px] mx-auto mt-[185px]">
-        <Button size="large" colorType="filled" onClick={() => setIsOpen(true)}>
-          수취 완료하기
-        </Button>
-      </div>
+      {itemState === 'FOUND' ? (
+        <div className="w-[356px] mx-auto mt-[185px]">
+          <Button
+            size="large"
+            colorType="filled"
+            onClick={() => setIsOpen(true)}
+          >
+            수취 완료하기
+          </Button>
+        </div>
+      ) : null}
       {isOpen && (
         <ModalLayout
           isOpen={isOpen}
