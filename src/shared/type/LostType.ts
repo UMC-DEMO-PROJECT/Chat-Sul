@@ -23,18 +23,8 @@ export interface ILostItem {
   lostItemStatus: string;
 }
 
-export interface ILostItemPreview {
-  lostItemId: number;
-  title: string;
-  foundDate: string;
-  lostItemStatus: 'LOST' | 'FOUND';
-  venueName: string;
-  venueAddress: string;
-  venuePhone: string;
-}
-
 export interface ILostItemResponse {
-  lostItemPreViewDTOList: ILostItemPreview[];
+  lostItemPreViewDTOList: ILostItem[];
   listSize: number;
   totalPage: number;
   totalElements: number;
