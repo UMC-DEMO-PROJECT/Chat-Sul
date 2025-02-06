@@ -14,7 +14,6 @@ interface Location {
 
 interface MapProps {
   locations: Location[];
-  onMapLoad: any;
 }
 
 declare global {
@@ -23,7 +22,7 @@ declare global {
   }
 }
 
-const Map = ({ locations, onMapLoad }: MapProps): JSX.Element => {
+const Map = ({ locations }: MapProps): JSX.Element => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const Map = ({ locations, onMapLoad }: MapProps): JSX.Element => {
   useEffect(() => {
     if (!scriptLoaded) return;
 
-    const kakao = window.KaKao;
+    const { kakao } = window.KaKao;
     kakao.maps.load(() => {
       const container = document.getElementById('map');
       if (!container) return;
@@ -102,8 +101,6 @@ const Map = ({ locations, onMapLoad }: MapProps): JSX.Element => {
           }
         });
       });
-
-      console.log(onMapLoad);
 
       return () => {
         markers.forEach((marker) => marker.setMap(null));
