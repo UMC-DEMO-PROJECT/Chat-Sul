@@ -4,10 +4,12 @@ import Button from '../../shared/ui/Button/button';
 const SocialLogin = () => {
   const handleNaverLogin = () => {
     console.log('네이버 로그인 ㄱㄱ');
+    window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/naver`;
   };
 
   const handleKakaoLogin = () => {
     console.log('카카오 로그인 ㄱㄱ');
+    window.location.href = `${import.meta.env.VITE_API_URL}/oauth2/authorization/kakao`;
   };
   return (
     <div className="w-full">
