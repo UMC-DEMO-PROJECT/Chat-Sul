@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom';
 const LostItemPage = () => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="flex flex-col items-center h-full relative">
       <TopBar
         title="분실물"
-        onFirstClick={() => navigate('/user/lost-list')}
         onSecondClick={() => navigate('/user/lost-list')}
       />
-      <div className="mt-[25px]">
+      <div className="mt-[73px]">
         <LostItem />
       </div>
     </div>

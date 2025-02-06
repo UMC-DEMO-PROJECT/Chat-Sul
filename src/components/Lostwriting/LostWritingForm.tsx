@@ -1,10 +1,53 @@
 import Input from '../../shared/ui/Input/Input';
 import { useState } from 'react';
-import Button from '../button';
+import Button from '../../shared/ui/Button/button';
+import { PostLost } from '../../shared/api/lost';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { TPostLost } from 'shared/type/LostType';
+import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
 const WritingForm = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [titleValue, setTitleValue] = useState('');
+  const [imgValue, setImgValue] = useState<File | null>(null);
   const [textareaValue, setTextareaValue] = useState('');
+
+  const navigate = useNavigate();
+  const {
+    mutate: postMutation,
+    isError,
+    isPending,
+  } = useMutation({
+    mutationFn: PostLost,
+    onSuccess: () => {
+      console.log('분실물 등록 성공');
+      navigate('/owner/lost-list');
+    },
+    onError: (error) => {
+      console.error('분실물 등록 실패: ', error);
+    },
+  });
+
+  const handledSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formdata: TPostLost = {
+      title: titleValue,
+      itemImg: imgValue,
+      description: textareaValue,
+      venueId: 6,
+    };
+
+    //const { ownerId } = useOwnerContext();
+    console.log('제출할 데이터 : ', formdata);
+    //postMutation(formdata, ownerId);
+    postMutation({ data: formdata });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImgValue(e.target.files[0]);
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -13,7 +56,7 @@ const WritingForm = () => {
     if (e.target.tagName === 'TEXTAREA') {
       setTextareaValue(value);
     } else {
-      setInputValue(value);
+      setTitleValue(value);
     }
   };
 
@@ -25,19 +68,57 @@ const WritingForm = () => {
     }
   };
 
+  const isButtonDisabled = titleValue && textareaValue;
+
+  if (isPending) {
+    return <p>로딩중</p>;
+  }
+  if (isError) {
+    return <FailedAPI text="등록에 실패하였습니다." />;
+  }
+
   return (
     <>
-      <form className="flex flex-col gap-[24px] w-[356px] mx-auto mt-[25px]">
+      <form
+        onSubmit={handledSubmit}
+        className="flex flex-col gap-[24px] w-[356px] mx-auto mt-[73px]"
+      >
         <Input
           placeholder="제목을 입력해주세요"
           title="제목"
-          value={inputValue}
+          value={titleValue}
           onChange={handleInputChange}
         />
         <div className="w-[164px]">
-          <Button size="small" colorType="tint">
+          <input
+            id="file"
+            type="file"
+            name="file"
+            hidden
+            onChange={handleFileChange}
+          />
+          <Button
+            size="small"
+            colorType="tint"
+            onClick={(e) => {
+              e.preventDefault();
+              const fileInput = document.getElementById(
+                'file'
+              ) as HTMLInputElement | null;
+              fileInput?.click();
+            }}
+          >
             이미지 추가하기
           </Button>
+          {imgValue && (
+            <div className="w-[356px] flex justify-center my-7">
+              <img
+                src={URL.createObjectURL(imgValue)}
+                alt="Uploaded"
+                className="w-[100px] object-cover"
+              />
+            </div>
+          )}
         </div>
 
         <div className={` flex flex-col items-start w-[354px]`}>
@@ -53,6 +134,16 @@ const WritingForm = () => {
               onInput={(e) => autoResize(e.target as HTMLTextAreaElement)}
             />
           </div>
+        </div>
+        <div className="w-[356px] mx-auto absolute top-[760px] left-[24px]">
+          <Button
+            size="large"
+            colorType="filled"
+            disabled={!isButtonDisabled}
+            customSize="disabled:bg-[#DEDEDE] disabled:text-[#A6A6A6]"
+          >
+            작성완료
+          </Button>
         </div>
       </form>
     </>

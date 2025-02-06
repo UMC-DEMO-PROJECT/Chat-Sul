@@ -37,7 +37,7 @@ const ModalLayout = ({ children, isOpen, closeModal }: ModalLayoutProps) => {
 
   return (
     <div
-      className="fixed top-0 left-0 h-full w-full flex justify-center items-center backdrop-blur-sm bg-[#0c0c0c]/50"
+      className="fixed top-0 left-0 h-full w-full flex justify-center items-center backdrop-blur-sm bg-[#0c0c0c]/50 "
       ref={modal}
       onClick={closeModal}
     >

@@ -2,24 +2,30 @@ import { useNavigate } from 'react-router-dom';
 import EmailInput from '../../shared/ui/Input/EmailInput';
 import Input from '../../shared/ui/Input/Input';
 import PasswordCheckInput from '../../shared/ui/Input/PasswordCheckInput';
-import Button from '../button';
+import Button from '../../shared/ui/Button/button';
 import React, { useState } from 'react';
+import { PostRegister } from '../../shared/api/membersApi';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = {
       name: nameValue,
-      phone: phoneValue,
+      phoneNumber: phoneValue,
       email: emailValue,
       password: passwordValue,
     };
 
     console.log(formData);
-    navigate('/login');
+    try {
+      await PostRegister(formData);
+      navigate('/');
+    } catch (error) {
+      console.error('회원가입 실패', error);
+    }
   };
 
   const [nameValue, setNameValue] = useState('');
@@ -50,7 +56,6 @@ const RegisterForm = () => {
     state: 'valid' | 'correct' | 'error' | 'invalid'
   ) => {
     setIconState(state);
-    console.log('아이콘 상태 변경:', state);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {

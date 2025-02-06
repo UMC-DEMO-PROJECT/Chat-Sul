@@ -1,10 +1,9 @@
-
 /**
- * 
+ *
  * 경고 메세지을 보여주는 Message컴포넌트입니다.
- * 
+ *
  * @param {string} [text] - 경고 메세지으로 보여줄 내용
- * 
+ *
  */
 
 interface MessageProps {

@@ -2,27 +2,35 @@ import { useState } from 'react';
 import Input from '../../shared/ui/Input/Input';
 import Message from '../../shared/ui/Message/Message';
 import { useNavigate } from 'react-router-dom';
-import Button from '../button';
+import Button from '../../shared/ui/Button/button';
 import EmailInput from '../../shared/ui/Input/EmailInput';
+import { PostLogin } from '../../shared/api/membersApi';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { setIsRole, setOwnerId } = useOwnerContext();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = {
       email: emailValue,
       password: passwordValue,
     };
+    setIsError(false);
+    try {
+      const response = await PostLogin(formData);
+      const { accessToken, role, venueIds } = response.result;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('role', role);
+      localStorage.setItem('ownerId', venueIds[0]);
+      setIsRole(role);
+      setOwnerId(venueIds[0]);
 
-    if (emailValue === 'test@example.com' && passwordValue === 'password123') {
-      console.log('로그인 성공', formData);
-      setIsError(false);
-      // navigate('/');
-    } else {
-      console.log('로그인 실패', formData);
-      setIsError(true);
+      navigate('/user');
+    } catch (error) {
+      console.error('회원가입 실패', error);
     }
   };
 
@@ -63,6 +71,7 @@ const LoginForm = () => {
             title="비밀번호"
             value={passwordValue}
             onChange={handlePasswordChange}
+            type="password"
           />
         </div>
         {isError ? (
@@ -82,10 +91,10 @@ const LoginForm = () => {
       </form>
 
       <div className="flex text-[11px] mt-4">
-        <p> 계정이 없으신가요? </p>
+        <p className="text-[#8E8E93] text-[11px]"> 계정이 없으신가요? </p>
         <p
           onClick={handleRegisterClick}
-          className="px-3 text-dongguk cursor-pointer"
+          className="px-3 text-dongguk cursor-pointer font-semibold"
         >
           계정 만들기
         </p>
