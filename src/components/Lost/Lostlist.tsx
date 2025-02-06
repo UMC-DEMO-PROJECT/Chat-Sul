@@ -50,15 +50,7 @@ const LostList = ({
   }
 
   const LostPageList = data.pages[0].result;
-
-  // const LostList = data?.pages?.flatMap(
-  //   (page) => page.result.lostItemPreViewDTOList
-  // );
-  // const filteredLostList = LostList.filter((lost: ILostItem) =>
-  //   searchValue
-  //     ? lost.title.toLowerCase().includes(searchValue.toLowerCase())
-  //     : true
-  // );
+  console.log(LostPageList);
 
   return (
     <div className="flex flex-col mt-3">
