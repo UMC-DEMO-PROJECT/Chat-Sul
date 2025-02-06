@@ -35,7 +35,7 @@ const Data = [
 const Main = () => {
   const navigate = useNavigate();
   const { isRole } = useOwnerContext();
-  const [map, setMap] = useState<any>(null);
+  const [map, setMap] = useState(null);
 
   // GPS 버튼 클릭 시 내 위치 이동
   const handleGPSClick = () => {
@@ -44,7 +44,7 @@ const Main = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
 
-          const { kakao } = window;
+          const { kakao } = window.KaKao;
           const currentPosition = new kakao.maps.LatLng(latitude, longitude);
 
           // 지도 중심을 내 위치로 이동

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Location 타입 정의
 interface Coordinates {
@@ -14,9 +14,16 @@ interface Location {
 
 interface MapProps {
   locations: Location[];
+  onMapLoad: any;
 }
 
-const Map = ({ locations }: MapProps): JSX.Element => {
+declare global {
+  interface Window {
+    KaKao: any;
+  }
+}
+
+const Map = ({ locations, onMapLoad }: MapProps): JSX.Element => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const Map = ({ locations }: MapProps): JSX.Element => {
   useEffect(() => {
     if (!scriptLoaded) return;
 
-    const { kakao } = window;
+    const kakao = window.KaKao;
     kakao.maps.load(() => {
       const container = document.getElementById('map');
       if (!container) return;
@@ -95,6 +102,8 @@ const Map = ({ locations }: MapProps): JSX.Element => {
           }
         });
       });
+
+      console.log(onMapLoad);
 
       return () => {
         markers.forEach((marker) => marker.setMap(null));

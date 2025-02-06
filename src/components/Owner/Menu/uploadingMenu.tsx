@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PostMenu, GetMenu } from 'shared/api/menu';
 import Button from 'shared/ui/Button/button';
 import Icon from 'shared/ui/Icon/Icon';
@@ -11,8 +12,8 @@ interface MenuItem {
 const UploadingMenu = () => {
   const [images, setImages] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<MenuItem[]>([]);
-
-  const venueId = 6;
+  const navigate = useNavigate();
+  const venueId = Number(localStorage.getItem('ownerId'));
 
   useEffect(() => {
     const fetchMenuImages = async () => {
@@ -43,6 +44,8 @@ const UploadingMenu = () => {
         formData.append(`imageUrl`, image);
       });
       await PostMenu(venueId, formData);
+      alert('메뉴가 변경되었습니다.');
+      navigate(-1);
     } catch (error) {
       console.error('이미지 업로드 중 오류 발생', error);
     }
