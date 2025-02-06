@@ -27,7 +27,7 @@ const LostItem = () => {
     queryFn: () => GetLostDetail_User({ venueId: VenueId, lostItemId: ItemId }),
     queryKey: ['contents', ItemId],
   });
-  setItemState(item?.result?.state);
+  setItemState(item?.result?.lostItemStatus);
 
   if (isPending) {
     return <p>로딩중</p>;
@@ -43,17 +43,26 @@ const LostItem = () => {
           {item?.result?.title}
         </p>
         <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left text-[#CB6015]">
-          {item?.result?.name}
+          {item?.result?.venueName}
         </p>
         <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left">
-          {item?.result?.date}
+          {item?.result?.foundDate}
         </p>
-        <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left text-[#8E8E93]">
-          {item?.result?.state}
-        </p>
+        {item?.result?.lostItemStatus === 'LOST' ? (
+          <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left text-[#8E8E93]">
+            미수취
+          </p>
+        ) : (
+          <p className="text-[13px] font-normal leading-[18px] tracking-[-0.08px] text-left text-[#8E8E93]">
+            수취 완료
+          </p>
+        )}
       </div>
 
-      <img className="w-[294px] rounded-lg" src={item?.imgUrl} />
+      <img
+        className="w-[294px] rounded-lg"
+        src={`http://localhost:3000/${item?.itemImg?.[0]} `}
+      />
       <p className="text-[17px] font-normal leading-[22px] tracking-[-0.43px] text-left text-[#939393]">
         {item?.result?.description}
       </p>

@@ -8,7 +8,7 @@ type TValue = {
 const ItemStateContext = createContext<TValue | null>(null);
 
 export const ItemStateProvider = ({ children }: PropsWithChildren) => {
-  const [itemState, setItemState] = useState<string | null>(null);
+  const [itemState, setItemState] = useState<string>('LOST');
 
   return (
     <ItemStateContext.Provider
@@ -25,7 +25,7 @@ export const ItemStateProvider = ({ children }: PropsWithChildren) => {
 export function useItemStateContext() {
   const context = useContext(ItemStateContext);
   if (context == null) {
-    throw new Error('OwnerProvider를 찾을 수 없습니다.');
+    throw new Error('ItemStateProvider를 찾을 수 없습니다.');
   }
 
   return context;
