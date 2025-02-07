@@ -129,7 +129,7 @@ const ModifyForm = () => {
                 className="w-[294px] rounded-lg object-cover"
               />
             </div>
-          ) : contents?.result.itemImg > 0 ? (
+          ) : contents?.result.itemImg.length > 0 ? (
             <div className="w-[356px] flex justify-center my-7">
               <img
                 src={contents.result.itemImg}
