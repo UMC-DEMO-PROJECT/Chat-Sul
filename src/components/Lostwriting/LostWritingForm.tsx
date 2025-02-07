@@ -6,12 +6,15 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { TPostLost } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const WritingForm = () => {
   const [titleValue, setTitleValue] = useState('');
   const [imgValue, setImgValue] = useState<File[] | null>(null);
   // const [imgUrl, setImgUrl] = useState<string[]>([]);
   const [textareaValue, setTextareaValue] = useState('');
+
+  const { ownerId } = useOwnerContext();
 
   const navigate = useNavigate();
   const {
@@ -35,7 +38,7 @@ const WritingForm = () => {
       title: titleValue,
       itemImg: imgValue,
       description: textareaValue,
-      venueId: 6,
+      venueId: ownerId,
     };
 
     console.log('제출할 데이터 : ', formdata);

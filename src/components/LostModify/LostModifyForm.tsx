@@ -1,31 +1,41 @@
 import Input from '../../shared/ui/Input/Input';
 import { useState } from 'react';
 import Button from '../../shared/ui/Button/button';
-import { PostLost } from '../../shared/api/lost';
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { GetLostDetail_User, PatchUpdate } from '../../shared/api/lost';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TPostLost } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const ModifyForm = () => {
   const [titleValue, setTitleValue] = useState('');
-  const [imgValue, setImgValue] = useState<File | null>(null);
+  const [imgValue, setImgValue] = useState<File[] | null>(null);
   const [textareaValue, setTextareaValue] = useState('');
 
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { ownerId } = useOwnerContext();
+  const itemId = Number(id);
+
   const {
-    mutate: postMutation,
+    mutate: PatchMutation,
     isError,
     isPending,
   } = useMutation({
-    mutationFn: PostLost,
+    mutationFn: PatchUpdate,
     onSuccess: () => {
-      console.log('분실물 등록 성공');
-      navigate('/owner/lost-list');
+      console.log('분실물 수정정 성공');
+      navigate(`/owner/lost-item/${itemId}`);
     },
     onError: (error) => {
       console.error('분실물 등록 실패: ', error);
     },
+  });
+
+  const { data: contents } = useQuery({
+    queryFn: () => GetLostDetail_User({ venueId: ownerId, lostItemId: itemId }),
+    queryKey: ['contents'],
   });
 
   const handledSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,18 +44,17 @@ const ModifyForm = () => {
       title: titleValue,
       itemImg: imgValue,
       description: textareaValue,
-      venueId: 6,
+      venueId: ownerId,
     };
 
-    //const { ownerId } = useOwnerContext();
-    console.log('제출할 데이터 : ', formdata);
-    //postMutation(formdata, ownerId);
-    postMutation({ data: formdata });
+    console.log('제출할 수정정 데이터 : ', formdata);
+    PatchMutation({ data: formdata, lostItemId: itemId });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setImgValue(e.target.files[0]);
+      const images = Array.from(e.target.files);
+      setImgValue(images);
     }
   };
 
@@ -68,13 +77,15 @@ const ModifyForm = () => {
     }
   };
 
-  const isButtonDisabled = titleValue && textareaValue;
+  const isButtonDisabled =
+    (titleValue && textareaValue) ||
+    (contents?.result.title && contents?.result.description);
 
   if (isPending) {
     return <p>로딩중</p>;
   }
   if (isError) {
-    return <FailedAPI text="등록에 실패하였습니다." />;
+    return <FailedAPI text="수정하는데 실패하였습니다." />;
   }
 
   return (
@@ -86,7 +97,7 @@ const ModifyForm = () => {
         <Input
           placeholder="제목을 입력해주세요"
           title="제목"
-          value={titleValue}
+          defaultValue={contents?.result.title}
           onChange={handleInputChange}
         />
         <div className="w-[164px]">
@@ -110,15 +121,23 @@ const ModifyForm = () => {
           >
             이미지 추가하기
           </Button>
-          {imgValue && (
+          {imgValue ? (
             <div className="w-[356px] flex justify-center my-7">
               <img
-                src={URL.createObjectURL(imgValue)}
+                src={URL.createObjectURL(imgValue[0])}
                 alt="Uploaded"
-                className="w-[100px] object-cover"
+                className="w-[294px] rounded-lg object-cover"
               />
             </div>
-          )}
+          ) : contents?.result.itemImg > 0 ? (
+            <div className="w-[356px] flex justify-center my-7">
+              <img
+                src={contents.result.itemImg}
+                alt="Uploaded"
+                className="w-[294px] rounded-lg object-cover"
+              />
+            </div>
+          ) : null}
         </div>
 
         <div className={` flex flex-col items-start w-[354px]`}>
@@ -129,7 +148,7 @@ const ModifyForm = () => {
             <textarea
               className={`flex w-full h-[114px] items-center self-stretch py-4 pl-4 pr-5 bg-white border-[#000000] border-b-[0.6px] border-solid text-[17px] focus:outline-none placeholder:whitespace-pre-wrap overflow-hidden resize-none`}
               placeholder={`분실물에 대한 설명입니다.\n'언제, 어디서, 무엇을'에 대해 \n자세하게 설명해주면 좋습니다.`}
-              value={textareaValue}
+              defaultValue={contents?.result.description}
               onChange={handleInputChange}
               onInput={(e) => autoResize(e.target as HTMLTextAreaElement)}
             />
@@ -142,7 +161,7 @@ const ModifyForm = () => {
             disabled={!isButtonDisabled}
             customSize="disabled:bg-[#DEDEDE] disabled:text-[#A6A6A6]"
           >
-            작성완료
+            수정 완료
           </Button>
         </div>
       </form>
