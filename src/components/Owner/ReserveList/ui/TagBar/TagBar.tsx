@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { TMenuStatus } from '../../types/TReserveList';
 
 interface TagBarProps {
@@ -9,12 +10,14 @@ interface tabsProps {
   value: TMenuStatus;
 }
 const TagBar = ({ status, setStatus }: TagBarProps) => {
-  const tabs: tabsProps[] = [
-    { label: '모두', value: 'ALL' },
-    { label: '확정', value: 'CONFIRMED' },
-    { label: '입금 대기', value: 'WAITING_DEPOSIT' },
-    { label: '확정 대기', value: 'WAITING_CONFIRMATION' },
-  ];
+  const tabs: tabsProps[] = useMemo(() => {
+    return [
+      { label: '모두', value: 'ALL' },
+      { label: '확정', value: 'CONFIRMED' },
+      { label: '입금 대기', value: 'WAITING_DEPOSIT' },
+      { label: '확정 대기', value: 'WAITING_CONFIRMATION' },
+    ];
+  }, []);
 
   return (
     <div className="w-[402px] h-[52px] justify-center items-center gap-5 inline-flex mt-[52px]">

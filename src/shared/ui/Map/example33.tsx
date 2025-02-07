@@ -1,114 +1,154 @@
-import { useEffect, useState } from 'react';
-
-// Location 타입 정의
-interface Coordinates {
-  lat: number;
-  lng: number;
-}
-
-interface Location {
-  name: string;
-  coordinates: Coordinates;
-  url: string; // URL을 추가하여 이동할 링크를 정의
-}
-
-interface MapProps {
-  locations: Location[];
-}
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import KakaoMapButton from 'components/kakaomap/kakaomapbutton';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 declare global {
   interface Window {
-    KaKao: any;
+    kakao: any;
   }
 }
 
-const Map = ({ locations }: MapProps): JSX.Element => {
-  const [scriptLoaded, setScriptLoaded] = useState(false);
+// 매장 데이터
+const Data = [
+  {
+    name: '찾술',
+    coordinates: { lat: 37.560936, lng: 126.998685 },
+    url: '/user/shop',
+  },
+  {
+    name: '술술',
+    coordinates: { lat: 37.560708, lng: 127.000733 },
+    url: '/user/shop',
+  },
+  {
+    name: '술샷',
+    coordinates: { lat: 37.561966, lng: 126.998167 },
+    url: '/user/shop',
+  },
+  {
+    name: '술렁',
+    coordinates: { lat: 37.562152, lng: 127.000428 },
+    url: '/user/shop',
+  },
+  {
+    name: '술랭',
+    coordinates: { lat: 37.560986, lng: 127.001218 },
+    url: '/user/shop',
+  },
+];
+
+const KakaoMap = () => {
+  const navigate = useNavigate();
+  const { isRole } = useOwnerContext();
+  const mapRef = useRef<any>(null);
 
   useEffect(() => {
-    const existingScript = document.getElementById('kakao-map-script');
-
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.id = 'kakao-map-script';
-      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_APPKEY}&autoload=false`;
-      script.async = true;
-      script.onload = () => {
-        setScriptLoaded(true);
-      };
-      document.body.appendChild(script);
-    } else {
-      setScriptLoaded(true);
+    if (!window.kakao || !window.kakao.maps) {
+      console.error('❌ 카카오 맵이 아직 로드되지 않았습니다.');
+      return;
     }
-  }, []);
 
-  useEffect(() => {
-    if (!scriptLoaded) return;
+    const container = document.getElementById('map');
+    const options = {
+      center: new window.kakao.maps.LatLng(37.560936, 126.998685),
+      level: 3,
+    };
 
-    const { kakao } = window.KaKao;
-    kakao.maps.load(() => {
-      const container = document.getElementById('map');
-      if (!container) return;
+    mapRef.current = new window.kakao.maps.Map(container, options);
 
-      const options = {
-        center: new kakao.maps.LatLng(37.5665, 126.978),
-        level: 5,
-      };
-      const map = new kakao.maps.Map(container, options);
+    // ✅ 테두리 없는 진한 주황색 원형 마커 SVG
+    const encodedSVG = encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+         <circle cx="20" cy="20" r="10" fill="#D35400"/>
+       </svg>`
+    );
 
-      const markers: kakao.maps.Marker[] = [];
-      const clickCount: { [key: number]: number } = {}; // 마커별 클릭 횟수를 저장
+    const circleMarkerImage = new window.kakao.maps.MarkerImage(
+      `data:image/svg+xml,${encodedSVG}`,
+      new window.kakao.maps.Size(40, 40),
+      { offset: new window.kakao.maps.Point(20, 20) }
+    );
 
-      // 테두리 없는 진한 주황색 마커 이미지 (SVG)
-      const circleMarkerImage = new kakao.maps.MarkerImage(
-        'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="10" fill="%23D35400"/></svg>',
-        new kakao.maps.Size(40, 40),
-        { offset: new kakao.maps.Point(20, 20) }
-      );
-
-      locations.forEach((loc, index) => {
-        const markerPosition = new kakao.maps.LatLng(
-          loc.coordinates.lat,
-          loc.coordinates.lng
-        );
-        const marker = new kakao.maps.Marker({
-          position: markerPosition,
-          image: circleMarkerImage,
-        });
-
-        marker.setMap(map);
-        markers.push(marker);
-
-        // **배경을 투명하게 설정한** 정보창 (글자만 표시, 테두리 없앰)
-        const infowindow = new kakao.maps.InfoWindow({
-          content: `<div style="padding:5px; color:black; font-weight:normal; background:transparent; border:none; white-space:nowrap;">${loc.name}</div>`,
-          removable: false, // 닫기 버튼을 제거
-        });
-
-        // 마커 클릭 시 동작
-        kakao.maps.event.addListener(marker, 'click', () => {
-          clickCount[index] = (clickCount[index] || 0) + 1;
-
-          if (clickCount[index] === 1) {
-            // 첫 번째 클릭: 정보창 표시
-            infowindow.open(map, marker);
-          }
-
-          if (clickCount[index] === 2) {
-            // 두 번째 클릭: 페이지 이동
-            window.location.href = loc.url;
-            clickCount[index] = 0; // 클릭 횟수 초기화
-          }
-        });
+    // 매장 마커 표시 (커스텀 주황색 마커)
+    Data.forEach((location) => {
+      const marker = new window.kakao.maps.Marker({
+        position: new window.kakao.maps.LatLng(
+          location.coordinates.lat,
+          location.coordinates.lng
+        ),
+        map: mapRef.current,
+        image: circleMarkerImage, // ✅ 커스텀 마커 적용
       });
 
-      return () => {
-        markers.forEach((marker) => marker.setMap(null));
-      };
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        window.location.href = location.url;
+      });
     });
-  }, [scriptLoaded, locations]);
+  }, []);
 
-  return <div id="map" className="w-[402px] h-full"></div>;
+  // ✅ GPS 버튼 클릭 시 현재 위치로 이동
+  const handleGPSClick = () => {
+    console.log('📍 GPS 버튼 클릭됨!');
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+
+          if (!window.kakao || !window.kakao.maps) {
+            console.error('❌ 카카오 맵이 로드되지 않았습니다.');
+            return;
+          }
+
+          const currentPosition = new window.kakao.maps.LatLng(
+            latitude,
+            longitude
+          );
+
+          if (mapRef.current) {
+            mapRef.current.panTo(currentPosition);
+
+            // ✅ 현재 위치 마커 (기본 마커 유지)
+            const marker = new window.kakao.maps.Marker({
+              position: currentPosition,
+              map: mapRef.current,
+            });
+
+            console.log('✅ 현재 위치 이동 완료');
+          } else {
+            console.error('❌ 지도 인스턴스를 찾을 수 없습니다.');
+          }
+        },
+        (error) => {
+          console.error('❌ 위치 정보를 가져오는 데 실패했습니다.', error);
+        }
+      );
+    } else {
+      alert('이 브라우저는 Geolocation을 지원하지 않습니다.');
+    }
+  };
+
+  // 새로고침 함수
+  const handleReload = () => {
+    window.location.reload();
+  };
+
+  const handleBusiness = () => {
+    if (isRole === 'OWNER') navigate('/owner');
+    else navigate('/validate');
+  };
+
+  return (
+    <div className="w-[402px] h-[854px] relative">
+      <div id="map" className="w-[402px] h-[854px]"></div>
+      <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
+        <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        <KakaoMapButton IconName="renew" onClick={handleReload} />
+        <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
+      </div>
+    </div>
+  );
 };
 
-export default Map;
+export default KakaoMap;

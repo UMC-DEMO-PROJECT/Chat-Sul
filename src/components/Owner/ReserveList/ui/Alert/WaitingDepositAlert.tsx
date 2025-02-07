@@ -1,31 +1,37 @@
 import AlertTwoButton from 'shared/ui/Modal/Alert/AlertTwoButton';
-import { AlertProps } from '../../types/TReserveList';
 import dateToformattedKorean from '../../../../../utils/dateToFormattedKorean';
 import {
   PatchReservationBusinessAccept,
   PatchReservationBusinessReject,
 } from 'shared/api/reservation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import {
+  useSelectedDataDispatch,
+  useSelectedDataState,
+} from '../../context/SelectedModalDataContext';
+import useOwnerReserveListValidateQuery from '../../hooks/useOwnerReserveListValidateQuery';
 
-const venueId = 6;
-const WaitingDepositAlert = ({
-  setIsOpen,
-  selectedReservationInfo,
-}: AlertProps) => {
-  const queryClient = useQueryClient();
+const venueId = localStorage.getItem('ownerId');
+const WaitingDepositAlert = () => {
+  const modalData = useSelectedDataState();
+  const dispatch = useSelectedDataDispatch();
+  const validateQuery = useOwnerReserveListValidateQuery(
+    `owner-reserve-list-${venueId}`
+  );
+
   const DateToKorean = dateToformattedKorean(
-    selectedReservationInfo.reservationDate,
-    selectedReservationInfo.reservationTime
+    modalData.info.reservationDate,
+    modalData.info.reservationTime
   );
 
   const { mutate: rejectMutate } = useMutation({
     mutationFn: () =>
       PatchReservationBusinessReject(
-        selectedReservationInfo.reservationId,
-        venueId
+        modalData.info.reservationId,
+        Number(venueId)
       ),
     onSuccess: () => {
-      setIsOpen(false);
+      dispatch({ type: 'CLOSE_MODAL' });
     },
     onError: () => {
       alert('수락 서버와의 연결이 불안정합니다');
@@ -35,11 +41,11 @@ const WaitingDepositAlert = ({
   const { mutate: acceptMutate } = useMutation({
     mutationFn: () =>
       PatchReservationBusinessAccept(
-        selectedReservationInfo.reservationId,
-        venueId
+        modalData.info.reservationId,
+        Number(venueId)
       ),
     onSuccess: () => {
-      setIsOpen(false);
+      dispatch({ type: 'CLOSE_MODAL' });
     },
     onError: () => {
       alert('수락 서버와의 연결이 불안정합니다');
@@ -52,22 +58,17 @@ const WaitingDepositAlert = ({
       btnMessage2="수락하기"
       onClick1={() => {
         rejectMutate();
-        queryClient.invalidateQueries({
-          queryKey: [`owner-reserve-list-${venueId}`],
-        });
+        validateQuery();
       }}
       onClick2={() => {
         acceptMutate();
-        queryClient.invalidateQueries({
-          queryKey: [`owner-reserve-list-${venueId}`],
-        });
-        // 수락하는 API
+        validateQuery();
       }}
     >
       <div className="text-left w-full text-[#8e8e93] text-base font-normal leading-[21px] flex flex-col gap-1">
-        <p>성함: {selectedReservationInfo.reservationName}</p>
+        <p>성함: {modalData.info.reservationName}</p>
         <p>{DateToKorean}</p>
-        <p>인원: {selectedReservationInfo.numberOfGuests}명</p>
+        <p>인원: {modalData.info.numberOfGuests}명</p>
       </div>
     </AlertTwoButton>
   );
