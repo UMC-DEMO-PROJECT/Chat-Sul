@@ -33,7 +33,6 @@ export function useGetInfiniteLostList({
       _allPage,
       lastPageParam
     ): number | undefined => {
-      console.log('lastPageParam:', lastPageParam);
       if (lastPage.result?.isLast) {
         return undefined;
       }

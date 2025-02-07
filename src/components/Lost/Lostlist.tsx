@@ -34,14 +34,6 @@ const LostList = ({
   });
 
   useEffect(() => {
-    console.log(
-      'inView:',
-      inView,
-      'isFetching:',
-      isFetching,
-      'hasNextPage:',
-      hasNextPage
-    );
     if (inView && !isFetching && hasNextPage) {
       fetchNextPage();
     }
