@@ -9,7 +9,7 @@ declare global {
   }
 }
 
-// 매장 데이터
+// 상점 데이터
 const Data = [
   {
     name: '찾술',
