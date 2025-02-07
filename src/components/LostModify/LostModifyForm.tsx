@@ -45,10 +45,18 @@ const ModifyForm = () => {
       itemImg: imgValue,
       description: textareaValue,
       venueId: ownerId,
+      lostItemId: itemId,
+      date: new Date()
+        .toLocaleDateString('ko-KR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+        .replace(/. /g, '-'),
     };
 
     console.log('제출할 수정정 데이터 : ', formdata);
-    PatchMutation({ data: formdata, lostItemId: itemId });
+    PatchMutation({ data: formdata });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

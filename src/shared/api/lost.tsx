@@ -23,20 +23,15 @@ export const PostLost = async ({ data }: { data: TPostLost }) => {
 };
 
 //분실물 수정 API
-export const PatchUpdate = async ({
-  data,
-  lostItemId,
-}: {
-  data: TPostLost;
-  lostItemId: number;
-}) => {
+export const PatchUpdate = async ({ data }: { data: TPostLost }) => {
   const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.patch(
-    `/lost-item/business/${data.venueId}/update/${lostItemId}`,
+    `/lost-item/business/${data.venueId}/update/${data.lostItemId}`,
     {
       title: data.title,
       itemImg: data.itemImg,
       description: data.description,
+      foundDate: data.date,
     },
     {
       headers: {
