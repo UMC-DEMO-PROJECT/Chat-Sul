@@ -28,6 +28,7 @@ const LostItem = () => {
     queryKey: ['contents', ItemId],
   });
   setItemState(item?.result?.lostItemStatus);
+  console.log('이미지', item?.itemImg?.[0]);
 
   if (isPending) {
     return <p>로딩중</p>;
@@ -58,11 +59,15 @@ const LostItem = () => {
           </p>
         )}
       </div>
+      {item?.result?.itemImg?.[0] ? (
+        <img
+          className="w-[294px] rounded-lg"
+          src={`${item?.result?.itemImg?.[0]}`}
+        />
+      ) : (
+        <></>
+      )}
 
-      <img
-        className="w-[294px] rounded-lg"
-        src={`http://localhost:3000/${item?.itemImg?.[0]} `}
-      />
       <p className="text-[17px] font-normal leading-[22px] tracking-[-0.43px] text-left text-[#939393]">
         {item?.result?.description}
       </p>
