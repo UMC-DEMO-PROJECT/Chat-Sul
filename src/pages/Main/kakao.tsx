@@ -128,8 +128,6 @@ const KakaoMap = () => {
 
   // ✅ GPS 버튼 클릭 시 현재 위치 마커 표시
   const handleGPSClick = () => {
-    console.log('📍 GPS 버튼 클릭됨!');
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -153,8 +151,6 @@ const KakaoMap = () => {
               position: currentPosition,
               map: mapRef.current,
             });
-
-            console.log('✅ 현재 위치 이동 완료');
           } else {
             console.error('❌ 지도 인스턴스를 찾을 수 없습니다.');
           }
@@ -182,7 +178,11 @@ const KakaoMap = () => {
     <div className="w-[402px] h-[854px] relative">
       <div id="map" className="w-[402px] h-[854px]"></div>
       <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
-        <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        {isRole === 'USER' ? (
+          <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        ) : (
+          <KakaoMapButton IconName="business" onClick={handleBusiness} />
+        )}
         <KakaoMapButton IconName="renew" onClick={handleReload} />
         <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
       </div>
