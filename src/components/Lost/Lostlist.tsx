@@ -15,7 +15,7 @@ const LostList = ({
   who: string;
   searchValue: string | null;
 }) => {
-  const { isRole } = useOwnerContext();
+  const { isRole, ownerId } = useOwnerContext();
 
   const navigate = useNavigate();
   const handleClick = (id: number) => {
@@ -24,10 +24,7 @@ const LostList = ({
   };
 
   const { id } = useParams();
-  const venueId = id
-    ? Number(id)
-    : //contextAPI 사용해서 정보 불러오기
-      Number('6');
+  const venueId = id ? Number(id) : ownerId;
 
   const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage } =
     useGetInfiniteLostList({ venueId });
@@ -37,6 +34,14 @@ const LostList = ({
   });
 
   useEffect(() => {
+    console.log(
+      'inView:',
+      inView,
+      'isFetching:',
+      isFetching,
+      'hasNextPage:',
+      hasNextPage
+    );
     if (inView && !isFetching && hasNextPage) {
       fetchNextPage();
     }
@@ -49,16 +54,14 @@ const LostList = ({
     return <FailedAPI text="분실물 목록을 불러오는데 실패했습니다." />;
   }
 
-  const LostPageList = data.pages[0].result;
-  console.log(LostPageList);
-
   return (
     <div className="flex flex-col mt-3">
       {searchValue ? (
         <SearchLostList who={who} venueId={venueId} text={searchValue} />
-      ) : LostPageList.lostItemPreViewDTOList.length > 0 ? (
-        LostPageList.lostItemPreViewDTOList.map((lost: ILostItem) => {
-          return (
+      ) : data.pages.map((page) => page?.result.lostItemPreViewDTOList).length >
+        0 ? (
+        data.pages.map((page) =>
+          page?.result.lostItemPreViewDTOList.map((lost: ILostItem) => (
             <Post
               key={lost.lostItemId}
               title={lost.title}
@@ -69,8 +72,8 @@ const LostList = ({
               date={lost.foundDate}
               isReceived={lost.lostItemStatus}
             />
-          );
-        })
+          ))
+        )
       ) : (
         <div className="flex flex-col items-center gap-4 mt-[209px]">
           <p className="text-[#8E8E93] text-[17px] font-[590]">
@@ -79,7 +82,7 @@ const LostList = ({
         </div>
       )}
 
-      <div ref={ref}>{isFetching}</div>
+      <div ref={ref}>{isFetching && <p>loading..</p>}</div>
     </div>
   );
 };
