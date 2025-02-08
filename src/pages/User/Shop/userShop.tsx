@@ -9,7 +9,7 @@ const UserShop = () => {
   const id = Number(venueId);
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate(-1);
+    navigate('/user');
   };
 
   const { data: venue } = useQuery({
