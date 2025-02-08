@@ -18,19 +18,17 @@ const nullToString = (value: string | null) => {
   }
   return value;
 };
-// location.state로 가게 이름 받기, handleBack으로 메뉴로 가기 구현만 남음
 const ReserveFormContainer = () => {
   const { datas, setFun, isReservable } = useReservationForm();
-
   const [isModalOepn, setIsModalOpen] = useState(false);
+  const { venueId } = useParams();
 
-  const { id } = useParams(); // 가게 id 받아올 수 있음
   const navigate = useNavigate();
   // const location = useLocation(); // location.state로 가게 이름받기
-
+  console.log('location', location);
   const mutation = useMutation({
-    mutationFn: ({ id, reservationData }: ReservatiomMutation) =>
-      PostReservation(id, reservationData),
+    mutationFn: ({ venueId, reservationData }: ReservatiomMutation) =>
+      PostReservation(venueId, reservationData),
     onSuccess: ({ data }) => {
       setIsModalOpen(false);
       navigate('/user/reserve-success', {
@@ -59,12 +57,17 @@ const ReserveFormContainer = () => {
       depositorName: datas.depositorName!,
     };
 
-    mutation.mutate({ id, reservationData });
+    mutation.mutate({ venueId, reservationData });
     setIsModalOpen(true);
   };
   return (
     <>
-      <TopBar title="대관 신청" />
+      <TopBar
+        title="대관 신청"
+        onFirstClick={() => {
+          navigate(`/user/shop/${venueId}`);
+        }}
+      />
       <div className=" flex flex-col px-6 my-6 gap-4 mt-[52px]">
         <Input
           value={nullToString(datas.reservationName)}

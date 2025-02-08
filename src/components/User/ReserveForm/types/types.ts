@@ -11,6 +11,6 @@ export interface reservationData {
 }
 
 export interface ReservatiomMutation {
-  id: string | undefined;
+  venueId: string | undefined;
   reservationData: reservationData;
 }
