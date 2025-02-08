@@ -1,3 +1,4 @@
+import { useOwnerContext } from '../../../context/OwnerContext';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PostMenu, GetMenu } from 'shared/api/menu';
@@ -13,7 +14,7 @@ const UploadingMenu = () => {
   const [images, setImages] = useState<File[]>([]);
   const [uploadedImages, setUploadedImages] = useState<MenuItem[]>([]);
   const navigate = useNavigate();
-  const venueId = Number(localStorage.getItem('ownerId'));
+  const { ownerId: venueId } = useOwnerContext();
 
   useEffect(() => {
     const fetchMenuImages = async () => {
