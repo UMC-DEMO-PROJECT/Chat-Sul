@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PostSocialRegister } from 'shared/api/membersApi';
 import Button from 'shared/ui/Button/button';
 import Input from 'shared/ui/Input/Input';
 
 const SocialRegisterForm = () => {
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -15,7 +17,10 @@ const SocialRegisterForm = () => {
     console.log(formData);
 
     try {
-      await PostSocialRegister(formData);
+      const response = await PostSocialRegister(formData);
+      console.log(response);
+      localStorage.setItem('role', 'USER');
+      navigate('/user');
     } catch (error) {
       console.error('회원가입 실패', error);
     }
