@@ -1,11 +1,11 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import TopBar from '../../../shared/ui/TopBar/TopBar';
 import dateToformattedKorean from '../../../utils/dateToFormattedKorean';
 
-// onFirstClick에서 버튼을 누르면 대관확인 페이지로 이동
 const ReserveSuccessContainer = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { venueId } = useParams();
   const subTitle = dateToformattedKorean(
     location.state.reservationDate,
     location.state.reservationTime
@@ -15,7 +15,7 @@ const ReserveSuccessContainer = () => {
       <TopBar
         title="시오"
         onFirstClick={() => {
-          navigate('/user/shop');
+          navigate(`/user/shop/${venueId}`);
         }}
       />
       <div className="grid grid-rows-3 mt-[52px]">

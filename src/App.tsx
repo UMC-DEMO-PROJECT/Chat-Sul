@@ -74,7 +74,7 @@ const App = () => {
                 <Route path="shop/:venueId">
                   <Route index element={<UserShop />} />
                   <Route path="reserve-list" element={<ReserveList />} />
-                  <Route path="reserve-form/:id" element={<ReserveForm />} />
+                  <Route path="reserve-form" element={<ReserveForm />} />
                   <Route path="reserve-success" element={<ReserveSuccess />} />
                   <Route path="menu" element={<Menu />} />
                   <Route path="lost-list" element={<LostListPage />} />
