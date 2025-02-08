@@ -1,7 +1,7 @@
 import { useOwnerContext } from '../../../context/OwnerContext';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PostMenu, GetMenu } from 'shared/api/menu';
+import { PostMenu, GetMenu, DeleteMenu } from 'shared/api/menu';
 import Button from 'shared/ui/Button/button';
 import Icon from 'shared/ui/Icon/Icon';
 
@@ -15,6 +15,7 @@ const UploadingMenu = () => {
   const [uploadedImages, setUploadedImages] = useState<MenuItem[]>([]);
   const navigate = useNavigate();
   const { ownerId: venueId } = useOwnerContext();
+  console.log(venueId);
 
   useEffect(() => {
     const fetchMenuImages = async () => {
@@ -52,6 +53,17 @@ const UploadingMenu = () => {
     }
   };
 
+  const handleDelete = async (menuId: number) => {
+    try {
+      await DeleteMenu(venueId, menuId);
+      setUploadedImages((prevImages) =>
+        prevImages.filter((item) => item.menuId !== menuId)
+      );
+    } catch (error) {
+      console.error('이미지 삭제 실패', error);
+    }
+  };
+
   return (
     <form className="h-full" onSubmit={handleSubmit}>
       <div className="grid grid-cols-2 gap-4 mx-6 mt-[72px]">
@@ -72,13 +84,20 @@ const UploadingMenu = () => {
         {uploadedImages.map((item, menuId) => (
           <div
             key={`uploaded-${menuId}`}
-            className="flex justify-center min-w-[169px] min-h-[169px] overflow-hidden"
+            className="flex justify-center min-w-[169px] min-h-[169px] overflow-hidden relative"
           >
             <img
               src={item.imageUrl}
               alt={`Uploaded ${menuId}`}
               className="w-full h-auto rounded"
             />
+            <button
+              className="absolute right-1 top-1 flex w-6 h-6 p-1 justify-center items-center flex-shrink-0 rounded-[1000px] bg-white"
+              type="button"
+              onClick={async () => await handleDelete(item.menuId)}
+            >
+              <Icon name="delete" />
+            </button>
           </div>
         ))}
         {images.map((image, index) => (

@@ -33,7 +33,8 @@ const ValidateForm = () => {
     };
 
     try {
-      await PostAdd(formData);
+      const response = await PostAdd(formData);
+      localStorage.setItem('ownerId', response.result.venueId);
       navigate('/owner');
     } catch (error) {
       console.error(error);

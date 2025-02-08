@@ -28,3 +28,19 @@ export const GetMenu = async (venueId: number) => {
     throw error;
   }
 };
+
+export const DeleteMenu = async (venueId: number, menuId: number) => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const response = await axiosInstance.delete(
+      `/menu/${venueId}/delete/${menuId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('메뉴 이미지를 삭제 실패', error);
+    throw error;
+  }
+};
