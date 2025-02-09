@@ -44,7 +44,7 @@ const ButtonModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  console.log(state);
+
   return (
     <>
       {state === 'FOUND' ? null : (

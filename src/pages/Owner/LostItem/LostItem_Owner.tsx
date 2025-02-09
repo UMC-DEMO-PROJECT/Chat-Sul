@@ -11,7 +11,7 @@ const LostItemPage_Owner = () => {
   const { id } = useParams();
   const itemId = Number(id);
   const { itemState } = useItemStateContext();
-  console.log(itemState);
+
   return (
     <div className="flex flex-col items-center h-full relative">
       <TopBar
