@@ -9,10 +9,6 @@ import FailedAPI from 'shared/ui/Fail/FailedAPI';
 import { useOwnerContext } from '../../context/OwnerContext';
 
 const ModifyForm = () => {
-  const [titleValue, setTitleValue] = useState('');
-  const [imgValue, setImgValue] = useState<File[] | null>(null);
-  const [textareaValue, setTextareaValue] = useState('');
-
   const navigate = useNavigate();
   const { id } = useParams();
   const { ownerId } = useOwnerContext();
@@ -37,6 +33,12 @@ const ModifyForm = () => {
     queryFn: () => GetLostDetail_User({ venueId: ownerId, lostItemId: itemId }),
     queryKey: ['contents'],
   });
+
+  const [titleValue, setTitleValue] = useState(contents?.result.title);
+  const [imgValue, setImgValue] = useState<File[] | null>(null);
+  const [textareaValue, setTextareaValue] = useState(
+    contents?.result.description
+  );
 
   const handledSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
