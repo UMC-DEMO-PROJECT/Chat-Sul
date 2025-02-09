@@ -1,9 +1,9 @@
-import LostList from 'components/Lost/Lostlist';
 import TopBar from 'shared/ui/TopBar/TopBar';
 import { useNavigate, useParams } from 'react-router-dom';
 import LostInput from 'components/Lost/LostInput';
 import { useState } from 'react';
 import useDebounce from 'hooks/useDebounce';
+import LostList_user from 'components/Lost/user/Lostlist_user';
 
 const LostListPage = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const LostListPage = () => {
       />
       <div className="flex flex-col justify-center items-center mt-[73px] ">
         <LostInput setSearchValue={setMq} />
-        <LostList who="user" searchValue={useDebouncedValue} />
+        <LostList_user who="user" searchValue={useDebouncedValue} />
       </div>
     </div>
   );

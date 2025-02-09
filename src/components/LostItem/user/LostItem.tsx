@@ -2,13 +2,12 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { GetLostDetail_User } from 'shared/api/lost';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
-import { useOwnerContext } from '../../context/OwnerContext';
-import { useItemStateContext } from '../../pages/Owner/LostItem/context/LostItemStateContext';
+import { useOwnerContext } from '../../../context/OwnerContext';
 
 const LostItem = () => {
   const { venueId, id } = useParams();
   const { isRole, ownerId } = useOwnerContext();
-  const { setItemState } = useItemStateContext();
+
   let VenueId: number;
   //사장님일때 useParam으로 받아오는게 아니라 전역상태에서 불어와야 함.
   if (isRole == 'OWNER') {
@@ -27,8 +26,6 @@ const LostItem = () => {
     queryFn: () => GetLostDetail_User({ venueId: VenueId, lostItemId: ItemId }),
     queryKey: ['contents', ItemId],
   });
-  setItemState(item?.result?.lostItemStatus);
-  console.log('이미지', item?.itemImg?.[0]);
 
   if (isPending) {
     return <p>로딩중</p>;

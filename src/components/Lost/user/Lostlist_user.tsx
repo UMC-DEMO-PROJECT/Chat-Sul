@@ -3,24 +3,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetInfiniteLostList } from 'hooks/useGetInfiniteLostList';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import SearchLostList from './SearchLostList';
+import SearchLostList from '../SearchLostList';
 import { ILostItem } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
-import { useOwnerContext } from '../../context/OwnerContext';
+import { useOwnerContext } from '../../../context/OwnerContext';
 
-const LostList = ({
+const LostList_user = ({
   who,
   searchValue,
 }: {
   who: string;
   searchValue: string | null;
 }) => {
-  const { isRole, ownerId } = useOwnerContext();
+  const { ownerId } = useOwnerContext();
 
   const navigate = useNavigate();
   const handleClick = (id: number) => {
-    if (isRole == 'OWNER') navigate(`/${who}/lost-item/${id}`);
-    else navigate(`/${who}/shop/${venueId}/lost-item/${id}`);
+    navigate(`/${who}/shop/${venueId}/lost-item/${id}`);
   };
 
   const { id } = useParams();
@@ -79,4 +78,4 @@ const LostList = ({
   );
 };
 
-export default LostList;
+export default LostList_user;

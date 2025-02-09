@@ -75,10 +75,14 @@ export const GetSearch = async ({
   venueId: number;
   text: string;
 }) => {
+  const accessToken = localStorage.getItem('accessToken');
   const response = await axiosInstance.get(
     `/lost-item/${venueId}/search/${page}`,
     {
       params: { keyword: text },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     }
   );
   return response.data;

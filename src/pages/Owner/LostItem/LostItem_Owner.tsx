@@ -1,5 +1,5 @@
 import TopBar from '../../../shared/ui/TopBar/TopBar';
-import LostItem from '../../../components/LostItem/LostItem';
+import LostItem from '../../../components/LostItem/owner/LostItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import Option from '../../../components/LostItem/Option';
 import ButtonModal from 'components/LostItem/Button_Modal';
