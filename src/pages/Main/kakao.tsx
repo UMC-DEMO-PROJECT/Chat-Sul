@@ -1,7 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import KakaoMapButton from 'components/kakaomap/kakaomapbutton';
 import { useOwnerContext } from '../../context/OwnerContext';
+import { useQuery } from '@tanstack/react-query';
+import { GetMap } from 'shared/api/venue';
+import { GetVenue } from 'shared/api/venue';
+import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
 declare global {
   interface Window {
@@ -9,44 +13,25 @@ declare global {
   }
 }
 
-// 상점 데이터
-const Data = [
-  {
-    name: '찾술',
-    address: '서울특별시 중구 명동길 25',
-    coordinates: { lat: 37.560936, lng: 126.998685 },
-    url: '/user/shop',
-  },
-  {
-    name: '술술',
-    address: '서울특별시 중구 을지로 12길 34',
-    coordinates: { lat: 37.560708, lng: 127.000733 },
-    url: '/user/shop',
-  },
-  {
-    name: '술샷',
-    address: '서울특별시 중구 충무로 21',
-    coordinates: { lat: 37.561966, lng: 126.998167 },
-    url: '/user/shop',
-  },
-  {
-    name: '술렁',
-    address: '서울특별시 중구 남대문로 3가 10-5',
-    coordinates: { lat: 37.562152, lng: 127.000428 },
-    url: '/user/shop',
-  },
-  {
-    name: '술랭',
-    address: '서울특별시 중구 다동길 8',
-    coordinates: { lat: 37.560986, lng: 127.001218 },
-    url: '/user/shop',
-  },
-];
+interface StoreProps {
+  venueId: number;
+  latitude: number;
+  longitude: number;
+}
 
 const KakaoMap = () => {
   const navigate = useNavigate();
   const { isRole } = useOwnerContext();
   const mapRef = useRef<any>(null);
+
+  const {
+    data: Data,
+    isPending,
+    error,
+  } = useQuery({
+    queryFn: () => GetMap(),
+    queryKey: ['mapData'],
+  });
 
   useEffect(() => {
     if (!window.kakao || !window.kakao.maps) {
@@ -62,91 +47,108 @@ const KakaoMap = () => {
 
     mapRef.current = new window.kakao.maps.Map(container, options);
 
-    // ✅ 주황색 원형 마커
     const orangeMarkerImage = new window.kakao.maps.MarkerImage(
       'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="10" fill="%23D35400"/></svg>',
       new window.kakao.maps.Size(40, 40),
       { offset: new window.kakao.maps.Point(20, 20) }
     );
 
-    // ✅ 오버레이 객체 저장
-    const overlays: any[] = [];
+    const newOverlays: any[] = [];
 
-    // ✅ 모든 매장 마커를 주황색 원형 마커로 설정
-    Data.forEach((store) => {
-      const position = new window.kakao.maps.LatLng(
-        store.coordinates.lat,
-        store.coordinates.lng
-      );
+    Data?.result?.locationList.forEach(
+      ({ venueId, latitude, longitude }: StoreProps) => {
+        const position = new window.kakao.maps.LatLng(latitude, longitude);
 
-      // ✅ 매장 마커 생성
-      const marker = new window.kakao.maps.Marker({
-        position,
-        map: mapRef.current,
-        image: orangeMarkerImage,
-      });
+        const marker = new window.kakao.maps.Marker({
+          position,
+          map: mapRef.current,
+          image: orangeMarkerImage,
+        });
 
-      // ✅ 커스텀 오버레이 HTML 생성
-      const content = document.createElement('div');
-      content.innerHTML = `
+        // ✅ 초기 오버레이 내용 (로딩 표시)
+        const content = document.createElement('div');
+        content.innerHTML = `
         <div style="padding:12px; background:#fff; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.3); width: 260px; position:relative;">
-          <button id="close-btn" style="position:absolute; right:8px; top:8px; background:transparent; border:none; font-size:18px; cursor:pointer;">✖</button>
-          <div style="font-weight:bold; font-size:16px; margin-bottom:5px; color:#D35400;">${store.name}</div>
-          <div style="font-size:14px; color:#555; margin-bottom:10px;">📍 ${store.address}</div>
-          <button id="shop-btn" style="background:#D35400; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">매장 상세보기</button>
+          <button id="close-btn-${venueId}" style="position:absolute; right:8px; top:8px; background:transparent; border:none; font-size:18px; cursor:pointer;">✖</button>
+          <div id="loading-${venueId}" style="font-size:14px; color:#888;">🔄 정보 불러오는 중...</div>
+          <div id="content-${venueId}" style="display:none;"></div>
         </div>
       `;
 
-      // ✅ 커스텀 오버레이 생성 (초기에는 숨김)
-      const overlay = new window.kakao.maps.CustomOverlay({
-        content,
-        position,
-        map: null,
-        yAnchor: 1.4,
-      });
-
-      overlays.push(overlay);
-
-      // ✅ 마커 클릭 시 오버레이 표시
-      window.kakao.maps.event.addListener(marker, 'click', () => {
-        overlays.forEach((ov) => ov.setMap(null)); // 기존 오버레이 닫기
-        overlay.setMap(mapRef.current);
-      });
-
-      // ✅ 닫기 버튼 이벤트 추가
-      setTimeout(() => {
-        content.querySelector('#close-btn')?.addEventListener('click', () => {
-          overlay.setMap(null);
+        const overlay = new window.kakao.maps.CustomOverlay({
+          content,
+          position,
+          map: null,
+          yAnchor: 1.4,
         });
 
-        content.querySelector('#shop-btn')?.addEventListener('click', () => {
-          window.location.href = store.url;
-        });
-      }, 100);
-    });
-  }, []);
+        newOverlays.push(overlay);
 
-  // ✅ GPS 버튼 클릭 시 현재 위치 마커 표시
+        window.kakao.maps.event.addListener(marker, 'click', async () => {
+          newOverlays.forEach((ov) => ov.setMap(null));
+          overlay.setMap(mapRef.current);
+
+          // ✅ 매장 정보 가져오기
+          try {
+            const venueData = await GetVenue(venueId);
+            const venueInfo = venueData.result;
+
+            // ✅ 오버레이 내용 업데이트
+            const loadingElement = content.querySelector(
+              `#loading-${venueId}`
+            ) as HTMLElement;
+            loadingElement.style.display = 'none';
+
+            const contentDiv = content.querySelector(
+              `#content-${venueId}`
+            )! as HTMLDivElement;
+            contentDiv.innerHTML = `
+            <div style="font-weight:bold; font-size:16px; margin-bottom:5px; color:#D35400;">${venueInfo.name}</div>
+            <div style="font-size:14px; color:#555; margin-bottom:10px;">📍 ${venueInfo.address}</div>
+            <button id="shop-btn-${venueId}" style="background:#D35400; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">매장 상세보기</button>
+          `;
+            contentDiv.style.display = 'block';
+
+            setTimeout(() => {
+              content
+                .querySelector(`#shop-btn-${venueId}`)
+                ?.addEventListener('click', () => {
+                  window.location.href = `/user/shop/${venueId}`;
+                });
+            }, 100);
+          } catch (error) {
+            content.querySelector(`#loading-${venueId}`)!.textContent =
+              '❌ 정보 불러오기 실패';
+            console.error(error);
+          }
+        });
+
+        setTimeout(() => {
+          content
+            .querySelector(`#close-btn-${venueId}`)
+            ?.addEventListener('click', () => {
+              overlay.setMap(null);
+            });
+        }, 100);
+      }
+    );
+  }, [Data]);
+
   const handleGPSClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-
           if (!window.kakao || !window.kakao.maps) {
             console.error('❌ 카카오 맵이 로드되지 않았습니다.');
             return;
           }
-
           const currentPosition = new window.kakao.maps.LatLng(
             latitude,
             longitude
           );
-
           if (mapRef.current) {
             mapRef.current.panTo(currentPosition);
-
-            // ✅ 현재 위치 마커 (기본 마커 유지)
             new window.kakao.maps.Marker({
               position: currentPosition,
               map: mapRef.current,
@@ -164,7 +166,6 @@ const KakaoMap = () => {
     }
   };
 
-  // 새로고침 함수
   const handleReload = () => {
     window.location.reload();
   };
@@ -176,16 +177,16 @@ const KakaoMap = () => {
 
   return (
     <div className="w-[402px] h-[854px] relative">
-      <div id="map" className="w-[402px] h-[854px]"></div>
-      <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
-        {isRole === 'USER' ? (
+      {isPending && <>로딩중</>}
+      {error && <FailedAPI text="맵을 불러오는데 실패했습니다." />}
+      <>
+        <div id="map" className="w-[402px] h-[854px]"></div>
+        <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
           <KakaoMapButton IconName="business" onClick={handleBusiness} />
-        ) : (
-          <KakaoMapButton IconName="business" onClick={handleBusiness} />
-        )}
-        <KakaoMapButton IconName="renew" onClick={handleReload} />
-        <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
-      </div>
+          <KakaoMapButton IconName="renew" onClick={handleReload} />
+          <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
+        </div>
+      </>
     </div>
   );
 };

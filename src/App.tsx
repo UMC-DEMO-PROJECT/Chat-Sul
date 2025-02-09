@@ -21,6 +21,7 @@ import Menu from './pages/User/MenuList/Menu';
 import MenuOwner from './pages/Owner/MenuList/Menu_Owner';
 import { useOwnerContext, OwnerProvider } from './context/OwnerContext';
 import { PropsWithChildren } from 'react';
+import SocialAccess from './pages/Login/SocialLogin/SocialAccess';
 
 /**
  * '/' : Landing Page, 지도 표시
@@ -67,6 +68,7 @@ const App = () => {
                 <Route index element={<Register />} />
                 <Route path="social" element={<SocialRegister />} />
               </Route>
+              <Route path="/login/social" element={<SocialAccess />} />
               <Route path="/validate" element={<Validate />} />
               <Route path="/user">
                 <Route index element={<Main />} />

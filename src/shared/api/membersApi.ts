@@ -33,9 +33,15 @@ export const PostSocialRegister = async (socialRegisterData: {
   phoneNumber: string;
 }) => {
   try {
+    const accessToken = localStorage.getItem('accessToken');
     const response = await axiosInstance.post(
       '/members/signup/social',
-      socialRegisterData
+      socialRegisterData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
