@@ -4,7 +4,6 @@ import LostListPage from './pages/User/LostList/LostList';
 import LostItemPage from './pages/User/LostItem/LostItem';
 import LostWritingPage from './pages/Owner/LostForm/LostWriting';
 import Layout from './Layout';
-import ReserveSuccess from './pages/User/ReserveSuccess/ReserveSuccess';
 import ReserveList from './pages/User/ReserveList/ReserveList';
 import Register from './pages/Register/Register';
 import ReserveForm from './pages/User/ReserveForm/ReserveForm';
@@ -75,7 +74,6 @@ const App = () => {
                   <Route index element={<UserShop />} />
                   <Route path="reserve-list" element={<ReserveList />} />
                   <Route path="reserve-form" element={<ReserveForm />} />
-                  <Route path="reserve-success" element={<ReserveSuccess />} />
                   <Route path="menu" element={<Menu />} />
                   <Route path="lost-list" element={<LostListPage />} />
                   <Route path="lost-item/:id" element={<LostItemPage />} />
