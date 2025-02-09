@@ -40,7 +40,9 @@ export const dataReducer = (
     case 'WAITING_CONFIRMATION': {
       return {
         ...state,
-        ...action,
+        info: {
+          ...action.value,
+        },
         isOpen: true,
         alertType: 'WAITING_CONFIRMATION',
       };
@@ -48,7 +50,9 @@ export const dataReducer = (
     case 'WAITING_DEPOSIT': {
       return {
         ...state,
-        ...action,
+        info: {
+          ...action.value,
+        },
         isOpen: true,
         alertType: 'WAITING_DEPOSIT',
       };
@@ -62,7 +66,9 @@ export const dataReducer = (
     case 'CANCELLED': {
       return {
         ...state,
-        ...action,
+        info: {
+          ...action.value,
+        },
         isOpen: false,
         alertType: 'WAITING_DEPOSIT',
       };
@@ -70,7 +76,9 @@ export const dataReducer = (
     case 'CONFIRMED': {
       return {
         ...state,
-        ...action,
+        info: {
+          ...action.value,
+        },
         isOpen: false,
         alertType: 'WAITING_DEPOSIT',
       };

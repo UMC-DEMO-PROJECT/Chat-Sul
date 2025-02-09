@@ -13,21 +13,22 @@ const WaitingConfirmationAlert = () => {
   const { ownerId: venueId } = useOwnerContext();
   const modalData = useSelectedDataState();
   const dispatch = useSelectedDataDispatch();
-
   const validateQuery = useOwnerReserveListValidateQuery(
-    `owner-reserve-list-${venueId}`
+    `owner-reserve-list`,
+    venueId
   );
   const DateToKorean = dateToformattedKorean(
     modalData.info.reservationDate,
     modalData.info.reservationTime
   );
-  const { mutate: confirmMutate } = useMutation({
+  const { mutate: confirmMutate, isError } = useMutation({
     mutationFn: () =>
       PatchReservationBusinessConfirm(
         modalData.info.reservationId,
         Number(venueId)
       ),
     onSuccess: () => {
+      validateQuery();
       dispatch({ type: 'CLOSE_MODAL' });
     },
     onError: () => {
@@ -40,17 +41,24 @@ const WaitingConfirmationAlert = () => {
       btnMessage2="확정하기"
       onClick1={() => {
         dispatch({ type: 'CLOSE_MODAL' });
-        validateQuery();
       }}
       onClick2={() => {
         confirmMutate();
-        validateQuery();
       }}
     >
-      <div className="text-left w-full text-[#8e8e93] text-base font-normal leading-[21px] flex flex-col gap-10">
-        <p>성함: {modalData.info.reservationName}</p>
-        <p>{DateToKorean}</p>
-        <p>인원: {modalData.info.numberOfGuests}명</p>
+      <div className="text-left w-full text-[#8e8e93] text-base font-normal leading-[21px]">
+        {isError ? (
+          <div className="mt-3 text-sul-gray-400 text-base">
+            <p>네트워크 연결상태가 좋지않습니다.</p>
+            <p>다시 시도해주세요</p>
+          </div>
+        ) : (
+          <>
+            <p>성함: {modalData.info.reservationName}</p>
+            <p>{DateToKorean}</p>
+            <p>인원: {modalData.info.numberOfGuests}명</p>
+          </>
+        )}
       </div>
     </AlertTwoButton>
   );
