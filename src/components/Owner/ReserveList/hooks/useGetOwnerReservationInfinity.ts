@@ -10,7 +10,7 @@ const useGetOwnerReservationInfinity = (
   const [ref, inView] = useInView();
   const { data, hasNextPage, fetchNextPage, refetch, isLoading } =
     useInfiniteQuery({
-      queryKey: [`owner-reserve-list-${venueId}`],
+      queryKey: [`owner-reserve-list`, venueId],
       queryFn: ({ pageParam }) =>
         GetOwnerReservation(pageParam, menuStatus, venueId),
       getNextPageParam: (

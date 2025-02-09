@@ -11,6 +11,7 @@ import {
   useSelectedDataDispatch,
   useSelectedDataState,
 } from '../context/SelectedModalDataContext';
+import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
 const ReserveListInner = () => {
   const navigate = useNavigate();
@@ -26,37 +27,39 @@ const ReserveListInner = () => {
           navigate('/user/shop');
         }}
       />
-      {data?.pages.map((element) =>
-        element.result.reservationList.map((item: IReserveListResponse) => {
-          return (
-            <RentalCard
-              key={item.reservationId}
-              Name={item.venueName}
-              numberOfGuests={item.numberOfGuests}
-              reservationDate={item.reservationDate}
-              reservationTime={item.reservationTime}
-              status={item.status}
-              isUser={true}
-              onCancel={() => {
-                dispatch({
-                  type: 'RESERVATION_CANCEL',
-                  reservationId: item.reservationId,
-                });
-              }}
-              onClick={() => {
-                if (item.status == 'WAITING_DEPOSIT') {
+      <div className="mt-[52px]">
+        {isError && <FailedAPI text="네트워크 연결상태가 좋지않습니다." />}
+        <RentarCardSkeleton isLoading={isLoading} count={6} />
+        {data?.pages.map((element) =>
+          element.result.reservationList.map((item: IReserveListResponse) => {
+            return (
+              <RentalCard
+                key={item.reservationId}
+                Name={item.venueName}
+                numberOfGuests={item.numberOfGuests}
+                reservationDate={item.reservationDate}
+                reservationTime={item.reservationTime}
+                status={item.status}
+                isUser={true}
+                onCancel={() => {
                   dispatch({
-                    type: item.status,
+                    type: 'RESERVATION_CANCEL',
                     reservationId: item.reservationId,
                   });
-                }
-              }}
-            />
-          );
-        })
-      )}
-      <RentarCardSkeleton isLoading={isLoading} count={6} />
-      {isError && '서버와의 연결이 불안정합니다.'}
+                }}
+                onClick={() => {
+                  if (item.status == 'WAITING_DEPOSIT') {
+                    dispatch({
+                      type: item.status,
+                      reservationId: item.reservationId,
+                    });
+                  }
+                }}
+              />
+            );
+          })
+        )}
+      </div>
       <div ref={ref}></div>
       <ModalLayout
         isOpen={modalData.isOpen}
