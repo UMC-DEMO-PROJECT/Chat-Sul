@@ -31,8 +31,8 @@ const WaitingDepositAlert = () => {
           <br />
         </p>
         <p className="text-black text-base font-bold leading-[21px]">
-          {isError && '서버와의 연결이 불안정합니다.'}
-          {isLoading && '로딩중'}
+          {isError && '네트워크 연결상태가 좋지않습니다.'}
+          {isLoading && '...'}
           {data?.result.bank}
         </p>
       </div>
