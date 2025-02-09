@@ -13,9 +13,11 @@ import {
   useSelectedDataDispatch,
   useSelectedDataState,
 } from './context/SelectedModalDataContext';
+import { useOwnerContext } from '../../../context/OwnerContext';
 
-const venueId = localStorage.getItem('ownerId') ?? 0;
 const ReserveListInner = () => {
+  const { ownerId: venueId } = useOwnerContext();
+
   const navigate = useNavigate();
   const modalData = useSelectedDataState();
   const dispatch = useSelectedDataDispatch();

@@ -7,9 +7,10 @@ import {
   useSelectedDataState,
 } from '../../context/SelectedModalDataContext';
 import useOwnerReserveListValidateQuery from '../../hooks/useOwnerReserveListValidateQuery';
+import { useOwnerContext } from '../../../../../context/OwnerContext';
 
-const venueId = localStorage.getItem('ownerId');
 const WaitingConfirmationAlert = () => {
+  const { ownerId: venueId } = useOwnerContext();
   const modalData = useSelectedDataState();
   const dispatch = useSelectedDataDispatch();
 
