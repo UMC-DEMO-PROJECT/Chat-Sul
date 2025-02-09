@@ -9,7 +9,7 @@ export interface reservationData {
   numberOfGuests: number;
   depositorName: string;
 }
-
+export type handlePostReservation = (reservationData: reservationData) => void;
 export interface ReservatiomMutation {
   venueId: string | undefined;
   reservationData: reservationData;
