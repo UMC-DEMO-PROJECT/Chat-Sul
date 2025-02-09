@@ -28,11 +28,15 @@ export function useGetInfiniteLostList({
     queryFn: ({ pageParam }) => GetLostList_User({ page: pageParam, venueId }),
     queryKey: ['Lost', venueId],
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) => {
-      if (lastPage?.result?.isLast) {
+    getNextPageParam: (
+      lastPage,
+      _allPage,
+      lastPageParam
+    ): number | undefined => {
+      if (lastPage.result?.isLast) {
         return undefined;
       }
-      return allPages.length;
+      return lastPageParam + 1;
     },
     ...queryOptions,
   });

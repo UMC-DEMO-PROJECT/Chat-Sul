@@ -13,7 +13,7 @@ import { InputHTMLAttributes, PropsWithChildren } from 'react';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   title: string;
-  value: string;
+  value?: string;
   width?: string;
 }
 

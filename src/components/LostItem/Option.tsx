@@ -54,7 +54,7 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
       {isClick && (
         <div
           ref={ref}
-          className="flex flex-col justify-center items-center gap-2 p-2 rounded-xl border-[0.2px] border-[rgba(208,208,208,0.43)] absolute top-[52px] right-[12px]"
+          className="flex flex-col justify-center items-center gap-2 p-2 rounded-xl border-[0.2px] border-[rgba(208,208,208,0.43)] absolute top-[52px] right-[12px] bg-white"
         >
           <p
             onClick={() => navigate(`/owner/lost-modify/${itemId}`)}

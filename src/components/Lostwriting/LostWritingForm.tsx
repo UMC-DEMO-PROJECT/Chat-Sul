@@ -6,11 +6,15 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { TPostLost } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const WritingForm = () => {
   const [titleValue, setTitleValue] = useState('');
-  const [imgValue, setImgValue] = useState<File | null>(null);
+  const [imgValue, setImgValue] = useState<File[] | null>(null);
+  // const [imgUrl, setImgUrl] = useState<string[]>([]);
   const [textareaValue, setTextareaValue] = useState('');
+
+  const { ownerId } = useOwnerContext();
 
   const navigate = useNavigate();
   const {
@@ -34,18 +38,18 @@ const WritingForm = () => {
       title: titleValue,
       itemImg: imgValue,
       description: textareaValue,
-      venueId: 6,
+      venueId: ownerId,
     };
 
-    //const { ownerId } = useOwnerContext();
     console.log('제출할 데이터 : ', formdata);
-    //postMutation(formdata, ownerId);
+
     postMutation({ data: formdata });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setImgValue(e.target.files[0]);
+      const images = Array.from(e.target.files);
+      setImgValue(images);
     }
   };
 
@@ -113,9 +117,9 @@ const WritingForm = () => {
           {imgValue && (
             <div className="w-[356px] flex justify-center my-7">
               <img
-                src={URL.createObjectURL(imgValue)}
+                src={URL.createObjectURL(imgValue[0])}
                 alt="Uploaded"
-                className="w-[100px] object-cover"
+                className="w-[294px] object-cover rounded-lg"
               />
             </div>
           )}

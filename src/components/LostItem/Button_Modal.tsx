@@ -6,7 +6,13 @@ import { useOwnerContext } from '.././../context/OwnerContext';
 import ModalLayout from '../../shared/ui/Modal/ModalLayout/ModalLayout';
 import AlertTwoButton from '../../shared/ui/Modal/Alert/AlertTwoButton';
 
-const ButtonModal = ({ itemId }: { itemId: number }) => {
+const ButtonModal = ({
+  itemId,
+  state,
+}: {
+  itemId: number;
+  state: string | null;
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -41,11 +47,17 @@ const ButtonModal = ({ itemId }: { itemId: number }) => {
 
   return (
     <>
-      <div className="w-[356px] mx-auto mt-[185px]">
-        <Button size="large" colorType="filled" onClick={() => setIsOpen(true)}>
-          수취 완료하기
-        </Button>
-      </div>
+      {state === 'FOUND' ? null : (
+        <div className="w-[356px] mx-auto mt-[185px]">
+          <Button
+            size="large"
+            colorType="filled"
+            onClick={() => setIsOpen(true)}
+          >
+            수취 완료하기
+          </Button>
+        </div>
+      )}
       {isOpen && (
         <ModalLayout
           isOpen={isOpen}
