@@ -59,7 +59,7 @@ const LostItem = () => {
       {item?.result?.itemImg?.[0] ? (
         <img
           className="w-[294px] rounded-lg"
-          src={`${item?.result?.itemImg?.[0]}`}
+          src={`${item?.result?.itemImg}`}
         />
       ) : (
         <></>
