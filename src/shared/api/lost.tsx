@@ -1,10 +1,10 @@
 import { TPostLost } from 'shared/type/LostType';
-import { axiosInstance } from './common/axiosInstance';
+import { axiosBasic, axiosInstance } from './common/axiosInstance';
 
 //분실물 등록 API
 export const PostLost = async ({ data }: { data: TPostLost }) => {
   const accessToken = localStorage.getItem('accessToken');
-  const response = await axiosInstance.post(
+  const response = await axiosBasic.post(
     `/lost-item/business/${data.venueId}/post`,
     {
       title: data.title,
@@ -14,6 +14,7 @@ export const PostLost = async ({ data }: { data: TPostLost }) => {
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
       },
     }
   );
@@ -25,17 +26,18 @@ export const PostLost = async ({ data }: { data: TPostLost }) => {
 //분실물 수정 API
 export const PatchUpdate = async ({ data }: { data: TPostLost }) => {
   const accessToken = localStorage.getItem('accessToken');
-  const response = await axiosInstance.patch(
+  const response = await axiosBasic.patch(
     `/lost-item/business/${data.venueId}/update/${data.lostItemId}`,
     {
       title: data.title,
       itemImg: data.itemImg,
       description: data.description,
-      foundDate: data.date,
+      foundDate: data.foundDate,
     },
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
       },
     }
   );

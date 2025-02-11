@@ -4,20 +4,27 @@ import LostInput from 'components/Lost/LostInput';
 import { useState } from 'react';
 import useDebounce from 'hooks/useDebounce';
 import LostList_user from 'components/Lost/user/Lostlist_user';
+import { GetVenue } from 'shared/api/venue';
+import { useQuery } from '@tanstack/react-query';
 
 const LostListPage = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const venueId = Number(id);
+  const { venueId } = useParams();
+  const id = Number(venueId);
   const [mq, setMq] = useState('');
   const useDebouncedValue = useDebounce(mq, 500);
+
+  const { data: venue } = useQuery({
+    queryFn: () => GetVenue(id),
+    queryKey: ['venueData'],
+  });
 
   return (
     <div className="flex flex-col items-center h-full relative">
       <TopBar
-        title="분실물"
-        onFirstClick={() => navigate(`/user/shop/${venueId}`)}
-        onSecondClick={() => navigate(`/user/shop/${venueId}/lost-list`)}
+        title={venue?.result.name}
+        onFirstClick={() => navigate(`/user/shop/${id}`)}
+        onSecondClick={() => navigate(`/user/shop/${id}/lost-list`)}
       />
       <div className="flex flex-col justify-center items-center mt-[73px] ">
         <LostInput setSearchValue={setMq} />

@@ -1,9 +1,9 @@
 export type TPostLost = {
   title: string;
-  itemImg?: Array<File> | null;
+  itemImg: File | null;
   description: string;
   venueId: number;
-  date?: string;
+  foundDate?: string;
   lostItemId?: number;
 };
 

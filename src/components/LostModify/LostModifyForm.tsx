@@ -35,7 +35,7 @@ const ModifyForm = () => {
   });
 
   const [titleValue, setTitleValue] = useState(contents?.result.title);
-  const [imgValue, setImgValue] = useState<File[] | null>(null);
+  const [imgValue, setImgValue] = useState<File | null>(null);
   const [textareaValue, setTextareaValue] = useState(
     contents?.result.description
   );
@@ -48,13 +48,7 @@ const ModifyForm = () => {
       description: textareaValue,
       venueId: ownerId,
       lostItemId: itemId,
-      date: new Date()
-        .toLocaleDateString('ko-KR', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        })
-        .replace(/. /g, '-'),
+      foundDate: new Date().toISOString().split('T')[0],
     };
 
     console.log('제출할 수정정 데이터 : ', formdata);
@@ -63,7 +57,7 @@ const ModifyForm = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      const images = Array.from(e.target.files);
+      const images = e.target.files[0];
       setImgValue(images);
     }
   };
@@ -134,7 +128,7 @@ const ModifyForm = () => {
           {imgValue ? (
             <div className="w-[356px] flex justify-center my-7">
               <img
-                src={URL.createObjectURL(imgValue[0])}
+                src={URL.createObjectURL(imgValue)}
                 alt="Uploaded"
                 className="w-[294px] rounded-lg object-cover"
               />

@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import SearchLostList from '../SearchLostList';
 import { ILostItem } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
-import { useOwnerContext } from '../../../context/OwnerContext';
 
 const LostList_user = ({
   who,
@@ -15,18 +14,16 @@ const LostList_user = ({
   who: string;
   searchValue: string | null;
 }) => {
-  const { ownerId } = useOwnerContext();
-
   const navigate = useNavigate();
   const handleClick = (id: number) => {
     navigate(`/${who}/shop/${venueId}/lost-item/${id}`);
   };
 
-  const { id } = useParams();
-  const venueId = id ? Number(id) : ownerId;
+  const { venueId } = useParams();
+  const id = Number(venueId);
 
   const { data, isPending, isError, isFetching, hasNextPage, fetchNextPage } =
-    useGetInfiniteLostList({ venueId });
+    useGetInfiniteLostList({ venueId: id });
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -48,7 +45,7 @@ const LostList_user = ({
   return (
     <div className="flex flex-col mt-3">
       {searchValue ? (
-        <SearchLostList who={who} venueId={venueId} text={searchValue} />
+        <SearchLostList who={who} venueId={id} text={searchValue} />
       ) : data.pages.map((page) => page?.result.lostItemPreViewDTOList).length >
         0 ? (
         data.pages.map((page) =>

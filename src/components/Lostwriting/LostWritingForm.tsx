@@ -10,8 +10,7 @@ import { useOwnerContext } from '../../context/OwnerContext';
 
 const WritingForm = () => {
   const [titleValue, setTitleValue] = useState('');
-  const [imgValue, setImgValue] = useState<File[] | null>(null);
-  // const [imgUrl, setImgUrl] = useState<string[]>([]);
+  const [imgValue, setImgValue] = useState<File | null>(null);
   const [textareaValue, setTextareaValue] = useState('');
 
   const { ownerId } = useOwnerContext();
@@ -48,7 +47,7 @@ const WritingForm = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      const images = Array.from(e.target.files);
+      const images = e.target.files[0];
       setImgValue(images);
     }
   };
@@ -72,7 +71,7 @@ const WritingForm = () => {
     }
   };
 
-  const isButtonDisabled = titleValue && textareaValue;
+  const isButtonDisabled = titleValue && imgValue && textareaValue;
 
   if (isPending) {
     return <p>로딩중</p>;
@@ -117,7 +116,7 @@ const WritingForm = () => {
           {imgValue && (
             <div className="w-[356px] flex justify-center my-7">
               <img
-                src={URL.createObjectURL(imgValue[0])}
+                src={URL.createObjectURL(imgValue)}
                 alt="Uploaded"
                 className="w-[294px] object-cover rounded-lg"
               />

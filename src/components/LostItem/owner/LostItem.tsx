@@ -6,17 +6,10 @@ import { useOwnerContext } from '../../../context/OwnerContext';
 import { useItemStateContext } from '../../../pages/Owner/LostItem/context/LostItemStateContext';
 
 const LostItem = () => {
-  const { venueId, id } = useParams();
-  const { isRole, ownerId } = useOwnerContext();
+  const { id } = useParams();
+  const { ownerId } = useOwnerContext();
   const { setItemState } = useItemStateContext();
-  let VenueId: number;
-  //사장님일때 useParam으로 받아오는게 아니라 전역상태에서 불어와야 함.
-  if (isRole == 'OWNER') {
-    VenueId = ownerId;
-  } else {
-    VenueId = Number(venueId);
-  }
-
+  const VenueId = ownerId;
   const ItemId = Number(id);
 
   const {
@@ -28,7 +21,6 @@ const LostItem = () => {
     queryKey: ['contents', ItemId],
   });
   setItemState(item?.result?.lostItemStatus);
-  console.log('이미지', item?.itemImg?.[0]);
 
   if (isPending) {
     return <p>로딩중</p>;
@@ -62,7 +54,7 @@ const LostItem = () => {
       {item?.result?.itemImg?.[0] ? (
         <img
           className="w-[294px] rounded-lg"
-          src={`${item?.result?.itemImg?.[0]}`}
+          src={`${item?.result?.itemImg}`}
         />
       ) : (
         <></>
