@@ -75,7 +75,6 @@ const ButtonModal = ({
           </AlertTwoButton>
         </ModalLayout>
       )}
-      ;
     </>
   );
 };
