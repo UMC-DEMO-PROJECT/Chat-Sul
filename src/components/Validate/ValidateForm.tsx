@@ -35,7 +35,9 @@ const ValidateForm = () => {
     try {
       const response = await PostAdd(formData);
       localStorage.setItem('ownerId', response.result.venueId);
-      navigate('/owner');
+      localStorage.setItem('role', 'OWNER');
+      alert('가게가 등록되었습니다!');
+      navigate('/user');
     } catch (error) {
       console.error(error);
     }

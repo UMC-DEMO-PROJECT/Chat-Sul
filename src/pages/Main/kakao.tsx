@@ -21,7 +21,8 @@ interface StoreProps {
 
 const KakaoMap = () => {
   const navigate = useNavigate();
-  const { isRole } = useOwnerContext();
+  // const { isRole } = useOwnerContext();
+  const isRole = localStorage.getItem('role');
   const mapRef = useRef<any>(null);
 
   const {

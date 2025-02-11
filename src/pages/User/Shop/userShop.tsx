@@ -37,7 +37,7 @@ const UserShop = () => {
           icon="reserve"
           titleP="대관 신청"
           descriptionP="특별한 날, 간편히 대관하세요!"
-          navigation={`reserve-form/:id`}
+          navigation={`reserve-form/${venueId}`}
         />
         <ShoppingCard
           icon="checked"
