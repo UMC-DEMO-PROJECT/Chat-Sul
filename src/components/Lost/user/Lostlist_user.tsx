@@ -42,12 +42,15 @@ const LostList_user = ({
     return <FailedAPI text="분실물 목록을 불러오는데 실패했습니다." />;
   }
 
+  const lostItems = data.pages.flatMap(
+    (page) => page.result.lostItemPreViewDTOList
+  );
+
   return (
     <div className="flex flex-col mt-3">
       {searchValue ? (
         <SearchLostList who={who} venueId={id} text={searchValue} />
-      ) : data.pages.map((page) => page?.result.lostItemPreViewDTOList).length >
-        0 ? (
+      ) : lostItems.length > 0 ? (
         data.pages.map((page) =>
           page?.result.lostItemPreViewDTOList.map((lost: ILostItem) => (
             <Post
