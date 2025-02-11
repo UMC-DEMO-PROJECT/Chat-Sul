@@ -21,12 +21,14 @@ const LoginForm = () => {
     setIsError(false);
     try {
       const response = await PostLogin(formData);
-      const { accessToken, role, venueIds } = response.result;
+      const { accessToken, role, venueIds = [] } = response.result;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('role', role);
-      localStorage.setItem('ownerId', venueIds[0]);
       setIsRole(role);
-      setOwnerId(venueIds[0]);
+      if (venueIds !== null) {
+        localStorage.setItem('ownerId', venueIds[0]);
+        setOwnerId(venueIds[0]);
+      }
 
       navigate('/user');
     } catch (error) {
