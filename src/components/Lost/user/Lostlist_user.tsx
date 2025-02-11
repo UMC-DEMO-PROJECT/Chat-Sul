@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetInfiniteLostList } from 'hooks/useGetInfiniteLostList';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import SearchLostList from '../SearchLostList';
+import Icon from 'shared/ui/Icon/Icon';
 import { ILostItem } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
@@ -42,14 +42,38 @@ const LostList_user = ({
     return <FailedAPI text="분실물 목록을 불러오는데 실패했습니다." />;
   }
 
-  const lostItems = data.pages.flatMap(
+  const lostItems = data?.pages?.flatMap(
     (page) => page.result.lostItemPreViewDTOList
+  );
+
+  const filteredLostList = lostItems.filter((lost: ILostItem) =>
+    searchValue
+      ? lost.title.toLowerCase().includes(searchValue.toLowerCase())
+      : true
   );
 
   return (
     <div className="flex flex-col mt-3">
       {searchValue ? (
-        <SearchLostList who={who} venueId={id} text={searchValue} />
+        filteredLostList.length > 0 ? (
+          filteredLostList.map((lost: ILostItem) => (
+            <Post
+              key={lost.lostItemId}
+              title={lost.title}
+              content={lost.description}
+              onClick={() => handleClick(lost.lostItemId)}
+              date={lost.foundDate}
+              isReceived={lost.lostItemStatus}
+            />
+          ))
+        ) : (
+          <div className="flex flex-col items-center gap-4 mt-[209px]">
+            <Icon name="Exclamation" />
+            <p className="text-[#8E8E93] text-[17px] font-[590]">
+              검색된 분실물이 없습니다.
+            </p>
+          </div>
+        )
       ) : lostItems.length > 0 ? (
         data.pages.map((page) =>
           page?.result.lostItemPreViewDTOList.map((lost: ILostItem) => (
@@ -57,9 +81,7 @@ const LostList_user = ({
               key={lost.lostItemId}
               title={lost.title}
               content={lost.description}
-              onClick={() => {
-                handleClick(lost.lostItemId);
-              }}
+              onClick={() => handleClick(lost.lostItemId)}
               date={lost.foundDate}
               isReceived={lost.lostItemStatus}
             />
