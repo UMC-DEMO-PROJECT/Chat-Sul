@@ -21,6 +21,12 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Create .env file
+        run: |
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
+          echo "VITE_KAKAO_MAP_APPKEY=${{ secrets.VITE_KAKAO_MAP_APPKEY }}" >> .
+        shell: bash
+        
       # 3. 빌드
       - name: Build project
         run: npm run build
