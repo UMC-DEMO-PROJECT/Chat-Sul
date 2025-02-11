@@ -183,7 +183,12 @@ const KakaoMap = () => {
       <>
         <div id="map" className="w-[402px] h-[854px]"></div>
         <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
-          <KakaoMapButton IconName="business" onClick={handleBusiness} />
+          {isRole === 'OWNER' ? (
+            <KakaoMapButton IconName="Storenoplus" onClick={handleBusiness} />
+          ) : (
+            <KakaoMapButton IconName="business" onClick={handleBusiness} />
+          )}
+
           <KakaoMapButton IconName="renew" onClick={handleReload} />
           <KakaoMapButton IconName="gps" onClick={handleGPSClick} />
         </div>
