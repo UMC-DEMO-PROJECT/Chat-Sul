@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import KakaoMapButton from 'components/kakaomap/kakaomapbutton';
-import { useOwnerContext } from '../../context/OwnerContext';
+// import { useOwnerContext } from '../../context/OwnerContext';
 import { useQuery } from '@tanstack/react-query';
 import { GetMap } from 'shared/api/venue';
 import { GetVenue } from 'shared/api/venue';

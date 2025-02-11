@@ -75,7 +75,10 @@ const App = () => {
                 <Route path="shop/:venueId">
                   <Route index element={<UserShop />} />
                   <Route path="reserve-list" element={<ReserveList />} />
-                  <Route path="reserve-form" element={<ReserveForm />} />
+                  <Route
+                    path="reserve-form/:venueId"
+                    element={<ReserveForm />}
+                  />
                   <Route path="menu" element={<Menu />} />
                   <Route path="lost-list" element={<LostListPage />} />
                   <Route path="lost-item/:id" element={<LostItemPage />} />

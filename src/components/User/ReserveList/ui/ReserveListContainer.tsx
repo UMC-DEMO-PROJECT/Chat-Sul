@@ -4,7 +4,7 @@ import RentalCard from '../../../../shared/ui/RentalCard/RentalCard';
 import AlertContainer from './Alert/AlertContainer';
 import { IReserveListResponse } from '../type/TReserveList';
 import RentarCardSkeleton from '../../../../shared/ui/RentalCard/RentarCardSkeleton';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetReserveListInfinity } from '../hooks/useGetReserveListInfinity';
 import ModalDataProvider from '../context/SelectedModalDataContextProvider';
 import {
@@ -14,6 +14,8 @@ import {
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
 
 const ReserveListInner = () => {
+  const { venueId } = useParams();
+  const id = Number(venueId);
   const navigate = useNavigate();
   const { data, isLoading, isError, ref } = useGetReserveListInfinity();
   const modalData = useSelectedDataState();
@@ -24,7 +26,7 @@ const ReserveListInner = () => {
       <TopBar
         title="대관확인"
         onFirstClick={() => {
-          navigate('/user/shop');
+          navigate(`/user/shop/${id}`);
         }}
       />
       <div className="mt-[52px]">
