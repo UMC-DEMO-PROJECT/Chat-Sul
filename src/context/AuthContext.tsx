@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import {
   createContext,
   useState,
@@ -5,6 +6,8 @@ import {
   useEffect,
   PropsWithChildren,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GetToken } from 'shared/api/token';
 
 type TAuthContext = {
   isLogin: boolean;
@@ -16,9 +19,19 @@ const AuthContext = createContext<TAuthContext | null>(null);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
+  const { data, isError } = useQuery({
+    queryFn: () => GetToken(),
+    queryKey: ['token'],
+  });
+  if (isError) {
+    navigate('/');
+  }
+
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) setIsLogin(true);
-    else setIsLogin(false);
+    if (data.result.accessToken) setIsLogin(true);
+    else if (isError) setIsLogin(false);
   }, []);
 
   return (
