@@ -179,10 +179,22 @@ const KakaoMap = () => {
   };
 
   if (isPending) {
-    return <p>로딩중</p>;
+    return (
+      <>
+        <div id="map" className="w-[402px] h-[854px]">
+          <p>로딩중</p>
+        </div>
+      </>
+    );
   }
   if (error) {
-    return <FailedAPI text="맵을 불러오는데 실패했습니다." />;
+    return (
+      <>
+        <div id="map" className="w-[402px] h-[854px]">
+          <FailedAPI text="맵을 불러오는데 실패했습니다." />
+        </div>
+      </>
+    );
   }
 
   return (
