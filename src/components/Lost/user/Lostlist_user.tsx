@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import Icon from 'shared/ui/Icon/Icon';
 import { ILostItem } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
+import PostSkeleton from 'shared/ui/Post/PostSkeleton';
 
 const LostList_user = ({
   who,
@@ -36,7 +37,7 @@ const LostList_user = ({
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
 
   if (isPending) {
-    return <p>로딩중</p>;
+    return <PostSkeleton />;
   }
   if (isError) {
     return <FailedAPI text="분실물 목록을 불러오는데 실패했습니다." />;
