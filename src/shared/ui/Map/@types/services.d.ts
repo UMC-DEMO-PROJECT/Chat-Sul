@@ -11,11 +11,11 @@ declare namespace kakao.maps.services {
    * 또는 받을 출력 좌표계를 지정하기 위해 사용한다.
    */
   export enum Coords {
-    WGS84 = "WGS84",
-    WCONGNAMUL = "WCONGNAMUL",
-    CONGNAMUL = "CONGNAMUL",
-    WTM = "WTM",
-    TM = "TM",
+    WGS84 = 'WGS84',
+    WCONGNAMUL = 'WCONGNAMUL',
+    CONGNAMUL = 'CONGNAMUL',
+    WTM = 'WTM',
+    TM = 'TM',
   }
 
   /**
@@ -25,11 +25,11 @@ declare namespace kakao.maps.services {
     /**
      * 건물명이 일부 매칭될 경우에도 검색 결과를 사용
      */
-    SIMILAR = "SIMILAR",
+    SIMILAR = 'SIMILAR',
     /**
      * 정확한 주소 패턴일 경우에만 검색 결과를 사용
      */
-    EXACT = "EXACT",
+    EXACT = 'EXACT',
   }
 
   /**
@@ -41,12 +41,12 @@ declare namespace kakao.maps.services {
     /**
      * 정확도 순
      */
-    ACCURACY = "accuracy",
+    ACCURACY = 'accuracy',
 
     /**
      * 거리 순
      */
-    DISTANCE = "distance",
+    DISTANCE = 'distance',
   }
 
   /**
@@ -56,16 +56,16 @@ declare namespace kakao.maps.services {
     /**
      * 서버 응답에 문제가 있는 경우
      */
-    ERROR = "ERROR",
+    ERROR = 'ERROR',
 
     /**
      * 검색 결과 있음
      */
-    OK = "OK",
+    OK = 'OK',
 
     /**
      * 정상적으로 응답 받았으나 검색 결과는 없음
      */
-    ZERO_RESULT = "ZERO_RESULT",
+    ZERO_RESULT = 'ZERO_RESULT',
   }
 }

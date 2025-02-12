@@ -92,7 +92,6 @@ declare namespace kakao.maps {
      */
     content?: string | HTMLElement;
 
-
     /**
      * 인포윈도우의 좌표
      */

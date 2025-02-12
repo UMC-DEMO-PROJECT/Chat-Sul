@@ -13,30 +13,30 @@ declare namespace kakao.maps.drawing {
     /**
      * 마커
      */
-    MARKER = "marker",
+    MARKER = 'marker',
     /**
      * 사각형
      */
-    RECTANGLE = "rectangle",
+    RECTANGLE = 'rectangle',
     /**
      * 원
      */
-    CIRCLE = "circle",
+    CIRCLE = 'circle',
     /**
      * 타원
      */
-    ELLIPSE = "ellipse",
+    ELLIPSE = 'ellipse',
     /**
      * 선
      */
-    POLYLINE = "polyline",
+    POLYLINE = 'polyline',
     /**
      * 끝점에 화살표가 표시된 선
      */
-    ARROW = "arrow",
+    ARROW = 'arrow',
     /**
      * 다각형
      */
-    POLYGON = "polygon",
+    POLYGON = 'polygon',
   }
 }
