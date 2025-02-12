@@ -25,14 +25,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     queryFn: () => GetToken(),
     queryKey: ['token'],
   });
-  if (isError) {
-    navigate('/');
-  }
 
   useEffect(() => {
     if (data.result.accessToken) setIsLogin(true);
-    else if (isError) setIsLogin(false);
-  }, []);
+    else if (isError) {
+      setIsLogin(false);
+      navigate('/');
+    }
+  }, [data, isError, navigate]);
 
   return (
     <AuthContext.Provider
