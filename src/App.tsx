@@ -22,7 +22,7 @@ import MenuOwner from './pages/Owner/MenuList/Menu_Owner';
 import { useOwnerContext, OwnerProvider } from './context/OwnerContext';
 import { PropsWithChildren } from 'react';
 import SocialAccess from './pages/Login/SocialLogin/SocialAccess';
-import { AuthProvider, useAuthContext } from 'context/AuthContext';
+import { AuthProvider, useAuthContext } from './context/AuthContext';
 
 /**
  * '/' : Landing Page, 지도 표시
