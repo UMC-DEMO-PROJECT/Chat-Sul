@@ -4,7 +4,7 @@ import Input from '../../shared/ui/Input/Input';
 import Button from '../../shared/ui/Button/button';
 import { PostAdd } from 'shared/api/venue';
 import { useNavigate } from 'react-router-dom';
-import { useOwnerContext } from 'context/OwnerContext';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const ValidateForm = () => {
   const navigate = useNavigate();
