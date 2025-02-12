@@ -79,7 +79,14 @@ const App = () => {
                   <Route path="social" element={<SocialRegister />} />
                 </Route>
                 <Route path="/login/social" element={<SocialAccess />} />
-                <Route path="/validate" element={<Validate />} />
+                <Route
+                  path="/validate"
+                  element={
+                    <AuthRoute>
+                      <Validate />
+                    </AuthRoute>
+                  }
+                />
                 <Route path="/user">
                   <Route
                     index
