@@ -93,7 +93,7 @@ const LostList = ({ searchValue }: { searchValue: string | null }) => {
         </div>
       )}
 
-      <div ref={ref}>{isFetching && <p>loading..</p>}</div>
+      <div ref={ref}>{isFetching && <PostSkeleton />}</div>
     </div>
   );
 };
