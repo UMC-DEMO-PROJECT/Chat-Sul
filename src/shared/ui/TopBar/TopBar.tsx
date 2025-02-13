@@ -33,7 +33,7 @@ const TopBar = ({
     }
   };
   return (
-    <div className="flex w-[402px] h-[52px] px-3 py-[14px] items-center overflow-hidden justify-between fixed bg-white z-[9999]">
+    <div className="flex w-[402px] h-[52px] px-3 py-[14px] items-center overflow-hidden justify-between fixed bg-white ">
       <div
         className="w-[50px] flex justify-start cursor-pointer"
         onClick={handleBack}
