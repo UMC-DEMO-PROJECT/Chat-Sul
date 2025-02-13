@@ -20,7 +20,7 @@ const ReserveListInner = () => {
   const { data, isLoading, isError, ref } = useGetReserveListInfinity();
   const modalData = useSelectedDataState();
   const dispatch = useSelectedDataDispatch();
-
+  const isDataZero = data?.pages[0].result.totalElements == 0;
   return (
     <>
       <TopBar
@@ -32,6 +32,13 @@ const ReserveListInner = () => {
       <div className="mt-[52px]">
         {isError && <FailedAPI text="네트워크 연결상태가 좋지않습니다." />}
         <RentarCardSkeleton isLoading={isLoading} count={6} />
+        {isDataZero && (
+          <div className="flex flex-col items-center gap-4 mt-[300px]">
+            <p className="text-[#8E8E93] text-[17px] font-[590]">
+              대관 목록 신청 내역이 없어요.
+            </p>
+          </div>
+        )}
         {data?.pages.map((element) =>
           element.result.reservationList.map((item: IReserveListResponse) => {
             return (
