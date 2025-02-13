@@ -177,11 +177,11 @@ const KakaoMap = () => {
   };
 
   return (
-    <div className="w-[402px] h-[854px] relative">
+    <div className="w-[402px] h-full relative">
       {isPending && <>로딩중</>}
       {error && <FailedAPI text="맵을 불러오는데 실패했습니다." />}
       <>
-        <div id="map" className="w-[402px] h-[854px]"></div>
+        <div id="map" className="w-[402px] h-full"></div>
         <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
           {isRole === 'OWNER' ? (
             <KakaoMapButton IconName="Storenoplus" onClick={handleBusiness} />
