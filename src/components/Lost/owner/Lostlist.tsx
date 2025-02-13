@@ -7,6 +7,7 @@ import Icon from 'shared/ui/Icon/Icon';
 import { ILostItem } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
 import { useOwnerContext } from '../../../context/OwnerContext';
+import PostSkeleton from 'shared/ui/Post/PostSkeleton';
 
 const LostList = ({ searchValue }: { searchValue: string | null }) => {
   const { ownerId } = useOwnerContext();
@@ -33,7 +34,7 @@ const LostList = ({ searchValue }: { searchValue: string | null }) => {
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
 
   if (isPending) {
-    return <p>로딩중</p>;
+    return <PostSkeleton />;
   }
   if (isError) {
     return <FailedAPI text="분실물 목록을 불러오는데 실패했습니다." />;
@@ -92,7 +93,7 @@ const LostList = ({ searchValue }: { searchValue: string | null }) => {
         </div>
       )}
 
-      <div ref={ref}>{isFetching && <p>loading..</p>}</div>
+      <div ref={ref}>{isFetching && <PostSkeleton />}</div>
     </div>
   );
 };
