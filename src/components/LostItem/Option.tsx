@@ -46,7 +46,7 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
     <div className={style}>
       <div
         onClick={() => setIsClick(true)}
-        className="bg-transparent p-0 absolute top-[14px] right-[12px] cursor-pointer"
+        className="bg-transparent p-0 absolute top-[14px] right-[12px] cursor-pointer z-20"
       >
         <Icon name="Option" />
       </div>
