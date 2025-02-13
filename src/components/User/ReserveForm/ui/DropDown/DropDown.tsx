@@ -33,7 +33,7 @@ const createTimeTable = (startTime: string, endTime: string): string[] => {
 };
 
 const timeTable = createTimeTable('18:00', '24:00'); // 이것도 요청으로 받아야하나?
-const reservedTime = ['20:00', '21:00']; // 이건 API요청으로 받아야함
+const reservedTime: string[] = ['']; // 이건 API요청으로 받아야함
 
 interface DropDownProps {
   reservationTime: string | null;
