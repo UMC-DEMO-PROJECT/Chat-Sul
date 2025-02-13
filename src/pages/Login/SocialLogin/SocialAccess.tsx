@@ -8,6 +8,7 @@ const SocialAccess = () => {
 
   const accessToken = searchParams.get('access_token');
   const role = searchParams.get('role');
+  const venueId = searchParams.get('venueId');
 
   useEffect(() => {
     if (accessToken) {
@@ -17,9 +18,12 @@ const SocialAccess = () => {
     if (role) {
       if (role === 'TEMP') {
         navigate('/register/social');
-      } else {
+      } else if (role === 'USER') {
         localStorage.setItem('role', role);
         navigate('/user');
+      } else if (role === 'OWNER' && venueId !== null) {
+        localStorage.setItem('role', role);
+        localStorage.setItem('ownerId', venueId);
       }
     }
   }, [accessToken, role, navigate]);

@@ -6,16 +6,16 @@ declare namespace kakao.maps {
    * @see [StrokeStyles](http://apis.map.kakao.com/web/documentation/#StrokeStyles)
    */
   export type StrokeStyles =
-    | "solid"
-    | "shortdash"
-    | "shortdot"
-    | "shortdashdot"
-    | "shortdashdotdot"
-    | "dot"
-    | "dash"
-    | "dashed"
-    | "dashdot"
-    | "longdash"
-    | "longdashdot"
-    | "longdashdotdot";
+    | 'solid'
+    | 'shortdash'
+    | 'shortdot'
+    | 'shortdashdot'
+    | 'shortdashdotdot'
+    | 'dot'
+    | 'dash'
+    | 'dashed'
+    | 'dashdot'
+    | 'longdash'
+    | 'longdashdot'
+    | 'longdashdotdot';
 }
