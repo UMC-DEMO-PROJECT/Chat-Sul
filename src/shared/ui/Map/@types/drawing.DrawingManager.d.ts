@@ -218,13 +218,13 @@ declare namespace kakao.maps.drawing {
      */
     public addListener(
       event:
-        | "drawstart"
-        | "draw"
-        | "drawend"
-        | "drawnext"
-        | "select"
-        | "cancel"
-        | "remove",
+        | 'drawstart'
+        | 'draw'
+        | 'drawend'
+        | 'drawnext'
+        | 'select'
+        | 'cancel'
+        | 'remove',
       callback: (e: kakao.maps.drawing.MouseEvent) => void
     ): void;
 
@@ -234,7 +234,7 @@ declare namespace kakao.maps.drawing {
      * @param event
      * @param callback
      */
-    public addListener(event: "state_changed", callback: () => void): void;
+    public addListener(event: 'state_changed', callback: () => void): void;
   }
 
   export type DrawingManagerOptions<T extends OverlayType> =
@@ -249,7 +249,7 @@ declare namespace kakao.maps.drawing {
          * 마우스 오버 시 가이드 툴팁 표시 여부. ‘draw’, ‘drag’, ‘edit’ 3가지를 지정할 수 있다 (기본값: 모두 표시 안함)
          * 예를들어 [‘draw’]로 설정하면 객체를 그릴때 가이드 툴팁이 표시된다
          */
-        guideTooltip?: Array<"draw" | "drag" | "edit">;
+        guideTooltip?: Array<'draw' | 'drag' | 'edit'>;
         /**
          * 사용할 그리기 요소 지정한다 (기본값: 모든 그리기 요소)
          */
@@ -641,7 +641,7 @@ declare namespace kakao.maps.drawing {
     /**
      * Drawing Data Type
      */
-    type: "marker";
+    type: 'marker';
     /**
      * Maker의 content 값
      */
@@ -677,7 +677,7 @@ declare namespace kakao.maps.drawing {
     /**
      * Drawing Data Type
      */
-    type: "arrow";
+    type: 'arrow';
     /**
      * 좌표계 타입 (example: "wgs84")
      */
@@ -729,7 +729,7 @@ declare namespace kakao.maps.drawing {
     /**
      * Drawing Data Type
      */
-    type: "polyline";
+    type: 'polyline';
     /**
      * 좌표계 타입 (example: "wgs84")
      */
@@ -773,7 +773,7 @@ declare namespace kakao.maps.drawing {
     /**
      * Drawing Data Type
      */
-    type: "rectangle";
+    type: 'rectangle';
     /**
      * 좌표계 타입 (example: "wgs84")
      */
@@ -841,7 +841,7 @@ declare namespace kakao.maps.drawing {
     /**
      * Drawing Data Type
      */
-    type: "circle";
+    type: 'circle';
     /**
      * 좌표계 타입 (example: "wgs84")
      */
@@ -926,7 +926,7 @@ declare namespace kakao.maps.drawing {
     /**
      * Drawing Data Type
      */
-    type: "ellipse";
+    type: 'ellipse';
     /**
      * 좌표계 타입 (example: "wgs84")
      */
@@ -1015,7 +1015,7 @@ declare namespace kakao.maps.drawing {
     /**
      * Drawing Data Type
      */
-    type: "polygon";
+    type: 'polygon';
     /**
      * 좌표계 타입 (example: "wgs84")
      */
