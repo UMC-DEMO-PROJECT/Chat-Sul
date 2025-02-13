@@ -24,7 +24,12 @@ const UserMenu = ({ venueId }: { venueId: number }) => {
   return (
     <div className="flex flex-col items-center max-w-[402px] mt-[52px]">
       {menuItems.map((item) => (
-        <img key={item.menuId} src={item.imageUrl} alt="메뉴 이미지" />
+        <img
+          key={item.menuId}
+          src={item.imageUrl}
+          alt="메뉴 이미지"
+          className="w-full"
+        />
       ))}
     </div>
   );
