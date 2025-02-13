@@ -6,10 +6,12 @@ import Button from '../../shared/ui/Button/button';
 import EmailInput from '../../shared/ui/Input/EmailInput';
 import { PostLogin } from '../../shared/api/membersApi';
 import { useOwnerContext } from '../../context/OwnerContext';
+import { useAuthContext } from '../../context/AuthContext';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const { setIsRole, setOwnerId } = useOwnerContext();
+  const { setIsLogin } = useAuthContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const LoginForm = () => {
       setIsRole(role);
       if (venueIds !== null) {
         localStorage.setItem('ownerId', venueIds[0]);
+        setIsLogin(true);
         setOwnerId(venueIds[0]);
       }
 
