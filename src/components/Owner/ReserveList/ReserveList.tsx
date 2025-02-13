@@ -26,6 +26,8 @@ const ReserveListInner = () => {
     menuStatus,
     Number(venueId)
   );
+  const isDataZero = data?.pages[0].result.totalElements == 0;
+
   return (
     <>
       <TopBar
@@ -35,6 +37,13 @@ const ReserveListInner = () => {
         }}
       />
       <TagBar status={menuStatus} setStatus={setMenuStatus} />
+      {isDataZero && (
+        <div className="flex flex-col items-center gap-4 mt-[300px]">
+          <p className="text-[#8E8E93] text-[17px] font-[590]">
+            대관 목록 신청 내역이 없어요.
+          </p>
+        </div>
+      )}
       {data?.pages.map((element) =>
         element.result.reservationList.map(
           (item: IOwnerReservationResponse) => {
