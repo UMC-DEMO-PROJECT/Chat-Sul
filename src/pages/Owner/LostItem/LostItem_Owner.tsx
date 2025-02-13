@@ -16,6 +16,7 @@ const LostItemPage_Owner = () => {
     <div className="flex flex-col items-center h-full relative">
       <TopBar
         title="분실물"
+        onFirstClick={() => navigate('/owner/lost-list')}
         onSecondClick={() => navigate('/owner/lost-list')}
       />
       <div className="mt-[52px]">

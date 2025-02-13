@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import KakaoMapButton from 'components/kakaomap/kakaomapbutton';
-// import { useOwnerContext } from '../../context/OwnerContext';
+import { useOwnerContext } from '../../context/OwnerContext';
 import { useQuery } from '@tanstack/react-query';
 import { GetMap } from 'shared/api/venue';
 import { GetVenue } from 'shared/api/venue';
@@ -21,8 +21,8 @@ interface StoreProps {
 
 const KakaoMap = () => {
   const navigate = useNavigate();
-  // const { isRole } = useOwnerContext();
-  const isRole = localStorage.getItem('role');
+  const { setIsRole, isRole } = useOwnerContext();
+
   const mapRef = useRef<any>(null);
 
   const {
@@ -172,16 +172,35 @@ const KakaoMap = () => {
   };
 
   const handleBusiness = () => {
-    if (isRole === 'OWNER') navigate('/owner');
-    else navigate('/validate');
+    if (isRole === 'OWNER') {
+      setIsRole(isRole);
+      navigate('/owner');
+    } else navigate('/validate');
   };
 
-  return (
-    <div className="w-[402px] h-[854px] relative">
-      {isPending && <>로딩중</>}
-      {error && <FailedAPI text="맵을 불러오는데 실패했습니다." />}
+  if (isPending) {
+    return (
       <>
-        <div id="map" className="w-[402px] h-[854px]"></div>
+        <div id="map" className="w-[402px] h-[854px]">
+          <p>로딩중</p>
+        </div>
+      </>
+    );
+  }
+  if (error) {
+    return (
+      <>
+        <div id="map" className="w-[402px] h-[854px]">
+          <FailedAPI text="맵을 불러오는데 실패했습니다." />
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <div className="w-[402px] h-full relative">
+      <>
+        <div id="map" className="w-[402px] h-full"></div>
         <div className="inline-flex flex-col absolute top-[136px] right-[24px] gap-3 items-center justify-center">
           {isRole === 'OWNER' ? (
             <KakaoMapButton IconName="Storenoplus" onClick={handleBusiness} />
