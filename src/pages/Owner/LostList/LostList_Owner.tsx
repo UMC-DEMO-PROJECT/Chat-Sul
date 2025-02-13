@@ -12,7 +12,7 @@ const LostListPage_Owner = () => {
   const useDebouncedValue = useDebounce(mq, 500);
 
   return (
-    <div className="flex flex-col items-center h-full relative">
+    <div className="flex flex-col items-center justify-between h-full relative">
       <TopBar
         title="분실물"
         onFirstClick={() => navigate('/owner')}
@@ -22,12 +22,14 @@ const LostListPage_Owner = () => {
         <LostInput setSearchValue={setMq} />
         <LostList searchValue={useDebouncedValue} />
       </div>
-      <button
-        onClick={() => navigate('/owner/lost-form')}
-        className="rounded-full bg-[#CB6015] p-4 absolute bottom-[72px] right-[16px]"
-      >
-        <Icon name="pen" />
-      </button>
+      <div className="flex justify-between w-full pl-[325px] sticky bottom-[72px]">
+        <button
+          onClick={() => navigate('/owner/lost-form')}
+          className="rounded-full bg-[#CB6015] p-4"
+        >
+          <Icon name="pen" />
+        </button>
+      </div>
     </div>
   );
 };
