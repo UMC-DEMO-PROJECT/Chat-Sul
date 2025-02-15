@@ -64,15 +64,16 @@
   - Modal 개발
   - Infinite Scroll을 통한 데이터 반복 출력 수행
 - 비개발
-  - AWS CloudFront, git action로 CI/CD 
+  - AWS CloudFront, git action로 CI/CD
   - 가비아로 도메인연결
 
 ### 🐤 윤미나
 
 - 개발
   - 공용 컴포넌트 : button
-  - 페이지 : 분실물 목록, 분실물 상세 정보, 분실물 글 작성 및 수정 페이지
-  - contextAPI 활용
+  - 페이지 : 분실물 목록, 분실물 상세 정보, 분실물 글 작성, 글글 수정 페이지
+  - contextAPI 활용하여 로그인 여부 및 owner 여부 검사
+  - Infinite Scroll을 통한 데이터 반복 출력 수행
 - 비개발
 
 ### 🐭 이주형
