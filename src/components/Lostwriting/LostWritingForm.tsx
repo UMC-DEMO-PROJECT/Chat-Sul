@@ -40,8 +40,6 @@ const WritingForm = () => {
       venueId: ownerId,
     };
 
-    console.log('제출할 데이터 : ', formdata);
-
     postMutation({ data: formdata });
   };
 

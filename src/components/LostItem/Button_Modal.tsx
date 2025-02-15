@@ -28,7 +28,7 @@ const ButtonModal = ({
       await PatchLostState({ venueId: ownerId, lostItemId: itemId });
       navigate('/owner/lost-list');
     } catch (error) {
-      console.log('수취 변경 실패 : ', error);
+      console.error('수취 변경 실패 : ', error);
     }
   };
 

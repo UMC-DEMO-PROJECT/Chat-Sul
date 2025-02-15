@@ -26,7 +26,7 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
       await DeleteLost({ venueId: ownerId, lostItemId: itemId });
       navigate('/owner/lost-list');
     } catch (error) {
-      console.log('삭제 실패 : ', error);
+      console.error('삭제 실패 : ', error);
     }
   };
 

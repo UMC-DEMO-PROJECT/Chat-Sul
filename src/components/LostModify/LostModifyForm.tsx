@@ -14,11 +14,7 @@ const ModifyForm = () => {
   const { ownerId } = useOwnerContext();
   const itemId = Number(id);
 
-  const {
-    mutate: PatchMutation,
-    isError,
-    isPending,
-  } = useMutation({
+  const { mutate: PatchMutation, isError } = useMutation({
     mutationFn: PatchUpdate,
     onSuccess: () => {
       console.log('분실물 수정정 성공');
@@ -85,9 +81,6 @@ const ModifyForm = () => {
     (titleValue && textareaValue) ||
     (contents?.result.title && contents?.result.description);
 
-  if (isPending) {
-    return <p>로딩중</p>;
-  }
   if (isError) {
     return <FailedAPI text="수정하는데 실패하였습니다." />;
   }

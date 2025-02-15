@@ -19,7 +19,6 @@ export const PostLost = async ({ data }: { data: TPostLost }) => {
     }
   );
 
-  console.log('분실물 등록 API :', response);
   return response.data;
 };
 
@@ -41,7 +40,6 @@ export const PatchUpdate = async ({ data }: { data: TPostLost }) => {
       },
     }
   );
-  console.log('분실물 수정 성공 : ', response);
   return response.data;
 };
 
@@ -63,7 +61,6 @@ export const PatchLostState = async ({
       },
     }
   );
-  console.log('분실물 수취상태 변경 성공 : ', response);
   return response.data;
 };
 
@@ -126,7 +123,6 @@ export const GetLostDetail_User = async ({
       },
     }
   );
-  console.log('상세 게시글 가져오기 성공 : ', response);
   return response.data;
 };
 
@@ -155,7 +151,6 @@ export const GetLostDetail_Owner = async ({
   const response = await axiosInstance.get(
     `/lost-item/business/${venueId}/detail/${lostItemId}`
   );
-  console.log('상세 게시글 가져오기 성공 : ', response);
   return response.data;
 };
 
@@ -176,6 +171,5 @@ export const DeleteLost = async ({
       },
     }
   );
-  console.log('상세 게시글 삭제하기 성공 : ', response);
   return response.data;
 };
