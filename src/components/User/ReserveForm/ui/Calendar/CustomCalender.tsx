@@ -51,7 +51,7 @@ const CustomCalendar = ({
         tileDisabled={({ date }) => {
           const dateOffset = parsingBeforetoISOString(date);
           const today = new Date();
-          const isPast = date < new Date(today.setHours(0, 0, 0, 0));
+          const isPast = date <= new Date(today.setHours(0, 0, 0, 0));
           const isReserved = reservedDates.includes(
             dateOffset.toISOString().split('T')[0]
           );
@@ -64,7 +64,7 @@ const CustomCalendar = ({
           const isReserved = reservedDates.includes(
             dateOffset.toISOString().split('T')[0]
           );
-          const isPast: boolean = date < new Date(today.setHours(0, 0, 0, 0));
+          const isPast: boolean = date <= new Date(today.setHours(0, 0, 0, 0));
 
           if (isPast) return 'past';
           if (isReserved) return 'reserved';
