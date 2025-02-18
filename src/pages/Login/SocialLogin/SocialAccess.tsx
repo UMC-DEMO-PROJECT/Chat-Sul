@@ -1,3 +1,4 @@
+import { useAuthContext } from '../../../context/AuthContext';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -5,6 +6,7 @@ const SocialAccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const { setIsLogin } = useAuthContext();
 
   const accessToken = searchParams.get('access_token');
   const role = searchParams.get('role');
@@ -20,10 +22,12 @@ const SocialAccess = () => {
         navigate('/register/social');
       } else if (role === 'USER') {
         localStorage.setItem('role', role);
+        setIsLogin(true);
         navigate('/user');
       } else if (role === 'OWNER' && venueId !== null) {
         localStorage.setItem('role', role);
         localStorage.setItem('ownerId', venueId);
+        setIsLogin(true);
       }
     }
   }, [accessToken, role, navigate]);
