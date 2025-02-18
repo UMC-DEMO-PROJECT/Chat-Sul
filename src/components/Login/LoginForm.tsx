@@ -27,9 +27,9 @@ const LoginForm = () => {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('role', role);
       setIsRole(role);
+      setIsLogin(true);
       if (venueId !== null) {
         localStorage.setItem('ownerId', venueId);
-        setIsLogin(true);
         setOwnerId(venueId);
       }
 
