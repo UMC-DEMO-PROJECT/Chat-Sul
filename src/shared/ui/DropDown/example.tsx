@@ -1,7 +1,6 @@
-// props의 타입 정의
 interface DropDownProps {
-  options: string[]; // 가게 이름 목록
-  onChange: (locationName: string) => void; // 선택된 가게 이름을 처리하는 함수
+  options: string[];
+  onChange: (locationName: string) => void;
 }
 
 const DropDown = ({ options, onChange }: DropDownProps) => {
