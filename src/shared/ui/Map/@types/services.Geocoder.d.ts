@@ -35,7 +35,7 @@ declare namespace kakao.maps.services {
            * REGION_ADDR(지번 주소)
            * ROAD_ADDR(도로명 주소)
            */
-          address_type: "REGION" | "ROAD" | "REGION_ADDR" | "ROAD_ADDR";
+          address_type: 'REGION' | 'ROAD' | 'REGION_ADDR' | 'ROAD_ADDR';
           /**
            * X 좌표값, 경위도인 경우 경도(longitude)
            */
@@ -309,7 +309,7 @@ declare namespace kakao.maps.services {
     /**
      * 지하 여부, Y 또는 N
      */
-    underground_yn: "Y" | "N";
+    underground_yn: 'Y' | 'N';
     /**
      * 건물 본번
      */

@@ -12,7 +12,7 @@ const ResrvationCancelAlert = () => {
   const dispatch = useSelectedDataDispatch();
   const vaildateReserveList = useReserveListValidateQuery();
 
-  const { mutate } = useMutation({
+  const { mutate, isError } = useMutation({
     mutationFn: () => PatchReservationCancel(modalData.reservationId),
     onSuccess: ({ data }) => {
       if (data.isSuccess == false) {
@@ -26,9 +26,6 @@ const ResrvationCancelAlert = () => {
           type: 'CLOSE_MODAL',
         });
       }
-    },
-    onError: () => {
-      alert('서버와의 연결이 불안정합니다');
     },
   });
   return (
@@ -44,8 +41,15 @@ const ResrvationCancelAlert = () => {
         mutate();
       }}
     >
-      <div className="text-[#2d2d2d] text-[13px] font-normal leading-[18px]">
-        정말로 예약을 취소하시겠습니까?
+      <div className="text-[#2d2d2d] font-normal leading-[18px] text-center flex flex-col items-center">
+        {isError ? (
+          <div className="mt-3 text-sul-gray-400 text-base">
+            <p>네트워크 연결상태가 좋지않습니다.</p>
+            <p>다시 시도해주세요</p>
+          </div>
+        ) : (
+          <p className="mt-3">정말로 예약을 취소하시겠습니까?</p>
+        )}
       </div>
     </AlertTwoButton>
   );

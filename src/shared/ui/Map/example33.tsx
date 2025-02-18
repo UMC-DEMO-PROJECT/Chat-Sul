@@ -17,7 +17,7 @@ interface MapProps {
 
 declare global {
   interface Window {
-    KaKao: any;
+    kakao: any;
   }
 }
 
@@ -44,7 +44,7 @@ const Map = ({ locations }: MapProps): JSX.Element => {
   useEffect(() => {
     if (!scriptLoaded) return;
 
-    const { kakao } = window.KaKao;
+    const { kakao } = window;
     kakao.maps.load(() => {
       const container = document.getElementById('map');
       if (!container) return;

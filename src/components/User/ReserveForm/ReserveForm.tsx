@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import Input from '../../../../shared/ui/Input/Input';
-import ModalLayout from '../../../../shared/ui/Modal/ModalLayout/ModalLayout';
-import TopBar from '../../../../shared/ui/TopBar/TopBar';
-import Button from '../../../../shared/ui/Button/button';
-import ViewOnlyInputContainer from './Input/ViewOnlyInputContainer';
-import AlertOneButton from '../../../../shared/ui/Modal/Alert/AlertOneButton';
-import ModalContents from './ModalContents/ModalContents';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { PostReservation } from '../../../../shared/api/reservation';
-import { ReservatiomMutation } from '../types/types';
-import { useReservationForm } from '../hooks/useReservationForm';
+import Input from '../../../shared/ui/Input/Input';
+import ModalLayout from '../../../shared/ui/Modal/ModalLayout/ModalLayout';
+import Button from '../../../shared/ui/Button/button';
+import ViewOnlyInputContainer from './ui/Input/ViewOnlyInputContainer';
+import AlertOneButton from '../../../shared/ui/Modal/Alert/AlertOneButton';
+import ModalContents from './ui/ModalContents/ModalContents';
+import { useReservationForm } from './hooks/useReservationForm';
+import { handlePostReservation } from './types/types';
 
 const nullToString = (value: string | null) => {
   if (value == null) {
@@ -18,32 +14,13 @@ const nullToString = (value: string | null) => {
   }
   return value;
 };
-// location.state로 가게 이름 받기, handleBack으로 메뉴로 가기 구현만 남음
-const ReserveFormContainer = () => {
+const ReserveForm = ({
+  handlePostReservation,
+}: {
+  handlePostReservation: handlePostReservation;
+}) => {
   const { datas, setFun, isReservable } = useReservationForm();
-
   const [isModalOepn, setIsModalOpen] = useState(false);
-
-  const { id } = useParams(); // 가게 id 받아올 수 있음
-  const navigate = useNavigate();
-  // const location = useLocation(); // location.state로 가게 이름받기
-
-  const mutation = useMutation({
-    mutationFn: ({ id, reservationData }: ReservatiomMutation) =>
-      PostReservation(id, reservationData),
-    onSuccess: ({ data }) => {
-      setIsModalOpen(false);
-      navigate('/user/reserve-success', {
-        state: {
-          reservationDate: data.result.reservationDate,
-          reservationTime: data.result.reservationTime,
-        },
-      });
-    },
-    onError: () => {
-      alert('서버와의 연결이 불안정합니다. 다시 시도해주세요.');
-    },
-  });
 
   const handleSubmit = () => {
     if (isReservable === false) {
@@ -58,13 +35,11 @@ const ReserveFormContainer = () => {
       numberOfGuests: Number(datas.numberOfGuests!),
       depositorName: datas.depositorName!,
     };
-
-    mutation.mutate({ id, reservationData });
-    setIsModalOpen(true);
+    handlePostReservation(reservationData);
+    setIsModalOpen(false);
   };
   return (
     <>
-      <TopBar title="대관 신청" />
       <div className=" flex flex-col px-6 my-6 gap-4 mt-[52px]">
         <Input
           value={nullToString(datas.reservationName)}
@@ -128,11 +103,7 @@ const ReserveFormContainer = () => {
             setIsModalOpen(false);
           }}
         >
-          <AlertOneButton
-            onClick={handleSubmit}
-            buttonMessage="확인했습니다."
-            isLoading={mutation.isPending}
-          >
+          <AlertOneButton onClick={handleSubmit} buttonMessage="확인했습니다.">
             <ModalContents />
           </AlertOneButton>
         </ModalLayout>
@@ -141,4 +112,4 @@ const ReserveFormContainer = () => {
   );
 };
 
-export default ReserveFormContainer;
+export default ReserveForm;

@@ -30,11 +30,15 @@ export function useGetSearchInfiniteLostList({
     queryFn: ({ pageParam }) => GetSearch({ page: pageParam, venueId, text }),
     queryKey: ['SearchLost', venueId],
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) => {
-      if (lastPage?.result?.isLast) {
+    getNextPageParam: (
+      lastPage,
+      _allPage,
+      lastPageParam
+    ): number | undefined => {
+      if (lastPage.result?.isLast) {
         return undefined;
       }
-      return allPages.length;
+      return lastPageParam + 1;
     },
     ...queryOptions,
   });

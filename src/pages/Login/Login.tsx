@@ -1,8 +1,15 @@
 import Icon from 'shared/ui/Icon/Icon';
 import LoginForm from '../../components/Login/LoginForm';
 import SocialLogin from '../../components/Login/SocialLogin';
+import { useEffect } from 'react';
 
 const Login = () => {
+  useEffect(() => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('ownerId');
+    localStorage.removeItem('role');
+  }, []);
+
   return (
     <>
       <div className="inline-flex items-center mt-[94px] mb-[44px] mx-[51px]">

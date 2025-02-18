@@ -6,11 +6,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { TPostLost } from 'shared/type/LostType';
 import FailedAPI from 'shared/ui/Fail/FailedAPI';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const WritingForm = () => {
   const [titleValue, setTitleValue] = useState('');
   const [imgValue, setImgValue] = useState<File | null>(null);
   const [textareaValue, setTextareaValue] = useState('');
+
+  const { ownerId } = useOwnerContext();
 
   const navigate = useNavigate();
   const {
@@ -34,18 +37,16 @@ const WritingForm = () => {
       title: titleValue,
       itemImg: imgValue,
       description: textareaValue,
-      venueId: 6,
+      venueId: ownerId,
     };
 
-    //const { ownerId } = useOwnerContext();
-    console.log('제출할 데이터 : ', formdata);
-    //postMutation(formdata, ownerId);
     postMutation({ data: formdata });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setImgValue(e.target.files[0]);
+      const images = e.target.files[0];
+      setImgValue(images);
     }
   };
 
@@ -68,7 +69,7 @@ const WritingForm = () => {
     }
   };
 
-  const isButtonDisabled = titleValue && textareaValue;
+  const isButtonDisabled = titleValue && imgValue && textareaValue;
 
   if (isPending) {
     return <p>로딩중</p>;
@@ -115,7 +116,7 @@ const WritingForm = () => {
               <img
                 src={URL.createObjectURL(imgValue)}
                 alt="Uploaded"
-                className="w-[100px] object-cover"
+                className="w-[294px] object-cover rounded-lg"
               />
             </div>
           )}

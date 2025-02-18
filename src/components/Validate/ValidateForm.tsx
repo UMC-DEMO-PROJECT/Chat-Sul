@@ -4,6 +4,7 @@ import Input from '../../shared/ui/Input/Input';
 import Button from '../../shared/ui/Button/button';
 import { PostAdd } from 'shared/api/venue';
 import { useNavigate } from 'react-router-dom';
+import { useOwnerContext } from '../../context/OwnerContext';
 
 const ValidateForm = () => {
   const navigate = useNavigate();
@@ -33,8 +34,14 @@ const ValidateForm = () => {
     };
 
     try {
-      await PostAdd(formData);
-      navigate('/owner');
+      const response = await PostAdd(formData);
+      const { setIsRole, setOwnerId } = useOwnerContext();
+      setIsRole('OWNER');
+      setOwnerId(response.result.venueId);
+      localStorage.setItem('ownerId', response.result.venueId);
+      localStorage.setItem('role', 'OWNER');
+      alert('가게가 등록되었습니다!');
+      navigate('/user');
     } catch (error) {
       console.error(error);
     }

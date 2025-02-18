@@ -26,7 +26,7 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
       await DeleteLost({ venueId: ownerId, lostItemId: itemId });
       navigate('/owner/lost-list');
     } catch (error) {
-      console.log('삭제 실패 : ', error);
+      console.error('삭제 실패 : ', error);
     }
   };
 
@@ -46,7 +46,7 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
     <div className={style}>
       <div
         onClick={() => setIsClick(true)}
-        className="bg-transparent p-0 absolute top-[14px] right-[12px] cursor-pointer"
+        className="bg-transparent p-0 absolute top-[14px] right-[12px] cursor-pointer z-20"
       >
         <Icon name="Option" />
       </div>
@@ -54,7 +54,7 @@ const Option = ({ style, itemId }: { style?: string; itemId: number }) => {
       {isClick && (
         <div
           ref={ref}
-          className="flex flex-col justify-center items-center gap-2 p-2 rounded-xl border-[0.2px] border-[rgba(208,208,208,0.43)] absolute top-[52px] right-[12px]"
+          className="flex flex-col justify-center items-center gap-2 p-2 rounded-xl border-[0.2px] border-[rgba(208,208,208,0.43)] absolute top-[52px] right-[12px] bg-white"
         >
           <p
             onClick={() => navigate(`/owner/lost-modify/${itemId}`)}

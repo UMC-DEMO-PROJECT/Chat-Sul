@@ -1,48 +1,53 @@
 import AlertTwoButton from 'shared/ui/Modal/Alert/AlertTwoButton';
-import { AlertProps } from '../../types/TReserveList';
 import dateToformattedKorean from '../../../../../utils/dateToFormattedKorean';
 import {
   PatchReservationBusinessAccept,
   PatchReservationBusinessReject,
 } from 'shared/api/reservation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import {
+  useSelectedDataDispatch,
+  useSelectedDataState,
+} from '../../context/SelectedModalDataContext';
+import useOwnerReserveListValidateQuery from '../../hooks/useOwnerReserveListValidateQuery';
+import { useOwnerContext } from '../../../../../context/OwnerContext';
 
-const venueId = 6;
-const WaitingDepositAlert = ({
-  setIsOpen,
-  selectedReservationInfo,
-}: AlertProps) => {
-  const queryClient = useQueryClient();
-  const DateToKorean = dateToformattedKorean(
-    selectedReservationInfo.reservationDate,
-    selectedReservationInfo.reservationTime
+const WaitingDepositAlert = () => {
+  const { ownerId: venueId } = useOwnerContext();
+  const modalData = useSelectedDataState();
+
+  const dispatch = useSelectedDataDispatch();
+  const validateQuery = useOwnerReserveListValidateQuery(
+    `owner-reserve-list`,
+    venueId
   );
 
-  const { mutate: rejectMutate } = useMutation({
+  const DateToKorean = dateToformattedKorean(
+    modalData.info.reservationDate,
+    modalData.info.reservationTime
+  );
+
+  const { mutate: rejectMutate, isError: isRejectError } = useMutation({
     mutationFn: () =>
       PatchReservationBusinessReject(
-        selectedReservationInfo.reservationId,
-        venueId
+        modalData.info.reservationId,
+        Number(venueId)
       ),
     onSuccess: () => {
-      setIsOpen(false);
-    },
-    onError: () => {
-      alert('수락 서버와의 연결이 불안정합니다');
+      validateQuery();
+      dispatch({ type: 'CLOSE_MODAL' });
     },
   });
 
-  const { mutate: acceptMutate } = useMutation({
+  const { mutate: acceptMutate, isError: isAcceptError } = useMutation({
     mutationFn: () =>
       PatchReservationBusinessAccept(
-        selectedReservationInfo.reservationId,
-        venueId
+        modalData.info.reservationId,
+        Number(venueId)
       ),
     onSuccess: () => {
-      setIsOpen(false);
-    },
-    onError: () => {
-      alert('수락 서버와의 연결이 불안정합니다');
+      validateQuery();
+      dispatch({ type: 'CLOSE_MODAL' });
     },
   });
 
@@ -52,22 +57,24 @@ const WaitingDepositAlert = ({
       btnMessage2="수락하기"
       onClick1={() => {
         rejectMutate();
-        queryClient.invalidateQueries({
-          queryKey: [`owner-reserve-list-${venueId}`],
-        });
       }}
       onClick2={() => {
         acceptMutate();
-        queryClient.invalidateQueries({
-          queryKey: [`owner-reserve-list-${venueId}`],
-        });
-        // 수락하는 API
       }}
     >
       <div className="text-left w-full text-[#8e8e93] text-base font-normal leading-[21px] flex flex-col gap-1">
-        <p>성함: {selectedReservationInfo.reservationName}</p>
-        <p>{DateToKorean}</p>
-        <p>인원: {selectedReservationInfo.numberOfGuests}명</p>
+        {isRejectError || isAcceptError ? (
+          <div className="mt-3 text-sul-gray-400 text-base">
+            <p>네트워크 연결상태가 좋지않습니다.</p>
+            <p>다시 시도해주세요</p>
+          </div>
+        ) : (
+          <>
+            <p>성함: {modalData.info.reservationName}</p>
+            <p>{DateToKorean}</p>
+            <p>인원: {modalData.info.numberOfGuests}명</p>
+          </>
+        )}
       </div>
     </AlertTwoButton>
   );

@@ -47,14 +47,12 @@ const SearchLostList = ({
     );
   }
 
-  const LostPageList = data.pages[0].result;
-  console.log(data);
-
   return (
     <div className="flex flex-col mt-3">
-      {LostPageList.lostItemPreViewDTOList.length > 0 ? (
-        LostPageList.lostItemPreViewDTOList.map((lost: ILostItem) => {
-          return (
+      {data.pages.map((page) => page?.result.lostItemPreViewDTOList).length >
+      0 ? (
+        data.pages.map((page) =>
+          page?.result.lostItemPreViewDTOList.map((lost: ILostItem) => (
             <Post
               key={lost.lostItemId}
               title={lost.title}
@@ -65,8 +63,8 @@ const SearchLostList = ({
               date={lost.foundDate}
               isReceived={lost.lostItemStatus}
             />
-          );
-        })
+          ))
+        )
       ) : (
         <></>
       )}

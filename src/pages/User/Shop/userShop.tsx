@@ -1,16 +1,25 @@
+import { useQuery } from '@tanstack/react-query';
 import ShoppingCard from 'components/User/Shop/shoppingCard';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { GetVenue } from 'shared/api/venue';
 import TopBar from 'shared/ui/TopBar/TopBar';
 
 const UserShop = () => {
+  const { venueId } = useParams();
+  const id = Number(venueId);
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate(-1);
+    navigate('/user');
   };
+
+  const { data: venue } = useQuery({
+    queryFn: () => GetVenue(id),
+    queryKey: ['venueData'],
+  });
 
   return (
     <>
-      <TopBar title="시오" onFirstClick={handleBack} />
+      <TopBar title={venue?.result.name} onFirstClick={handleBack} />
       <div className="flex px-[54px] pt-[64px] flex-col items-start gap-10 mt-[52px]">
         <ShoppingCard
           icon="lostlist"
@@ -28,7 +37,7 @@ const UserShop = () => {
           icon="reserve"
           titleP="대관 신청"
           descriptionP="특별한 날, 간편히 대관하세요!"
-          navigation={`reserve-form/:id`}
+          navigation={`reserve-form/${venueId}`}
         />
         <ShoppingCard
           icon="checked"
