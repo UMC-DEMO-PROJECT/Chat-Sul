@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
+// props의 타입 정의
 interface DropDownProps {
-  options: string[]; 
-  onSelect: (value: string) => void; 
+  options: string[]; // 드롭다운 목록
+  onSelect: (value: string) => void; // 선택된 값을 처리하는 함수
+}
 
 const DropDown = ({ options, onSelect }: DropDownProps): JSX.Element => {
   const [selected, setSelected] = useState<string>('');
@@ -10,7 +12,7 @@ const DropDown = ({ options, onSelect }: DropDownProps): JSX.Element => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSelected(value);
-    onSelect(value);
+    onSelect(value); // 선택된 값 처리
   };
 
   return (

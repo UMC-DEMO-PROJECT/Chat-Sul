@@ -35,12 +35,41 @@ const Data = [
 const Main = () => {
   const navigate = useNavigate();
   const { isRole } = useOwnerContext();
+  // const [map, setMap] = useState(null);
 
+  // GPS 버튼 클릭 시 내 위치 이동
   const handleGPSClick = () => {
+    console.log('gps click');
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(
+    //     (position) => {
+    //       const { latitude, longitude } = position.coords;
 
+    //       const { kakao } = window.KaKao;
+    //       const currentPosition = new kakao.maps.LatLng(latitude, longitude);
 
+    //       // 지도 중심을 내 위치로 이동
+    //       new kakao.maps.setCenter(currentPosition);
+    //       // 내 위치 마커 표시
+    //       const marker = new kakao.maps.Marker({
+    //         position: currentPosition,
+    //         map: map,
+    //       });
+
+    //       marker.setMap(map);
+    //     },
+    //     (error) => {
+    //       console.error('위치 정보를 가져오는 데 실패했습니다.', error);
+    //     }
+    //   );
+    // } else {
+    //   alert('이 브라우저는 Geolocation을 지원하지 않습니다.');
+    // }
+  };
+
+  // 새로고침 함수
   const handleReload = () => {
-    window.location.reload(); 
+    window.location.reload(); // 페이지 새로고침
   };
 
   const handleBusiness = () => {
