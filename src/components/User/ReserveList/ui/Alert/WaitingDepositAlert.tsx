@@ -34,6 +34,8 @@ const WaitingDepositAlert = () => {
           {isError && '네트워크 연결상태가 좋지않습니다.'}
           {isLoading && '...'}
           {data?.result.bank}
+          <br />
+          {data?.result.account}
         </p>
       </div>
     </AlertOneButton>
