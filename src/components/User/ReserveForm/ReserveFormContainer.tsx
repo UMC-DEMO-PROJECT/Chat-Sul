@@ -1,6 +1,6 @@
 import { PostReservation } from 'shared/api/reservation';
 import ReserveFormState from './ReserveFormState';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import ReserveForm from './ReserveForm';
 import {
@@ -11,6 +11,7 @@ import {
 import TopBar from 'shared/ui/TopBar/TopBar';
 import { useNavigate, useParams } from 'react-router-dom';
 import dateToformattedKorean from '../../../utils/dateToFormattedKorean';
+import { GetVenue } from 'shared/api/venue';
 
 const ReserveFormContainer = () => {
   const navigate = useNavigate();
@@ -18,6 +19,11 @@ const ReserveFormContainer = () => {
   const [reTryreservationData, setReTryReservationData] =
     useState<reservationData | null>(null);
   const [subTitle, setSubTitle] = useState<string>('');
+
+  const { data: venue } = useQuery({
+    queryFn: () => GetVenue(Number(venueId)),
+    queryKey: ['venueData'],
+  });
 
   const { mutate, isError, isPending, isSuccess } = useMutation({
     mutationFn: ({ venueId, reservationData }: ReservatiomMutation) =>
@@ -63,7 +69,7 @@ const ReserveFormContainer = () => {
   return (
     <>
       <TopBar
-        title="시오"
+        title={venue?.result.name}
         onFirstClick={() => {
           navigate(`/user/shop/${venueId}`);
         }}

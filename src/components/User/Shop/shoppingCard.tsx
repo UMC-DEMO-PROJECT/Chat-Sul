@@ -26,7 +26,7 @@ const ShoppingCard = ({
       <Icon name={icon} size={34} />
       <div className="flex flex-col justify-center items-start gap-1">
         <p className="text-[22px] font-bold text-black">{titleP}</p>
-        <p className="text-[12px] text-[#8E8E93]">{descriptionP}</p>
+        <p className="text-[11px] text-[#8E8E93]">{descriptionP}</p>
       </div>
     </button>
   );
