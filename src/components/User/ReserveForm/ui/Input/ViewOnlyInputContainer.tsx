@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import ViewOnlyInPut from './ViewOnlyInPut';
 import CustomCalendar from '../Calendar/CustomCalender';
 import DropDown from '../DropDown/DropDown';
@@ -16,13 +16,21 @@ export const ViewOnlyInputContext = createContext<ContextType | null>(null);
 
 const ViewOnlyInputContainer = ({ children }: InputProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
   const handleIsOpen = () => {
     setIsOpen(!isOpen);
   };
-
+  useEffect(() => {
+    if (isFocus) {
+      setIsOpen(true);
+    }
+  }, [isFocus]);
   return (
     <ViewOnlyInputContext.Provider value={{ isOpen, handleIsOpen }}>
       <div
+        onFocus={() => {
+          setIsFocus(true);
+        }}
         className={`${isOpen ? `max-h-[500px]` : `max-h-[75px]`} transition-all duration-300 overflow-hidden`}
       >
         {children}
