@@ -7,7 +7,6 @@ const CountrySelector = (): JSX.Element => {
 
   const handleCountrySelect = (country: string) => {
     setSelectedCountry(country); // 사용자가 선택한 국가 저장
-    console.log(`선택된 국가: ${country}`); // 콘솔에 출력
   };
 
   const countries = ['한국', '미국', '영국', '일본', '독일'];

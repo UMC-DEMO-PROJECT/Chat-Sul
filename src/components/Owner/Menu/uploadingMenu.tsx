@@ -15,7 +15,6 @@ const UploadingMenu = () => {
   const [uploadedImages, setUploadedImages] = useState<MenuItem[]>([]);
   const navigate = useNavigate();
   const { ownerId: venueId } = useOwnerContext();
-  console.log(venueId);
 
   useEffect(() => {
     const fetchMenuImages = async () => {

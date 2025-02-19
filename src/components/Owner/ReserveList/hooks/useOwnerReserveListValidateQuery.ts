@@ -6,7 +6,6 @@ const useOwnerReserveListValidateQuery = (
 ) => {
   const queryClient = useQueryClient();
   const invalidateReserveList = () => {
-    console.log(queryKey);
     queryClient.invalidateQueries({
       queryKey: [queryKey, venueId],
     });

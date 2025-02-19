@@ -19,7 +19,6 @@ const RegisterForm = () => {
       password: passwordValue,
     };
 
-    console.log(formData);
     try {
       await PostRegister(formData);
       navigate('/');

@@ -14,8 +14,6 @@ const SocialRegisterForm = () => {
       phoneNumber: phoneValue,
     };
 
-    console.log(formData);
-
     try {
       const response = await PostSocialRegister(formData);
       console.log(response);
