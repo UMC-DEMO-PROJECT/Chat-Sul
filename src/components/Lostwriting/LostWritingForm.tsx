@@ -23,7 +23,6 @@ const WritingForm = () => {
   } = useMutation({
     mutationFn: PostLost,
     onSuccess: () => {
-      console.log('분실물 등록 성공');
       navigate('/owner/lost-list');
     },
     onError: (error) => {

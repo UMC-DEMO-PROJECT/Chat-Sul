@@ -17,7 +17,6 @@ const ModifyForm = () => {
   const { mutate: PatchMutation, isError } = useMutation({
     mutationFn: PatchUpdate,
     onSuccess: () => {
-      console.log('분실물 수정정 성공');
       navigate(`/owner/lost-item/${itemId}`);
     },
     onError: (error) => {
@@ -47,7 +46,6 @@ const ModifyForm = () => {
       foundDate: new Date().toISOString().split('T')[0],
     };
 
-    console.log('제출할 수정정 데이터 : ', formdata);
     PatchMutation({ data: formdata });
   };
 
