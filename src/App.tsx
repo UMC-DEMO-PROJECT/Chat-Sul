@@ -24,28 +24,6 @@ import { PropsWithChildren } from 'react';
 import SocialAccess from './pages/Login/SocialLogin/SocialAccess';
 import { AuthProvider, useAuthContext } from './context/AuthContext';
 
-/**
- * '/' : Landing Page, 지도 표시
- * '/register' : 회원 가입
- * '/login' : 로그인
- *
- * '/user' -> 손님 로그인 시 UI
- *   '/user/shop' : 가게 화면(유저용)
- *   '/user/reserve-list' : 대관 확인
- *   '/user/reserve-form' : 대관 신청
- *   '/user/menu' : 메뉴판
- *   '/user/lost-list' : 분실물 찾기(유저용)
- *   '/user/lost-item' : 분실물 찾기(유저용, 게시글)
- *
- * '/owner' -> 사장님 로그인 시 UI
- *   '/owner/shop' : 가게 화면(사장님용)
- *   '/owner/reserve' : 대관 확인
- *   '/owner/lost-list' : 분실물 찾기(사장님용)
- *   '/owner/lost-item' : 분실물 찾기(사장님용, 게시글)
- *   '/owner/lost-form' : 분실물 찾기(게시글 작성용)
- *
- */
-
 const queryClient = new QueryClient();
 
 const OwnerRoute = ({ children }: PropsWithChildren) => {

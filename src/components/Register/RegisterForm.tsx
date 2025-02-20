@@ -124,10 +124,3 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
-
-/*
-해야 할 일
-password가 8자 이상으로 설정해야 하게 하기, passwordCheck도 마찬가지
-전화번호는 10자리 이상으로 입력하게 하기
-이름은 2자리 이상으로 입력하게 하기
-*/

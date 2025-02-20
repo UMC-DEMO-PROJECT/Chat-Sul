@@ -74,7 +74,7 @@ const ValidateForm = () => {
     setLocationDetailValue(value);
   };
 
-  const [selectedAccount, setSelectedAccount] = useState(''); // 선택된 계좌 항목을 저장
+  const [selectedAccount, setSelectedAccount] = useState('');
 
   const accountItems: { id: number; name: string; code: string }[] = [
     { id: 1, name: '신한', code: 'SHINHAN_BANK' },

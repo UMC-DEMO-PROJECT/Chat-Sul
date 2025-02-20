@@ -15,8 +15,7 @@ const SocialRegisterForm = () => {
     };
 
     try {
-      const response = await PostSocialRegister(formData);
-      console.log(response);
+      await PostSocialRegister(formData);
       localStorage.setItem('role', 'USER');
       navigate('/user');
     } catch (error) {
