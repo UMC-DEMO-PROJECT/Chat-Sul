@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AccountInput from '../../shared/ui/Input/AccountInput';
 import Input from '../../shared/ui/Input/Input';
 import Button from '../../shared/ui/Button/button';
-import { PostAdd } from 'shared/api/venue';
+import { PostAdd } from '../../shared/api/venue';
 import { useNavigate } from 'react-router-dom';
 import { useOwnerContext } from '../../context/OwnerContext';
 
@@ -44,6 +44,7 @@ const ValidateForm = () => {
       navigate('/user');
     } catch (error) {
       console.error(error);
+      localStorage.setItem('role', 'OWNER');
     }
   };
 
