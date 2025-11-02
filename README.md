@@ -144,5 +144,6 @@
 - 고객이 신청한 예약 리스트를 무한 스크롤로 확인 가능.
 - 본인의 상황에 맞게 예약 현황 조정 가능.
 
-[녹화_2025_02_18_16_25_16_363.mp4](attachment:48755571-2fca-431d-8142-8341deed3e85:녹화_2025_02_18_16_25_16_363.mp4)
-[20250218-0745-29.3714483.mp4](attachment:952fa691-758b-4507-ab1d-90d1c30aeddd:20250218-0745-29.3714483.mp4)
+![20250218-0745-29 3714483-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/187f0c6f-2b5f-4fd9-a438-05729f456277)
+
+![_2025_02_18_16_25_16_363-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/af62316f-0717-4f8a-967c-3059d6b5575b)
